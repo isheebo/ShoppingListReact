@@ -1,6 +1,6 @@
 import instance from '../utils/instance';
 import * as types from './types';
-import { displaySnackBar } from './snackBarActions';
+import { displaySnackBar } from './snackbarActions';
 import { getAuthToken, deleteAuthToken, setAuthToken } from '../utils/tokenUtils';
 
 //  Registering a user
