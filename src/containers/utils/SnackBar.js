@@ -13,7 +13,7 @@ class SnackBar extends React.Component {
 
     /**
      * Dismisses the snack bar after the specified delay or once the user clicks
-     * an active application.
+     * in an active application window.
      */
     onDismissSnackBar() {
         this.props.dismissSnackbar();
