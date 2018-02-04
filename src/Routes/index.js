@@ -7,6 +7,7 @@ import LoginPage from '../containers/auth/LoginPage';
 import SignUpPage from '../containers/auth/SignUpPage';
 import SnackBar from '../containers/utils/SnackBar';
 import ResetPasswordPage from '../containers/auth/ResetPasswordPage';
+import AddListDialogContainer from '../containers/lists/AddListDialogContainer';
 // import { logoutUser } from '../actions/authActions';
 
 // Add all other containers here
@@ -24,6 +25,7 @@ const Routes = () => (
                 <Route path="/login" component={LoginPage} />
                 <Route path="/signup" component={SignUpPage} />
                 <Route path="/reset-password" component={ResetPasswordPage} />
+                <Route path="/add-list" component={AddListDialogContainer} />
                 <Route path="/logout" />
             </Switch>
             <SnackBar />
