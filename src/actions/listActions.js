@@ -188,7 +188,7 @@ export const deleteShoppingList = newListParams => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(deleteListRequest(newListParams));
     return instance
-        .put(`shoppinglists/${newListParams.id}`)
+        .delete(`shoppinglists/${newListParams.id}`)
         .then((response) => {
             dispatch(deleteListSuccess(response));
             dispatch(displaySnackBar(response.data.message));
