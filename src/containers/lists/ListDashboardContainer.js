@@ -156,6 +156,7 @@ class ListDashboardContainer extends React.Component {
     deleteShoppinglist = (shoppinglist) => {
         this.props.actions.deleteShoppingList(shoppinglist.id);
         this.reset();
+        this.loadShoppingLists();
     };
 
     editshoppinglist = (shoppinglist) => {
@@ -165,6 +166,7 @@ class ListDashboardContainer extends React.Component {
         formData.set('id', shoppinglist.id);
         this.props.actions.editshoppingList(formData);
         this.reset();
+        this.loadShoppingLists();
     };
 
     logout = () => {
@@ -238,7 +240,9 @@ ListDashboardContainer.contextTypes = {
     router: PropTypes.object,
 };
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => ({
+    shoppinglists: state.lists.shoppinglists,
+});
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({ ...listActions, logoutUser }, dispatch),

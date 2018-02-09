@@ -90,12 +90,12 @@ export const viewAllLists = () => (dispatch) => {
     return instance
         .get('/shoppinglists')
         .then((response) => {
-            dispatch(viewAllListsSuccess());
+            dispatch(viewAllListsSuccess(response));
             dispatch(displaySnackBar(response.data.message));
         })
         .catch((err) => {
-            dispatch(viewAllListsFailure());
-            dispatch(displaySnackBar(err.response.data.message));
+            dispatch(viewAllListsFailure(err));
+            // dispatch(displaySnackBar(err.response.data.message));
         });
 };
 
