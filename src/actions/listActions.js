@@ -91,7 +91,7 @@ export const viewAllLists = () => (dispatch) => {
         .get('/shoppinglists')
         .then((response) => {
             dispatch(viewAllListsSuccess(response));
-            dispatch(displaySnackBar(response.data.message));
+            // dispatch(displaySnackBar(response.data.message));
         })
         .catch((err) => {
             dispatch(viewAllListsFailure(err));
@@ -135,8 +135,9 @@ export const viewOneList = listData => (dispatch) => {
 /**
  * Edit a shoppinglist
  */
-const editListRequest = newListParams => ({
+const editListRequest = (id, newListParams) => ({
     type: types.EDIT_LIST_REQUEST,
+    id,
     newListParams,
 });
 
@@ -150,11 +151,12 @@ const editListFailure = response => ({
     response,
 });
 
-export const editShoppingList = newListParams => (dispatch) => {
+export const editShoppingList = (id, newListParams) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
-    dispatch(editListRequest(newListParams));
+    dispatch(editListRequest(id, newListParams));
+
     return instance
-        .put(`shoppinglists/${newListParams.id}`)
+        .put(`shoppinglists/${id}`, newListParams)
         .then((response) => {
             dispatch(editListSuccess(response));
             dispatch(displaySnackBar(response.data.message));
@@ -191,7 +193,7 @@ export const deleteShoppingList = id => (dispatch) => {
         .delete(`shoppinglists/${id}`)
         .then((response) => {
             dispatch(deleteListSuccess(response));
-            dispatch(displaySnackBar(response.data.message));
+            dispatch(displaySnackBar('List deleted successfully'));
         })
         .catch((error) => {
             dispatch(deleteListFailure(error));

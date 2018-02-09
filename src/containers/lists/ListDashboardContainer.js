@@ -162,9 +162,10 @@ class ListDashboardContainer extends React.Component {
     editshoppinglist = (shoppinglist) => {
         const formData = new FormData();
         formData.set('name', shoppinglist.name);
-        formData.set('notify_date', shoppinglist.notifyDate);
-        formData.set('id', shoppinglist.id);
-        this.props.actions.editshoppingList(formData);
+        formData.set('notify_date', shoppinglist.notify_date);
+
+        this.props.actions.editShoppingList(shoppinglist.id, formData);
+
         this.reset();
         this.loadShoppingLists();
     };
@@ -218,7 +219,7 @@ ListDashboardContainer.defaultProps = {
 ListDashboardContainer.propTypes = {
     actions: PropTypes.shape({
         viewAllLists: PropTypes.func.isRequired,
-        editshoppingList: PropTypes.func.isRequired,
+        editShoppingList: PropTypes.func.isRequired,
         createShoppingList: PropTypes.func.isRequired,
         deleteShoppingList: PropTypes.func.isRequired,
         logoutUser: PropTypes.func.isRequired,

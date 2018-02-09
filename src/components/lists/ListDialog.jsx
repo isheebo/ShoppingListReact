@@ -30,7 +30,7 @@ const ListDialog = ({
             primary
             onClick={doAction}
             disabled={
-                !shoppinglist.name ||
+                (!shoppinglist.name && !shoppinglist.notify_date) ||
                 (shoppinglist.name && shoppinglist.name.length === 0)
             }
         />,
@@ -54,7 +54,7 @@ const ListDialog = ({
             onRequestClose={handleClose}
         >
             {buttonLabel === 'DELETE' && (
-                <p>Are you sure you want to delete this list? </p>
+                <p>Are you sure that you want to delete this list?</p>
             )}
 
             {buttonLabel !== 'DELETE' && (
@@ -71,9 +71,8 @@ const ListDialog = ({
                 <DatePicker
                     autoOk
                     defaultDate={
-                        shoppinglist.notifyDate
-                            ? new Date(StrToDate(shoppinglist.notifyDate))
-                            : new Date(Date.now())
+                        shoppinglist.notify_date &&
+                        new Date(StrToDate(shoppinglist.notify_date))
                     }
                     minDate={new Date(Date.now())}
                     onChange={(event, date) => {
@@ -86,6 +85,7 @@ const ListDialog = ({
                         marginTop: 20,
                         marginBottom: 5,
                     }}
+                    floatingLabelText="Notify Date"
                 />
             )}
         </Dialog>
@@ -98,7 +98,7 @@ ListDialog.propTypes = {
         buttonLabel: PropTypes.string.isRequired,
         floatingLabelText: PropTypes.string.isRequired,
         open: PropTypes.bool.isRequired,
-        shoppingList: PropTypes.shape({
+        shoppinglist: PropTypes.shape({
             name: PropTypes.string.isRequired,
             id: PropTypes.number.isRequired,
             notifyDate: PropTypes.string.isRequired,
