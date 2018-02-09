@@ -169,9 +169,9 @@ export const editShoppingList = newListParams => (dispatch) => {
  * Delete shopping list
  */
 
-const deleteListRequest = newListParams => ({
+const deleteListRequest = id => ({
     type: types.DELETE_LIST_REQUEST,
-    newListParams,
+    id,
 });
 
 const deleteListSuccess = response => ({
@@ -184,11 +184,11 @@ const deleteListFailure = response => ({
     response,
 });
 
-export const deleteShoppingList = newListParams => (dispatch) => {
+export const deleteShoppingList = id => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
-    dispatch(deleteListRequest(newListParams));
+    dispatch(deleteListRequest(id));
     return instance
-        .delete(`shoppinglists/${newListParams.id}`)
+        .delete(`shoppinglists/${id}`)
         .then((response) => {
             dispatch(deleteListSuccess(response));
             dispatch(displaySnackBar(response.data.message));
