@@ -162,8 +162,10 @@ class ListDashboardContainer extends React.Component {
     editshoppinglist = (shoppinglist) => {
         const formData = new FormData();
         formData.set('name', shoppinglist.name);
-        formData.set('notify_date', shoppinglist.notify_date);
+        formData.set('notify_date', shoppinglist.notifyDate);
 
+        // BUG! If I change the notify date, I am not able to edit the list.
+        //  error: the acceptable date format is 'yyyy-mm-dd'
         this.props.actions.editShoppingList(shoppinglist.id, formData);
 
         this.reset();
@@ -181,6 +183,15 @@ class ListDashboardContainer extends React.Component {
         return (
             <div>
                 <FloatingActionButton
+                    style={{
+                        margin: 0,
+                        top: 'auto',
+                        right: '16%',
+                        bottom: '6.5vh',
+                        left: 'auto',
+                        position: 'fixed',
+                        zIndex: 1000000,
+                    }}
                     onClick={() =>
                         this.handleOpen(initialState.shoppinglist, {
                             type: 'add shoppinglist',

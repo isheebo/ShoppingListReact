@@ -15,37 +15,26 @@ const ShoppingListComponent = ({ shoppinglist, onExecuteAction }) => {
         <div>
             <TableRow>
                 <TableRowColumn>
-                    <FlatButton onClick={() => handleClick({ type: 'view items' })}>
+                    <FlatButton
+                        onClick={() => handleClick({ type: 'view items' })}
+                        style={{ color: '#000', textDecoration: 'none' }}
+                    >
                         {shoppinglist.name}
                     </FlatButton>
                 </TableRowColumn>
 
-                <TableRowColumn>{shoppinglist.notify_date}</TableRowColumn>
-
-                <TableRowColumn>
-                    {Moment(shoppinglist.date_created).format('MMMM Do YYYY, h:mm:ss a')}
+                <TableRowColumn style={{ color: 'rgba(127,127,127,1)' }}>
+                    {shoppinglist.notify_date}
                 </TableRowColumn>
 
-                <TableRowColumn>
-                    {Moment(shoppinglist.date_modified).format('MMMM Do YYYY, h:mm:ss a')}
+                <TableRowColumn style={{ color: 'rgba(127,127,127,1)' }}>
+                    {Moment(shoppinglist.date_created).format('lll')}
+                </TableRowColumn>
+
+                <TableRowColumn style={{ color: 'rgba(127,127,127,1)' }}>
+                    {Moment(shoppinglist.date_modified).format('lll')}
                 </TableRowColumn>
                 <TableRowColumn>
-                    <IconButton
-                        iconStyle={{ color: '#00bcd4' }}
-                        onClick={() => handleClick({ type: 'add item' })}
-                    >
-                        <FontIcon
-                            className="material-icons"
-                            style={{
-                                marginRight: 24,
-                                color: '#00bcd4',
-                                padding: 5,
-                            }}
-                        >
-                            <i className="material-icons">add_circle</i>
-                        </FontIcon>
-                    </IconButton>
-
                     <IconButton
                         iconStyle={{ color: '#00bcd4' }}
                         onClick={() => handleClick({ type: 'edit shoppinglist' })}
