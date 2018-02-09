@@ -9,7 +9,7 @@ import { getAuthToken } from '../utils/tokenUtils';
  * a create list request
  * @param {object} newListData (listName, notifymeDate)
  */
-export const createListRequest = newListData => ({
+const createListRequest = newListData => ({
     type: types.CREATE_LIST_REQUEST,
     newListData,
 });
@@ -19,7 +19,7 @@ export const createListRequest = newListData => ({
  * shopping list has been created
  * @param {Response} response object from the server
  */
-export const createListSuccess = response => ({
+const createListSuccess = response => ({
     type: types.CREATE_LIST_SUCCESS,
     response,
 });
@@ -29,7 +29,7 @@ export const createListSuccess = response => ({
  * list creation fails
  * @param {Response} response object from the server
  */
-export const createListFailure = response => ({
+const createListFailure = response => ({
     type: types.CREATE_LIST_FAILURE,
     response,
 });
@@ -58,7 +58,7 @@ export const createShoppingList = newListData => (dispatch) => {
  * @desc response from the server
  * @param {Response} response
  */
-export const viewAllListsRequest = () => ({
+const viewAllListsRequest = () => ({
     type: types.VIEW_ALL_LISTS_REQUEST,
 });
 
@@ -66,7 +66,7 @@ export const viewAllListsRequest = () => ({
  * @desc response from the server
  * @param {Response} response
  */
-export const viewAllListsSuccess = response => ({
+const viewAllListsSuccess = response => ({
     type: types.VIEW_ALL_LISTS_SUCCESS,
     response,
 });
@@ -75,7 +75,7 @@ export const viewAllListsSuccess = response => ({
  * @desc response from the server
  * @param {Response} response
  */
-export const viewAllListsFailure = response => ({
+const viewAllListsFailure = response => ({
     type: types.VIEW_ALL_LISTS_FAILURE,
     response,
 });
@@ -102,17 +102,17 @@ export const viewAllLists = () => (dispatch) => {
 /**
  * View one list
  */
-export const viewOneListRequest = listData => ({
+const viewOneListRequest = listData => ({
     type: types.VIEW_LIST_REQUEST,
     listData,
 });
 
-export const viewOneListSuccess = response => ({
+const viewOneListSuccess = response => ({
     type: types.VIEW_LIST_SUCCESS,
     response,
 });
 
-export const viewOneListFailure = error => ({
+const viewOneListFailure = error => ({
     type: types.VIEW_LIST_FAILURE,
     error,
 });
@@ -135,17 +135,17 @@ export const viewOneList = listData => (dispatch) => {
 /**
  * Edit a shoppinglist
  */
-export const editListRequest = newListParams => ({
+const editListRequest = newListParams => ({
     type: types.EDIT_LIST_REQUEST,
     newListParams,
 });
 
-export const editListSuccess = response => ({
+const editListSuccess = response => ({
     type: types.EDIT_LIST_SUCCESS,
     response,
 });
 
-export const editListFailure = response => ({
+const editListFailure = response => ({
     type: types.EDIT_LIST_FAILURE,
     response,
 });
@@ -169,17 +169,17 @@ export const editShoppingList = newListParams => (dispatch) => {
  * Delete shopping list
  */
 
-export const deleteListRequest = newListParams => ({
+const deleteListRequest = newListParams => ({
     type: types.DELETE_LIST_REQUEST,
     newListParams,
 });
 
-export const deleteListSuccess = response => ({
+const deleteListSuccess = response => ({
     type: types.DELETE_LIST_SUCCESS,
     response,
 });
 
-export const deleteListFailure = response => ({
+const deleteListFailure = response => ({
     type: types.DELETE_LIST_FAILURE,
     response,
 });
