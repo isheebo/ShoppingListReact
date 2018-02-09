@@ -101,9 +101,9 @@ ListDialog.propTypes = {
         shoppinglist: PropTypes.shape({
             name: PropTypes.string.isRequired,
             id: PropTypes.number.isRequired,
-            notifyDate: PropTypes.string.isRequired,
-            dateCreated: PropTypes.string.isRequired,
-            dateModified: PropTypes.string.isRequired,
+            notify_date: PropTypes.string.isRequired,
+            date_created: PropTypes.string.isRequired,
+            date_modified: PropTypes.string.isRequired,
         }).isRequired,
     }).isRequired,
 

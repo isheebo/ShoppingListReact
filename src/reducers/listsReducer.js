@@ -12,12 +12,9 @@ const listsReducer = (state = { isFetching: false, shoppinglists: [] }, action) 
         };
 
     case types.CREATE_LIST_SUCCESS:
-        return {
-            ...state,
-            isFetching: false,
-        };
-
+    case types.EDIT_LIST_SUCCESS:
     case types.CREATE_LIST_FAILURE:
+    case types.EDIT_LIST_FAILURE:
         return {
             ...state,
             isFetching: false,

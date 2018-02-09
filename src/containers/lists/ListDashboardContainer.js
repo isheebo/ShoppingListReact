@@ -228,9 +228,9 @@ ListDashboardContainer.propTypes = {
     shoppinglists: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         id: PropTypes.number,
-        dateCreated: PropTypes.string,
-        dateModified: PropTypes.string,
-        notifyDate: PropTypes.string,
+        date_created: PropTypes.string,
+        date_modified: PropTypes.string,
+        notify_date: PropTypes.string,
     })),
     history: PropTypes.shape({
         push: PropTypes.func.isRequired,
