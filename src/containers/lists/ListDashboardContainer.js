@@ -7,6 +7,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import ListDashboard from '../../components/lists/ListDashboard';
 import ListDialog from '../../components/lists/ListDialog';
 import * as listActions from '../../actions/listActions';
+import formatDate from '../../utils/formatDate';
 import { logoutUser } from '../../actions/authActions';
 
 const initialState = {
@@ -48,7 +49,7 @@ class ListDashboardContainer extends React.Component {
 
     onDateChange = (date) => {
         const shoppinglist = { ...this.state.shoppinglist };
-        shoppinglist.notifyDate = date.toDateString(); // this needs revision
+        shoppinglist.notifyDate = formatDate(date);
         this.setState({ shoppinglist });
     };
 
@@ -111,8 +112,8 @@ class ListDashboardContainer extends React.Component {
         });
     };
 
-    doAction = (dialogTitle = this.state.dialogTitle) => {
-        const { shoppinglist } = this.state;
+    doAction = () => {
+        const { dialogTitle, shoppinglist } = this.state;
 
         switch (dialogTitle) {
         case 'Delete Shoppinglist':
@@ -143,17 +144,26 @@ class ListDashboardContainer extends React.Component {
 
     createShoppinglist = () => {
         const { shoppinglist } = this.state;
-        this.props.actions.createShoppingList(shoppinglist);
+        const formData = new FormData();
+        formData.set('name', shoppinglist.name);
+        formData.set('notify_date', shoppinglist.notifyDate);
+
+        this.props.actions.createShoppingList(formData);
         this.reset();
+        this.loadShoppingLists();
     };
 
     deleteShoppinglist = (shoppinglist) => {
-        this.props.actions.deleteShoppingList(shoppinglist);
+        this.props.actions.deleteShoppingList(shoppinglist.id);
         this.reset();
     };
 
     editshoppinglist = (shoppinglist) => {
-        this.props.actions.editshoppingList(shoppinglist);
+        const formData = new FormData();
+        formData.set('name', shoppinglist.name);
+        formData.set('notify_date', shoppinglist.notifyDate);
+        formData.set('id', shoppinglist.id);
+        this.props.actions.editshoppingList(formData);
         this.reset();
     };
 
