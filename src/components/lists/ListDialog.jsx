@@ -42,7 +42,7 @@ const ListDialog = ({
             actions={actions}
             modal={false}
             contentStyle={{
-                maxWidth: '30%',
+                maxWidth: '40%',
                 top: '0vh',
                 display: 'flex',
                 flexDirection: 'column',

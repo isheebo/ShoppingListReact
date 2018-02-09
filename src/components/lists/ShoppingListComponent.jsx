@@ -15,16 +15,12 @@ const ShoppingListComponent = ({ shoppinglist, onExecuteAction }) => {
         <div>
             <TableRow>
                 <TableRowColumn>
-                    <FlatButton
-                        onClick={() => handleClick({ type: 'view shoppinglist' })}
-                    >
+                    <FlatButton onClick={() => handleClick({ type: 'view items' })}>
                         {shoppinglist.name}
                     </FlatButton>
                 </TableRowColumn>
 
-                <TableRowColumn>
-                    {Moment(shoppinglist.notifyDate).format('MMMM Do YYYY, h:mm:ss a')}
-                </TableRowColumn>
+                <TableRowColumn>{shoppinglist.notifyDate}</TableRowColumn>
 
                 <TableRowColumn>
                     {Moment(shoppinglist.dateCreated).format('MMMM Do YYYY, h:mm:ss a')}
