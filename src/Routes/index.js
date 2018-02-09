@@ -8,7 +8,6 @@ import SignUpPage from '../containers/auth/SignUpPage';
 import SnackBar from '../containers/utils/SnackBar';
 import ResetPasswordPage from '../containers/auth/ResetPasswordPage';
 import ListDashboardContainer from '../containers/lists/ListDashboardContainer';
-// import ListDashboardContainer from '../containers/lists/ListDashboardContainer';
 // import { logoutUser } from '../actions/authActions';
 
 // Add all other containers here

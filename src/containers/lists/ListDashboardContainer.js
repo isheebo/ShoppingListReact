@@ -226,11 +226,11 @@ ListDashboardContainer.propTypes = {
     }).isRequired,
 
     shoppinglists: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string,
         id: PropTypes.number,
+        name: PropTypes.string,
+        notify_date: PropTypes.string,
         date_created: PropTypes.string,
         date_modified: PropTypes.string,
-        notify_date: PropTypes.string,
     })),
     history: PropTypes.shape({
         push: PropTypes.func.isRequired,
