@@ -10,7 +10,7 @@ const ShoppingListComponent = ({ shoppinglist, onExecuteAction }) => {
     const handleClick = (action) => {
         onExecuteAction(shoppinglist, action);
     };
-
+    console.log(shoppinglist);
     return (
         <div>
             <TableRow>
@@ -20,14 +20,14 @@ const ShoppingListComponent = ({ shoppinglist, onExecuteAction }) => {
                     </FlatButton>
                 </TableRowColumn>
 
-                <TableRowColumn>{shoppinglist.notifyDate}</TableRowColumn>
+                <TableRowColumn>{shoppinglist.notify_date}</TableRowColumn>
 
                 <TableRowColumn>
-                    {Moment(shoppinglist.dateCreated).format('MMMM Do YYYY, h:mm:ss a')}
+                    {Moment(shoppinglist.date_created).format('MMMM Do YYYY, h:mm:ss a')}
                 </TableRowColumn>
 
                 <TableRowColumn>
-                    {Moment(shoppinglist.dateModified).format('MMMM Do YYYY, h:mm:ss a')}
+                    {Moment(shoppinglist.date_modified).format('MMMM Do YYYY, h:mm:ss a')}
                 </TableRowColumn>
                 <TableRowColumn>
                     <IconButton
