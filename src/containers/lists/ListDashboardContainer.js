@@ -145,6 +145,11 @@ class ListDashboardContainer extends React.Component {
     createShoppinglist = () => {
         const { shoppinglist } = this.state;
         const formData = new FormData();
+        /**
+         * BUG ALERT!!
+         * If default date is used, we get a bug when we try
+         * adding without editing it
+         */
         formData.set('name', shoppinglist.name);
         formData.set('notify_date', shoppinglist.notify_date);
 

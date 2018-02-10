@@ -5,9 +5,6 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import DatePicker from 'material-ui/DatePicker';
 
-const StrToDate = dateString =>
-    dateString.substr(0, 10).replace(/(\d{2})-(\d{2})-(\d{4})/, '$2/$1/$3');
-
 const ListDialog = ({
     state,
     handleClose,
@@ -72,7 +69,7 @@ const ListDialog = ({
                     autoOk
                     defaultDate={
                         shoppinglist.notify_date
-                            ? new Date(StrToDate(shoppinglist.notify_date))
+                            ? new Date(shoppinglist.notify_date)
                             : new Date(Date.now())
                     }
                     minDate={new Date(Date.now())}
