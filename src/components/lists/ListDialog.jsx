@@ -60,7 +60,7 @@ const ListDialog = ({
                     floatingLabelText={floatingLabelText}
                     value={shoppinglist.name}
                     onChange={onTextChange}
-                    style={{ width: '100%' }}
+                    fullWidth
                 />
             )}
 
