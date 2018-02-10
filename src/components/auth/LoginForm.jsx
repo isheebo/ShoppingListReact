@@ -34,11 +34,15 @@ const LoginForm = props => (
                     </span>
                 </div>
 
+                {/* I am thinking I should leverage on errorText to display
+                form errors rather than having my own span */}
+
                 <div>
                     <TextField
                         floatingLabelText="Password"
                         name="password"
                         type="password"
+                        // errorText={props.validationErrors.password}
                         // onBlur={props.onFieldValidate}
                         onChange={props.onFieldChange}
                         value={props.credentials.password}
