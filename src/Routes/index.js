@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 // import { bindActionCreators } from 'redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import LoginPage from '../containers/auth/LoginPage';
@@ -15,19 +15,16 @@ import ListDashboardContainer from '../containers/lists/ListDashboardContainer';
 const Routes = () => (
     <MuiThemeProvider>
         <div>
-            <Switch>
-                {/*
-                What happens if someone enters an unknown route.
-                e.g. localhost:3000/shoppinglists/item/100
-                In other words we need to form the 404 Handler
-                */}
-                <Route exact path="/" component={LoginPage} />
-                <Route path="/login" component={LoginPage} />
-                <Route path="/signup" component={SignUpPage} />
-                <Route path="/reset-password" component={ResetPasswordPage} />
-                <Route path="/dashboard" component={ListDashboardContainer} />
-                <Route path="/logout" />
-            </Switch>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/" component={LoginPage} />
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/signup" component={SignUpPage} />
+                    <Route path="/reset-password" component={ResetPasswordPage} />
+                    <Route path="/dashboard" component={ListDashboardContainer} />
+                    <Route path="/logout" />
+                </Switch>
+            </BrowserRouter>
             <SnackBar />
         </div>
     </MuiThemeProvider>
@@ -36,9 +33,5 @@ const Routes = () => (
 const mapStateToProps = state => ({
     state,
 });
-
-// const mapDispatchtoProps = dispatch => ({
-//     logoutUser: bindActionCreators(logoutUser, dispatch),
-// });
 
 export default connect(mapStateToProps)(Routes);

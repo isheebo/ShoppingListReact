@@ -63,7 +63,10 @@ const ResetPasswordForm = props => (
                 ) : (
                     <CardActions>
                         <RaisedButton
-                            // disabled - write a function that checks for that
+                            disabled={
+                                !props.credentials.password ||
+                                !props.credentials.confirmPassword
+                            }
                             label="Reset Password"
                             onClick={props.onFormSubmit}
                             primary

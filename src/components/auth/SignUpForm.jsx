@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Card, CardActions, CardText } from 'material-ui/Card'; /* CardTitle */
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -90,7 +90,11 @@ const SignUpForm = props => (
                 ) : (
                     <CardActions>
                         <RaisedButton
-                            // disabled={!props.isValid}
+                            disabled={
+                                !props.credentials.email ||
+                                !props.credentials.password ||
+                                !props.credentials.confirmPassword
+                            }
                             label="SignUp"
                             onClick={props.onFormSubmit}
                             primary
@@ -99,7 +103,7 @@ const SignUpForm = props => (
                         <div>
                             <br />
                             Already Registered?
-                            <a href="/login"> Login</a>
+                            <Link to="login"> Login</Link>
                         </div>
                     </CardActions>
                 )}
