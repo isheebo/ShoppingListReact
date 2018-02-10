@@ -71,8 +71,9 @@ const ListDialog = ({
                 <DatePicker
                     autoOk
                     defaultDate={
-                        shoppinglist.notify_date &&
-                        new Date(StrToDate(shoppinglist.notify_date))
+                        shoppinglist.notify_date
+                            ? new Date(StrToDate(shoppinglist.notify_date))
+                            : new Date(Date.now())
                     }
                     minDate={new Date(Date.now())}
                     onChange={(event, date) => {

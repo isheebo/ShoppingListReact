@@ -14,7 +14,7 @@ const initialState = {
     open: false,
     shoppinglist: {
         name: '',
-        notifyDate: null,
+        notify_date: null,
     },
 };
 
@@ -49,7 +49,7 @@ class ListDashboardContainer extends React.Component {
 
     onDateChange = (date) => {
         const shoppinglist = { ...this.state.shoppinglist };
-        shoppinglist.notifyDate = formatDate(date);
+        shoppinglist.notify_date = formatDate(date);
         this.setState({ shoppinglist });
     };
 
@@ -146,7 +146,7 @@ class ListDashboardContainer extends React.Component {
         const { shoppinglist } = this.state;
         const formData = new FormData();
         formData.set('name', shoppinglist.name);
-        formData.set('notify_date', shoppinglist.notifyDate);
+        formData.set('notify_date', shoppinglist.notify_date);
 
         this.props.actions.createShoppingList(formData);
         this.reset();
@@ -162,7 +162,7 @@ class ListDashboardContainer extends React.Component {
     editshoppinglist = (shoppinglist) => {
         const formData = new FormData();
         formData.set('name', shoppinglist.name);
-        formData.set('notify_date', shoppinglist.notifyDate);
+        formData.set('notify_date', shoppinglist.notify_date);
 
         // BUG! If I change the notify date, I am not able to edit the list.
         //  error: the acceptable date format is 'yyyy-mm-dd'
