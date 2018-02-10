@@ -24,20 +24,27 @@ const authReducer = (
     case types.LOGIN_REQUEST:
     case types.PASSWORD_RESET_REQUEST:
     case types.LOGOUT_REQUEST:
-        return Object.assign(
-            {},
-            {
-                isFetching: true,
-            },
-        );
+        /**
+             * isAuthenticated: is only true once a user logs in.
+             * Before login, is authenticated === false.
+             *
+             * When making a password reset request, it is assumed
+             * that a user is loggedin.
+             *
+             * The same condition is assumed when a user is going to logout,
+             * if  a user's token expires before they logout, they would have
+             * to first login before being granted entry into the application
+             */
+        return {
+            ...state,
+            isFetching: true,
+        };
 
     case types.SIGNUP_SUCCESS:
-        return Object.assign(
-            {},
-            {
-                isFetching: false,
-            },
-        );
+        return {
+            ...state,
+            isFetching: false,
+        };
 
     case types.LOGIN_SUCCESS:
     case types.PASSWORD_RESET_SUCCESS:
@@ -50,13 +57,11 @@ const authReducer = (
              * It is similar to an action login action
              *
              */
-        return Object.assign(
-            {},
-            {
-                isFetching: false,
-                isAuthenticated: true,
-            },
-        );
+        return {
+            ...state,
+            isFetching: false,
+            isAuthenticated: true,
+        };
 
     case types.SIGNUP_FAILURE:
     case types.LOGIN_FAILURE:
