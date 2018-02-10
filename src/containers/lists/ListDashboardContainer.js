@@ -41,6 +41,11 @@ class ListDashboardContainer extends React.Component {
         this.setState({ shoppinglists });
     };
 
+    /** Can we use componentWillUpdate / DidUpdate to control the update process
+     * i have a feeling it may be more efficient than fetching lists from
+     * the server per transaction
+     */
+
     onTextChange = (event) => {
         const shoppinglist = { ...this.state.shoppinglist };
         shoppinglist[event.target.name] = event.target.value;
@@ -145,11 +150,6 @@ class ListDashboardContainer extends React.Component {
     createShoppinglist = () => {
         const { shoppinglist } = this.state;
         const formData = new FormData();
-        /**
-         * BUG ALERT!!
-         * If default date is used, we get a bug when we try
-         * adding without editing it
-         */
         formData.set('name', shoppinglist.name);
         formData.set('notify_date', shoppinglist.notify_date);
 
@@ -208,7 +208,6 @@ class ListDashboardContainer extends React.Component {
 
                 <ListDialog
                     state={{ ...this.state }}
-                    handleOpen={this.handleOpen}
                     handleClose={this.handleClose}
                     onTextChange={this.onTextChange}
                     onDateChange={this.onDateChange}
