@@ -16,7 +16,7 @@ const noStyle = {
     width: '70%',
     margin: '0px auto',
     textAlign: 'center',
-    color: '#00bcd4',
+    color: '#A4A4A4',
     padding: '20px',
 };
 
@@ -25,6 +25,7 @@ const ListDashboard = ({
     onExecuteAction,
     searchQuery,
     isFetching,
+    history,
 }) => {
     // eslint-disable-next-line
     const shoppingLists = shoppinglists.filter(
@@ -34,7 +35,9 @@ const ListDashboard = ({
             style={{
                 float: 'center',
                 padding: '10px',
-                margin: '0 auto',
+                marginTop: '20px',
+                marginLeft: '220px',
+                marginBottom: '20px',
                 backgroundColor: '#fff',
                 width: '70%',
                 height: '89vh',
@@ -45,7 +48,6 @@ const ListDashboard = ({
                 borderRadius: '0px 0px 3px 3px',
                 overflow: 'scroll',
             }}
-            // className="card"
         >
             {/* Check if we are fetching data from the server  */}
             {isFetching}
@@ -66,6 +68,7 @@ const ListDashboard = ({
                                 key={shoppingList.id}
                                 shoppinglist={shoppingList}
                                 onExecuteAction={onExecuteAction}
+                                history={history}
                             />
                         ))}
                     </TableBody>
@@ -80,9 +83,6 @@ const ListDashboard = ({
                 ))}
         </Card>
     );
-    // Do something if length of shoppinglists == 0
-    // both incases where we are searching and when we are getting all the
-    // output as we normally would
 };
 
 ListDashboard.defaultProps = {
@@ -99,6 +99,7 @@ ListDashboard.propTypes = {
     })),
     searchQuery: PropTypes.string.isRequired,
     onExecuteAction: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
 };
 

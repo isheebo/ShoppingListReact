@@ -9,6 +9,7 @@ import ListDialog from '../../components/lists/ListDialog';
 import * as listActions from '../../actions/listActions';
 import formatDate from '../../utils/formatDate';
 import { logoutUser } from '../../actions/authActions';
+import Header from '../../components/Header/Header';
 
 const initialState = {
     open: false,
@@ -52,12 +53,18 @@ class ListDashboardContainer extends React.Component {
         this.setState({ shoppinglist });
     };
 
+    /**
+     * Listens for any changes with in the date picker component
+     */
     onDateChange = (date) => {
         const shoppinglist = { ...this.state.shoppinglist };
         shoppinglist.notify_date = formatDate(date);
         this.setState({ shoppinglist });
     };
 
+    /** Is used to control the lists displayed,
+     * once a user types in the search bar
+     */
     onQueryChange = (event) => {
         this.setState({ searchQuery: event.target.value });
     };
@@ -197,6 +204,7 @@ class ListDashboardContainer extends React.Component {
                         position: 'fixed',
                         zIndex: 1000000,
                     }}
+                    backgroundColor="#EC4117"
                     onClick={() =>
                         this.handleOpen(initialState.shoppinglist, {
                             type: 'add shoppinglist',
@@ -205,6 +213,8 @@ class ListDashboardContainer extends React.Component {
                 >
                     <ContentAdd />
                 </FloatingActionButton>
+
+                <Header title="Lists" onQueryChange={this.onQueryChange} />
 
                 <ListDialog
                     state={{ ...this.state }}
@@ -219,6 +229,7 @@ class ListDashboardContainer extends React.Component {
                     shoppinglists={shoppinglists}
                     onExecuteAction={this.handleOpen}
                     isFetching={isFetching}
+                    history={this.props.history}
                 />
             </div>
 
