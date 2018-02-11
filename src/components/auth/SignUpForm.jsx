@@ -103,7 +103,10 @@ const SignUpForm = props => (
                         <div>
                             <br />
                             Already Registered?
-                            <Link to="login"> Login</Link>
+                            <Link to="login" style={{ textDecoration: 'none' }}>
+                                {' '}
+                                Login
+                            </Link>
                         </div>
                     </CardActions>
                 )}
