@@ -24,7 +24,25 @@ const Item = ({ item, onExecuteAction }) => {
             <TableRowColumn style={columnStyle}>{item.price}</TableRowColumn>
             <TableRowColumn style={columnStyle}>{item.quantity}</TableRowColumn>
             <TableRowColumn style={columnStyle}>
-                {item.has_been_bought}
+                {item.has_been_bought ? (
+                    <IconButton iconStyle={{ color: 'grey' }}>
+                        <FontIcon
+                            className="material-icons"
+                            style={{ marginRight: 24, padding: 5 }}
+                        >
+                            <i className="material-icons">check</i>
+                        </FontIcon>
+                    </IconButton>
+                ) : (
+                    <IconButton iconStyle={{ color: 'grey' }}>
+                        <FontIcon
+                            className="material-icons"
+                            style={{ marginRight: 24, padding: 5 }}
+                        >
+                            <i className="material-icons">cancel</i>
+                        </FontIcon>
+                    </IconButton>
+                )}
             </TableRowColumn>
             <TableRowColumn style={columnStyle}>
                 {Moment(item.date_created).format('lll')}
@@ -34,7 +52,7 @@ const Item = ({ item, onExecuteAction }) => {
             </TableRowColumn>
             <TableRowColumn>
                 <IconButton
-                    iconStyle={{ color: '#00bcd4' }}
+                    iconStyle={{ color: 'grey' }}
                     onClick={() => handleClick({ type: 'edit item' })}
                 >
                     <FontIcon className="material-icons" style={{ color: '' }}>
