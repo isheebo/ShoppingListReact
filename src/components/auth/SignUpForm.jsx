@@ -93,7 +93,10 @@ const SignUpForm = props => (
                             disabled={
                                 !props.credentials.email ||
                                 !props.credentials.password ||
-                                !props.credentials.confirmPassword
+                                !props.credentials.confirmPassword ||
+                                props.validationErrors.email ||
+                                props.validationErrors.password ||
+                                props.validationErrors.confirmPassword
                             }
                             label="SignUp"
                             onClick={props.onFormSubmit}
@@ -104,8 +107,7 @@ const SignUpForm = props => (
                             <br />
                             Already Registered?
                             <Link to="login" style={{ textDecoration: 'none' }}>
-                                {' '}
-                                Login
+                                &nbsp; Login
                             </Link>
                         </div>
                     </CardActions>

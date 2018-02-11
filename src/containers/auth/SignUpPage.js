@@ -59,6 +59,15 @@ class SignUpPage extends React.Component {
                                     'Password must contain a minimum of 6 characters', // eslint-disable-line
                         },
                     });
+                } else if (
+                    field &&
+                        !Validator.equals(field, this.state.password)
+                ) {
+                    this.setState({
+                        validationErrors: {
+                            confirmPassword: 'The given passwords don\'t match',
+                        },
+                    });
                 } else {
                     this.setState({
                         validationErrors: { password: '' },
@@ -80,6 +89,13 @@ class SignUpPage extends React.Component {
                     this.setState({
                         validationErrors: {
                             confirmPassword: 'The given passwords don\'t match',
+                        },
+                    });
+                } else if (field && field.length < 6) {
+                    this.setState({
+                        validationErrors: {
+                            password:
+                                    'Password must contain a minimum of 6 characters', // eslint-disable-line
                         },
                     });
                 } else {

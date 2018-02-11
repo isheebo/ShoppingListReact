@@ -65,7 +65,9 @@ const ResetPasswordForm = props => (
                         <RaisedButton
                             disabled={
                                 !props.credentials.password ||
-                                !props.credentials.confirmPassword
+                                !props.credentials.confirmPassword ||
+                                props.validationErrors.password ||
+                                props.validationErrors.confirmPassword
                             }
                             label="Reset Password"
                             onClick={props.onFormSubmit}

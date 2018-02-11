@@ -82,7 +82,7 @@ const LoginForm = props => (
                         <br />
                         Not registered?
                         <Link to="signup" style={{ textDecoration: 'none' }}>
-                            Register here
+                            &nbsp; Register here
                         </Link>
                     </div>
                 </CardActions>
