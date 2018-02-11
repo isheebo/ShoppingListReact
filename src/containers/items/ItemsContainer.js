@@ -40,11 +40,6 @@ class ItemsContainer extends React.Component {
         this.setState({ items });
     };
 
-    componentWillReceiveProps = (nextProps) => {
-        const { items } = nextProps;
-        this.setState({ items });
-    };
-
     onTextChange = (event) => {
         const item = { ...this.state.item };
         item[event.target.name] = event.target.value;
@@ -105,7 +100,7 @@ class ItemsContainer extends React.Component {
     };
 
     loadItems = () => {
-        const { listID } = this.state.listID;
+        const { listID } = this.state;
         this.props.actions.viewAllItemsInList(listID);
     };
 
