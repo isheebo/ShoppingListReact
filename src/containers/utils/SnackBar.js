@@ -27,6 +27,9 @@ class SnackBar extends React.Component {
                     open={this.props.isSnackBarActive}
                     message={this.props.snackMessage}
                     onRequestClose={this.onDismissSnackBar}
+                    bodyStyle={{ backgroundColor: '#31393C', color: 'coral' }}
+                    action="Dismiss"
+                    onActionClick={this.onDismissSnackBar}
                 />
             </div>
         );
