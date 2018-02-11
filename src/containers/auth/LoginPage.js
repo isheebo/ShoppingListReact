@@ -4,6 +4,7 @@ import Validator from 'validator';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import LoginForm from '../../components/auth/LoginForm';
+import Header from '../../components/Header/Header';
 import { loginUser } from '../../actions/authActions';
 
 class LoginPage extends React.Component {
@@ -57,6 +58,7 @@ class LoginPage extends React.Component {
         const { email, password, validationErrors } = this.state;
         return (
             <div>
+                <Header title="ShoppingLister" />
                 <LoginForm
                     credentials={{ email, password }}
                     validationErrors={validationErrors}

@@ -8,6 +8,7 @@ import Items from '../../components/items/Items';
 import ItemDialog from '../../components/items/ItemDialog';
 import * as itemActions from '../../actions/itemActions';
 import Header from '../../components/Header/Header';
+import SearchBar from '../../components/SearchBar';
 
 const initialState = {
     open: false,
@@ -156,7 +157,12 @@ class ItemsContainer extends React.Component {
                     <ContentAdd />
                 </FloatingActionButton>
 
-                <Header title="Items" onQueryChange={this.onQueryChange} />
+                <Header
+                    title="Items"
+                    iconElementRight={
+                        <SearchBar onQueryChange={this.onQueryChange} />
+                    }
+                />
 
                 <ItemDialog
                     state={{ ...this.state }}

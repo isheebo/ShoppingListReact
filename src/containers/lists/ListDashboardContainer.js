@@ -10,6 +10,7 @@ import * as listActions from '../../actions/listActions';
 import formatDate from '../../utils/formatDate';
 import { logoutUser } from '../../actions/authActions';
 import Header from '../../components/Header/Header';
+import SearchBar from '../../components/SearchBar';
 
 const initialState = {
     open: false,
@@ -214,7 +215,12 @@ class ListDashboardContainer extends React.Component {
                     <ContentAdd />
                 </FloatingActionButton>
 
-                <Header title="Lists" onQueryChange={this.onQueryChange} />
+                <Header
+                    title="Lists"
+                    iconElementRight={
+                        <SearchBar onQueryChange={this.onQueryChange} />
+                    }
+                />
 
                 <ListDialog
                     state={{ ...this.state }}

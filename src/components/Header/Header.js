@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
-import SearchBar from './SearchBar';
 
 class Header extends React.Component {
     render() {
-        const { onQueryChange, title } = this.props;
+        const { title, iconElementRight } = this.props;
 
         return (
             <div>
@@ -21,7 +20,7 @@ class Header extends React.Component {
                         paddingLeft: '15%',
                         paddingRight: '15%',
                     }}
-                    iconElementRight={<SearchBar onQueryChange={onQueryChange} />}
+                    iconElementRight={iconElementRight}
                 />
             </div>
         );
@@ -30,7 +29,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
     title: PropTypes.string.isRequired,
-    onQueryChange: PropTypes.isRequired,
+    iconElementRight: PropTypes.element.isRequired,
 };
 
 export default Header;
