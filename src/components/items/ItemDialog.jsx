@@ -23,7 +23,7 @@ const ItemDialog = ({
             primary
             onClick={doAction}
             disabled={
-                (!item.name && !item.price && !item.quantity) ||
+                (!item.name || !item.price || !item.quantity) ||
                 item.name.length === 0
             }
         />,
