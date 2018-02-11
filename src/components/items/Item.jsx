@@ -3,9 +3,6 @@ import { PropTypes } from 'prop-types';
 import Moment from 'moment';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import FontIcon from 'material-ui/FontIcon';
-import TextField from 'material-ui/TextField';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 
 const iconStyles = {

@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import Checkbox from 'material-ui/Checkbox';
 
 const ItemDialog = ({
-    state, handleClose, onTextChange, doAction,
+    state,
+    handleClose,
+    onTextChange,
+    doAction,
+    checked,
+    onCheck,
 }) => {
     const {
         buttonLabel, dialogTitle, item, open,
@@ -71,6 +77,10 @@ const ItemDialog = ({
                     fullWidth
                 />
             )}
+
+            {buttonLabel !== 'DELETE' && (
+                <Checkbox label="Bought" checked={checked} onCheck={onCheck} />
+            )}
         </Dialog>
     );
 };
@@ -92,6 +102,8 @@ ItemDialog.propTypes = {
     doAction: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired,
     onTextChange: PropTypes.func.isRequired,
+    checked: PropTypes.bool.isRequired,
+    onCheck: PropTypes.func.isRequired,
 };
 
 export default ItemDialog;

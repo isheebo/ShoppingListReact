@@ -6,7 +6,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Items from '../../components/items/Items';
 import ItemDialog from '../../components/items/ItemDialog';
-import * as itemActions from '../../actions/listActions';
+import * as itemActions from '../../actions/itemActions';
+import Header from '../../components/Header/Header';
 
 const initialState = {
     open: false,
@@ -14,7 +15,6 @@ const initialState = {
         name: '',
         price: '',
         quantity: '',
-        has_been_bought: false,
     },
 };
 
@@ -24,8 +24,19 @@ class ItemsContainer extends React.Component {
         items: this.props.items, // from the items reducer
         dialogTitle: '',
         buttonLabel: '',
+        searchQuery: '',
+        listID: this.props.match.params.id,
+        checked: false, // representing whether an item has been bought
         // isFetching: this.props.isFetching,
-        // are we loading items from the server
+    };
+
+    componentDidMount = () => {
+        this.loadItems();
+    };
+
+    componentWillReceiveProps = (nextProps) => {
+        const { items } = nextProps;
+        this.setState({ items });
     };
 
     componentWillReceiveProps = (nextProps) => {
@@ -39,11 +50,16 @@ class ItemsContainer extends React.Component {
         this.setState({ item });
     };
 
-    toggleBoughtStatus = () => {
-        const { item } = this.state;
-        item.has_been_bought = !item.has_been_bought;
-        this.setState({ item });
+    onUpdateCheck = () => {
+        this.setState(prevState => ({
+            checked: !prevState.checked,
+        }));
     };
+
+    onQueryChange = (event) => {
+        this.setState({ searchQuery: event.target.value });
+    };
+
     /**
      * Convert the action type to title case
      * and display it as the dialog title
@@ -87,31 +103,37 @@ class ItemsContainer extends React.Component {
         }
     };
 
+    loadItems = () => {
+        const { listID } = this.state.listID;
+        this.props.actions.viewAllItemsInList(listID);
+    };
+
     createItem = () => {
-        const { item } = this.state;
+        const { item, checked, listID } = this.state;
         const formData = new FormData();
         formData.set('name', item.name);
         formData.set('price', item.price);
         formData.set('quantity', item.quantity);
-        formData.set('status', item.has_been_bought);
-        this.props.actions.createNewItem(this.props.listID, formData);
+        formData.set('status', checked);
+        this.props.actions.createNewItem(listID, formData);
     };
 
     editItem = (item) => {
+        const { checked } = this.state;
         const formData = new FormData();
         formData.set('name', item.name);
         formData.set('price', item.price);
         formData.set('quantity', item.quantity);
-        formData.set('status', item.has_been_bought);
-        this.props.actions.editItem(this.props.listID, item.id, formData);
+        formData.set('status', checked);
+        this.props.actions.editItem(this.state.listID, item.id, formData);
     };
 
     deleteItem = (item) => {
-        this.props.actions.deleteItem(this.props.listID, item.id);
+        this.props.actions.deleteItem(this.state.listID, item.id);
     };
 
     render() {
-        const { items } = this.state;
+        const { items, checked, searchQuery } = this.state;
         return (
             <div>
                 <FloatingActionButton
@@ -124,23 +146,32 @@ class ItemsContainer extends React.Component {
                         position: 'fixed',
                         zIndex: 1000000,
                     }}
+                    backgroundColor="#EC4117"
                     onClick={() =>
-                        this.handleOpen(initialState.shoppinglist, {
-                            type: 'add shoppinglist',
+                        this.handleOpen(initialState.item, {
+                            type: 'add item',
                         })
                     }
                 >
                     <ContentAdd />
                 </FloatingActionButton>
 
+                <Header title="Items" onQueryChange={this.onQueryChange} />
+
                 <ItemDialog
                     state={{ ...this.state }}
                     handleClose={this.handleClose}
                     onTextChange={this.onTextChange}
                     doAction={this.doAction}
+                    checked={checked}
+                    onCheck={this.onUpdateCheck}
                 />
 
-                <Items onExecuteAction={this.handleOpen} items={items} />
+                <Items
+                    onExecuteAction={this.handleOpen}
+                    listItems={items}
+                    searchQuery={searchQuery}
+                />
             </div>
         );
     }
@@ -152,10 +183,12 @@ ItemsContainer.defaultProps = {
 
 ItemsContainer.propTypes = {
     actions: PropTypes.shape({
+        viewAllItemsInList: PropTypes.func.isRequired,
         createNewItem: PropTypes.func.isRequired,
         editItem: PropTypes.func.isRequired,
         deleteItem: PropTypes.func.isRequired,
     }).isRequired,
+    match: PropTypes.object.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
@@ -165,7 +198,6 @@ ItemsContainer.propTypes = {
         date_created: PropTypes.string.isRequired,
         date_modified: PropTypes.string.isRequired,
     })),
-    listID: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
