@@ -6,7 +6,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-const SearchBar = ({ onQueryChange, viewAllLists }) => (
+const SearchBar = ({ onQueryChange }) => (
     <div
         style={{
             display: 'inline-block',
@@ -45,7 +45,6 @@ const SearchBar = ({ onQueryChange, viewAllLists }) => (
             onChange={onQueryChange}
             onKeyPress={(event) => {
                 if (event.key === 'Enter') {
-                    viewAllLists();
                     event.preventDefault();
                 }
             }}
@@ -70,7 +69,6 @@ const SearchBar = ({ onQueryChange, viewAllLists }) => (
 
 SearchBar.propTypes = {
     onQueryChange: PropTypes.func.isRequired,
-    viewAllLists: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

@@ -4,12 +4,8 @@ import AppBar from 'material-ui/AppBar';
 import SearchBar from './SearchBar';
 
 class Header extends React.Component {
-    componentWillMount = () => {
-        this.props.actions.viewAllLists();
-    };
-
     render() {
-        const { onQueryChange, actions, title } = this.props;
+        const { onQueryChange, title } = this.props;
 
         return (
             <div>
@@ -25,12 +21,7 @@ class Header extends React.Component {
                         paddingLeft: '15%',
                         paddingRight: '15%',
                     }}
-                    iconElementRight={
-                        <SearchBar
-                            onQueryChange={onQueryChange}
-                            viewAllLists={actions.viewAllLists}
-                        />
-                    }
+                    iconElementRight={<SearchBar onQueryChange={onQueryChange} />}
                 />
             </div>
         );
@@ -40,9 +31,6 @@ class Header extends React.Component {
 Header.propTypes = {
     title: PropTypes.string.isRequired,
     onQueryChange: PropTypes.isRequired,
-    actions: PropTypes.shape({
-        viewAllLists: PropTypes.func.isRequired,
-    }).isRequired,
 };
 
 export default Header;
