@@ -7,7 +7,7 @@ import {
     TableHeaderColumn,
     TableRow,
 } from 'material-ui/Table';
-import { Card } from 'material-ui/Card';
+import { Card, CardText } from 'material-ui/Card';
 import Item from './Item';
 
 const noStyle = {
@@ -39,41 +39,48 @@ const Items = ({ listItems, onExecuteAction, searchQuery }) => {
                 overflow: 'scroll',
             }}
         >
-            {items &&
-                items.length > 0 && (
-                    <Table>
-                        <TableHeader
-                            adjustForCheckbox={false}
-                            displaySelectAll={false}
-                        >
-                            <TableRow>
-                                <TableHeaderColumn> Name </TableHeaderColumn>
-                                <TableHeaderColumn> Price </TableHeaderColumn>
-                                <TableHeaderColumn> Quantity </TableHeaderColumn>
-                                <TableHeaderColumn> Bought </TableHeaderColumn>
-                                <TableHeaderColumn> Date Created </TableHeaderColumn>
-                                <TableHeaderColumn>Date Modified</TableHeaderColumn>
-                                <TableHeaderColumn> Actions </TableHeaderColumn>
-                            </TableRow>
-                        </TableHeader>
+            <CardText>
+                {items &&
+                    items.length > 0 && (
+                        <Table>
+                            <TableHeader
+                                adjustForCheckbox={false}
+                                displaySelectAll={false}
+                            >
+                                <TableRow>
+                                    <TableHeaderColumn> Name </TableHeaderColumn>
+                                    <TableHeaderColumn> Price </TableHeaderColumn>
+                                    <TableHeaderColumn> Quantity </TableHeaderColumn>
+                                    <TableHeaderColumn> Bought </TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        {' '}
+                                        Date Created{' '}
+                                    </TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        Date Modified
+                                    </TableHeaderColumn>
+                                    <TableHeaderColumn> Actions </TableHeaderColumn>
+                                </TableRow>
+                            </TableHeader>
 
-                        <TableBody>
-                            {items.map(item => (
-                                <Item
-                                    key={item.id}
-                                    item={item}
-                                    onExecuteAction={onExecuteAction}
-                                />
-                            ))}
-                        </TableBody>
-                    </Table>
-                )}
-            {items.length === 0 &&
-                (searchQuery ? (
-                    <h3 style={{ noStyle }}>No items found! </h3>
-                ) : (
-                    <h3 style={{ noStyle }}>No items have been added yet</h3>
-                ))}
+                            <TableBody>
+                                {items.map(item => (
+                                    <Item
+                                        key={item.id}
+                                        item={item}
+                                        onExecuteAction={onExecuteAction}
+                                    />
+                                ))}
+                            </TableBody>
+                        </Table>
+                    )}
+                {items.length === 0 &&
+                    (searchQuery ? (
+                        <h3 style={{ noStyle }}>No items found! </h3>
+                    ) : (
+                        <h3 style={{ noStyle }}>No items have been added yet</h3>
+                    ))}
+            </CardText>
         </Card>
     );
 };

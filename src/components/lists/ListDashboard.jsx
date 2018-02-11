@@ -7,7 +7,7 @@ import {
     TableHeaderColumn,
     TableRow,
 } from 'material-ui/Table';
-import { Card } from 'material-ui/Card';
+import { Card, CardText } from 'material-ui/Card';
 import ShoppingListComponent from './ShoppingListComponent';
 
 const noStyle = {
@@ -24,7 +24,7 @@ const ListDashboard = ({
     shoppinglists,
     onExecuteAction,
     searchQuery,
-    isFetching,
+    // isFetching,
     history,
 }) => {
     // eslint-disable-next-line
@@ -49,38 +49,44 @@ const ListDashboard = ({
                 overflow: 'scroll',
             }}
         >
-            {/* Check if we are fetching data from the server  */}
-            {isFetching}
-            {shoppingLists.length > 0 && (
-                <Table>
-                    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                        <TableRow>
-                            <TableHeaderColumn>Name</TableHeaderColumn>
-                            <TableHeaderColumn> Notify Date </TableHeaderColumn>
-                            <TableHeaderColumn>Date Created</TableHeaderColumn>
-                            <TableHeaderColumn>Date Modified</TableHeaderColumn>
-                            <TableHeaderColumn>Actions</TableHeaderColumn>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {shoppingLists.map(shoppingList => (
-                            <ShoppingListComponent
-                                key={shoppingList.id}
-                                shoppinglist={shoppingList}
-                                onExecuteAction={onExecuteAction}
-                                history={history}
-                            />
-                        ))}
-                    </TableBody>
-                </Table>
-            )}
+            <CardText>
+                {shoppingLists.length > 0 && (
+                    <Table>
+                        <TableHeader
+                            displaySelectAll={false}
+                            adjustForCheckbox={false}
+                        >
+                            <TableRow>
+                                <TableHeaderColumn>Name</TableHeaderColumn>
+                                <TableHeaderColumn> Notify Date </TableHeaderColumn>
+                                <TableHeaderColumn>Date Created</TableHeaderColumn>
+                                <TableHeaderColumn>Date Modified</TableHeaderColumn>
+                                <TableHeaderColumn>Actions</TableHeaderColumn>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {shoppingLists.map(shoppingList => (
+                                <ShoppingListComponent
+                                    key={shoppingList.id}
+                                    shoppinglist={shoppingList}
+                                    onExecuteAction={onExecuteAction}
+                                    history={history}
+                                />
+                            ))}
+                        </TableBody>
+                    </Table>
+                )}
 
-            {shoppingLists.length === 0 &&
-                (searchQuery ? (
-                    <h3 style={noStyle}> No shoppinglist found!</h3>
-                ) : (
-                    <h3 style={noStyle}> Get Started by creating a shopping list</h3>
-                ))}
+                {shoppingLists.length === 0 &&
+                    (searchQuery ? (
+                        <h3 style={noStyle}> No shoppinglist found!</h3>
+                    ) : (
+                        <h3 style={noStyle}>
+                            {' '}
+                            Get Started by creating a shopping list
+                        </h3>
+                    ))}
+            </CardText>
         </Card>
     );
 };
