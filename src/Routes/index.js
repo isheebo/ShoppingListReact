@@ -8,6 +8,7 @@ import SignUpPage from '../containers/auth/SignUpPage';
 import SnackBar from '../containers/utils/SnackBar';
 import ResetPasswordPage from '../containers/auth/ResetPasswordPage';
 import ListDashboardContainer from '../containers/lists/ListDashboardContainer';
+import ItemsContainer from '../containers/items/ItemsContainer';
 // import { logoutUser } from '../actions/authActions';
 
 // Add all other containers here
@@ -22,6 +23,7 @@ const Routes = () => (
                     <Route path="/signup" component={SignUpPage} />
                     <Route path="/reset-password" component={ResetPasswordPage} />
                     <Route path="/dashboard" component={ListDashboardContainer} />
+                    <Route path="/items/:id" component={ItemsContainer} />
                     <Route path="/logout" />
                 </Switch>
             </BrowserRouter>

@@ -4,22 +4,26 @@ import Moment from 'moment';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
 
-const ShoppingListComponent = ({ shoppinglist, onExecuteAction }) => {
-    const handleClick = (action) => {
+const ShoppingListComponent = ({ shoppinglist, onExecuteAction, history }) => {
+    const handleClick = (action, event) => {
+        const id = event.target.getAttribute('data-id');
+        history.push(`items/${id}`);
         onExecuteAction(shoppinglist, action);
     };
 
     return (
         <TableRow>
             <TableRowColumn>
-                <FlatButton
-                    onClick={() => handleClick({ type: 'view items' })}
+                <button
+                    onClick={event =>
+                        handleClick({ type: 'view items' }, event, this)
+                    }
+                    data-id={shoppinglist.id}
                     style={{ color: '#000', textDecoration: 'none' }}
                 >
                     {shoppinglist.name}
-                </FlatButton>
+                </button>
             </TableRowColumn>
 
             <TableRowColumn style={{ color: 'rgba(127,127,127,1)' }}>
@@ -35,12 +39,12 @@ const ShoppingListComponent = ({ shoppinglist, onExecuteAction }) => {
             </TableRowColumn>
             <TableRowColumn>
                 <IconButton
-                    iconStyle={{ color: '#00bcd4' }}
+                    iconStyle={{ color: 'grey' }}
                     onClick={() => handleClick({ type: 'edit shoppinglist' })}
                 >
                     <FontIcon
                         className="material-icons"
-                        style={{ marginRight: 24, color: '#00bcd4', padding: 5 }}
+                        style={{ marginRight: 24, padding: 5 }}
                     >
                         <i className="material-icons">mode_edit</i>
                     </FontIcon>
@@ -71,6 +75,7 @@ ShoppingListComponent.propTypes = {
         date_modified: PropTypes.string.isRequired,
     }).isRequired,
     onExecuteAction: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
 };
 
 export default ShoppingListComponent;
