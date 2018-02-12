@@ -67,6 +67,3 @@ export const DELETE_ITEM_FAILURE = 'DELETE_ITEM_FAILURE';
 // SnackBar
 export const DISPLAY_SNACK_BAR = 'DISPLAY_SNACK_BAR';
 export const DISMISS_SNACK_BAR = 'DISMISS_SNACK_BAR';
-
-// Validating fields
-// export const VALIDATE_FIELD = 'VALIDATE_FIELD';

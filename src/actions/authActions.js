@@ -19,6 +19,11 @@ export const signupFailure = response => ({
     response,
 });
 
+/**
+ * Action creator used in registering a user
+ * @param credentials - user details
+ * @param history - routing object
+ */
 export const signupUser = (credentials, history) => (dispatch) => {
     dispatch(signupRequest(credentials));
     return instance
@@ -52,6 +57,11 @@ export const loginFailure = response => ({
     response,
 });
 
+/**
+ * Action creator to login a user
+ * @param credentials - user credentials (email, password)
+ * @param history - the routing history object
+ */
 export const loginUser = (credentials, history) => (dispatch) => {
     dispatch(loginRequest());
     return instance
@@ -84,6 +94,11 @@ export const logoutFailure = response => ({
     response,
 });
 
+/**
+ * Action creator for logging out a user and redirecting
+ * to the login page
+ * @param {object} history - used in routing
+ */
 export const logoutUser = history => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(logoutRequest());
@@ -116,6 +131,11 @@ export const resetPasswordFailure = response => ({
     response,
 });
 
+/**
+ * Action creator for resetting a password
+ * @param credentials -  {new password and its confirm password}
+ * @param history - the routing object
+ */
 export const resetUserPassword = (credentials, history) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(resetPasswordRequest());

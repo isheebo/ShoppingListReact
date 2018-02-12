@@ -91,11 +91,9 @@ export const viewAllLists = () => (dispatch) => {
         .get('/shoppinglists')
         .then((response) => {
             dispatch(viewAllListsSuccess(response));
-            // dispatch(displaySnackBar(response.data.message));
         })
         .catch((err) => {
             dispatch(viewAllListsFailure(err));
-            // dispatch(displaySnackBar(err.response.data.message));
         });
 };
 
@@ -117,11 +115,15 @@ const viewOneListFailure = error => ({
     error,
 });
 
-export const viewOneList = listData => (dispatch) => {
+/**
+ * Get one shoppinglist from the server
+ * @param id - ID of the list to return
+ */
+export const viewOneList = id => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
-    dispatch(viewOneListRequest(listData));
+    dispatch(viewOneListRequest(id));
     return instance
-        .get(`/shoppinglists/${listData.id}`)
+        .get(`/shoppinglists/${id}`)
         .then((response) => {
             dispatch(viewOneListSuccess(response));
             dispatch(displaySnackBar(response.data.message));
@@ -151,6 +153,10 @@ const editListFailure = response => ({
     response,
 });
 
+/**
+ * Edit  current shoppinglist, given the ID of the shoppinglist, id
+ * and the newListData
+ */
 export const editShoppingList = (id, newListParams) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(editListRequest(id, newListParams));
@@ -186,6 +192,9 @@ const deleteListFailure = response => ({
     response,
 });
 
+/**
+ * @param id - the ID of the list to be deleted
+ */
 export const deleteShoppingList = id => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(deleteListRequest(id));

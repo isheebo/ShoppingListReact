@@ -66,6 +66,7 @@ const viewAllItemsFailure = error => ({
 });
 
 /**
+ * Returns all shopping lists owned by the currently loggedin user
  * @param listID - the ID of the shoppinglist
  * @returns all items in shoppinglist with ID `listID`
  */
@@ -139,6 +140,12 @@ const editItemFailure = error => ({
     error,
 });
 
+/**
+ *  @param listID - the ID of the shoppinglist
+ * @param itemID - ID of the item to be edited
+ * @param itemData - the data consisiting of new
+ * changes to be applied to the item
+ */
 export const editItem = (listID, itemID, itemData) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(editItemRequest(listID, itemID, itemData));
@@ -154,9 +161,8 @@ export const editItem = (listID, itemID, itemData) => (dispatch) => {
         });
 };
 
-/**
- * Deleting an Item, itemID from a shoppinglist with ID, listID
- */
+/** Deleting an Item */
+
 const deleteItemRequest = (listID, itemID) => ({
     type: types.DELETE_ITEM_REQUEST,
     listID,
@@ -173,6 +179,10 @@ const deleteItemFailure = error => ({
     error,
 });
 
+/**
+ * Deletes an Item with ID, itemID from
+ * a shoppinglist with ID, listID
+ */
 export const deleteItem = (listID, itemID) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(deleteItemRequest(listID, itemID));
