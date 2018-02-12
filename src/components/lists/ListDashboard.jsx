@@ -118,8 +118,7 @@ ListDashboard.propTypes = {
     onExecuteAction: PropTypes.func.isRequired,
     handleOpenItemsView: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
-
-    // isFetching: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
 };
 
 export default ListDashboard;
