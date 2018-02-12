@@ -26,8 +26,7 @@ class ListDashboardContainer extends React.Component {
         ...initialState,
         searchQuery: '',
         dialogTitle: '',
-        buttonLabel: 'ADD',
-        floatingLabelText: '',
+        buttonLabel: '',
     };
 
     componentDidMount = () => {
@@ -37,7 +36,8 @@ class ListDashboardContainer extends React.Component {
         this.loadShoppingLists();
     };
 
-    /** Can we use componentWillUpdate / DidUpdate to control the update process
+    /**
+     * Can we use componentWillUpdate / DidUpdate to control the update process
      * i have a feeling it may be more efficient than fetching lists from
      * the server per transaction
      */
@@ -57,7 +57,8 @@ class ListDashboardContainer extends React.Component {
         this.setState({ shoppinglist });
     };
 
-    /** Is used to control the lists displayed,
+    /**
+     * Is used to control the lists displayed,
      * once a user types in the search bar
      */
     onQueryChange = (event) => {
@@ -84,33 +85,8 @@ class ListDashboardContainer extends React.Component {
             dialogTitle: this.toTitleCase(action.type),
             open: true,
             shoppinglist: { ...shoppinglist },
-            isFetching: false,
+            buttonLabel: action.type.split(' ')[0],
         });
-
-        switch (action.type) {
-        case 'delete shoppinglist':
-            this.setState({
-                buttonLabel: 'DELETE',
-            });
-            break;
-
-        case 'edit shoppinglist':
-            this.setState({
-                buttonLabel: 'EDIT',
-                floatingLabelText: 'Name',
-            });
-            break;
-
-        case 'add shoppinglist':
-            this.setState({
-                buttonLabel: 'ADD',
-                floatingLabelText: 'Name',
-            });
-            break;
-
-        default:
-            break;
-        }
     };
 
     handleClose = () => {
@@ -164,21 +140,17 @@ class ListDashboardContainer extends React.Component {
         this.loadShoppingLists();
     };
 
-    deleteShoppinglist = (shoppinglist) => {
-        this.props.actions.deleteShoppingList(shoppinglist.id);
-        this.reset();
-        this.loadShoppingLists();
-    };
-
     editshoppinglist = (shoppinglist) => {
         const formData = new FormData();
         formData.set('name', shoppinglist.name);
         formData.set('notify_date', shoppinglist.notify_date);
-
-        // BUG! If I change the notify date, I am not able to edit the list.
-        //  error: the acceptable date format is 'yyyy-mm-dd'
         this.props.actions.editShoppingList(shoppinglist.id, formData);
+        this.reset();
+        this.loadShoppingLists();
+    };
 
+    deleteShoppinglist = (shoppinglist) => {
+        this.props.actions.deleteShoppingList(shoppinglist.id);
         this.reset();
         this.loadShoppingLists();
     };

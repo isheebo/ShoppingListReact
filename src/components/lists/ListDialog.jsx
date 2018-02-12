@@ -13,11 +13,7 @@ const ListDialog = ({
     doAction,
 }) => {
     const {
-        dialogTitle,
-        open,
-        buttonLabel,
-        shoppinglist,
-        floatingLabelText,
+        dialogTitle, open, buttonLabel, shoppinglist,
     } = state;
 
     const actions = [
@@ -57,7 +53,7 @@ const ListDialog = ({
             {buttonLabel !== 'DELETE' && (
                 <TextField
                     name="name"
-                    floatingLabelText={floatingLabelText}
+                    floatingLabelText="Name"
                     value={shoppinglist.name}
                     onChange={onTextChange}
                     fullWidth
@@ -94,7 +90,6 @@ ListDialog.propTypes = {
     state: PropTypes.shape({
         dialogTitle: PropTypes.string.isRequired,
         buttonLabel: PropTypes.string.isRequired,
-        floatingLabelText: PropTypes.string.isRequired,
         open: PropTypes.bool.isRequired,
         shoppinglist: PropTypes.shape({
             name: PropTypes.string.isRequired,

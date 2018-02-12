@@ -56,8 +56,7 @@ const Items = ({
                                     <TableHeaderColumn> Quantity </TableHeaderColumn>
                                     <TableHeaderColumn> Bought </TableHeaderColumn>
                                     <TableHeaderColumn>
-                                        {' '}
-                                        Date Created{' '}
+                                        Date Created
                                     </TableHeaderColumn>
                                     <TableHeaderColumn>
                                         Date Modified

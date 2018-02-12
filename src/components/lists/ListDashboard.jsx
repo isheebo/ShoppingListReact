@@ -61,8 +61,7 @@ const ListDashboard = ({
                                 <TableRow>
                                     <TableHeaderColumn>Name</TableHeaderColumn>
                                     <TableHeaderColumn>
-                                        {' '}
-                                        Notify Date{' '}
+                                        Notify Date
                                     </TableHeaderColumn>
                                     <TableHeaderColumn>
                                         Date Created
