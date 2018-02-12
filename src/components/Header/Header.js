@@ -2,10 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 
+/**
+ * Represents the Navigation bar.
+ * This is used uniformly through out the project
+ * with a few modifications to facilitate search functionality
+ */
 class Header extends React.Component {
     render() {
         const { title, iconElementRight } = this.props;
-
         return (
             <div>
                 <AppBar

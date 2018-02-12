@@ -21,6 +21,10 @@ const noStyle = {
     padding: '20px',
 };
 
+/**
+ * A view of all shoppinglists added/owned by the logged in user
+ */
+
 const ListDashboard = ({
     shoppinglists,
     onExecuteAction,

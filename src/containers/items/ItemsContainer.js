@@ -43,12 +43,21 @@ class ItemsContainer extends React.Component {
         this.setState({ item });
     };
 
+    /**
+     * Once the check is updated, it updates the
+     * boolean condition of whether an item has
+     * been bought or not
+     */
     onUpdateCheck = () => {
         this.setState(prevState => ({
             checked: !prevState.checked,
         }));
     };
 
+    /**
+     * Returns suggestions of prospective items at
+     * lightning ⚡️⚡️⚡️😄 speeds
+     */
     onQueryChange = (event) => {
         this.setState({ searchQuery: event.target.value });
     };
@@ -63,6 +72,12 @@ class ItemsContainer extends React.Component {
             txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
         );
 
+    /**
+     * Controls the type of dialog that should be opened
+     * once, an action has been clicked.
+     * e.g. clicking an 'add item' action fires up the 'Add Item'
+     * dialog / modal and it is opened
+     */
     handleOpen = (item = this.state.item, action) => {
         this.setState({
             open: true,
@@ -72,12 +87,19 @@ class ItemsContainer extends React.Component {
         });
     };
 
+    /**
+     * Controls how dialogs are closed
+     */
     handleClose = () => {
         this.setState({
             open: false,
         });
     };
 
+    /**
+     * controls the action to be performed
+     * depending on its type
+     */
     doAction = () => {
         const { dialogTitle, item } = this.state;
 
@@ -96,14 +118,24 @@ class ItemsContainer extends React.Component {
         }
     };
 
+    /**
+     * Reset the state back to its initial form.
+     * More like resetting cache
+     */
     reset = () => {
         this.setState({ ...initialState });
     };
 
+    /**
+     * Imports items from the API server
+     */
     loadItems = () => {
         this.props.actions.viewAllItemsInList(this.props.match.params.id);
     };
 
+    /**
+     * Handles the creation of a new item
+     */
     createItem = () => {
         const { item, checked } = this.state;
         const formData = new FormData();
@@ -116,6 +148,7 @@ class ItemsContainer extends React.Component {
         this.loadItems();
     };
 
+    /** Handles the editing/updating of an item */
     editItem = (item) => {
         const { checked } = this.state;
         const formData = new FormData();
@@ -128,6 +161,10 @@ class ItemsContainer extends React.Component {
         this.loadItems();
     };
 
+    /**
+     * Handles the deletion of an item .
+     * It takes an item ID and then can delete the item
+     */
     deleteItem = (item) => {
         this.props.actions.deleteItem(this.props.match.params.id, item.id);
         this.reset();

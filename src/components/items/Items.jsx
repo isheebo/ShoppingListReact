@@ -21,6 +21,9 @@ const noStyle = {
     padding: '20px',
 };
 
+/**
+ * A table view of items on a user's specified shopping list
+ */
 const Items = ({
     listItems, onExecuteAction, searchQuery, isFetching,
 }) => {

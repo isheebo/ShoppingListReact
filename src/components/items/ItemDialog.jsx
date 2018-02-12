@@ -5,6 +5,11 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Checkbox from 'material-ui/Checkbox';
 
+/**
+ * A universal modal / dialog used for adding, editing and
+ *  deleting items from a shoppinglist
+ */
+
 const ItemDialog = ({
     state,
     handleClose,

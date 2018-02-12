@@ -5,6 +5,10 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import DatePicker from 'material-ui/DatePicker';
 
+/**
+ * A modal that is used universally for the adding, editing
+ * and deleting of shoppinglists
+ */
 const ListDialog = ({
     state,
     handleClose,

@@ -14,6 +14,10 @@ const columnStyle = {
     color: 'rgba(127,127,127,1)',
 };
 
+/**
+ * A single item view from a particular shoppinglist
+ * of a logged in user
+ */
 const Item = ({ item, onExecuteAction }) => {
     const handleClick = (action) => {
         onExecuteAction(item, action);

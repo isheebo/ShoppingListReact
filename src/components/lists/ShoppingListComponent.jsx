@@ -6,6 +6,9 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton/FlatButton';
 
+/**
+ * Represents a view of one shoppinglist
+ */
 const ShoppingListComponent = ({
     shoppinglist,
     onExecuteAction,
