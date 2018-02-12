@@ -88,7 +88,7 @@ class ListDashboardContainer extends React.Component {
             dialogTitle: this.toTitleCase(action.type),
             open: true,
             shoppinglist: { ...shoppinglist },
-            buttonLabel: action.type.split(' ')[0],
+            buttonLabel: action.type.split(' ')[0].toUpperCase(),
         });
     };
 

@@ -19,6 +19,12 @@ class LoginPage extends React.Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
+    componentWillMount = () => {
+        if (this.props.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+    };
+
     onFieldChange(event) {
         this.setState({ [event.target.name]: event.target.value });
         const fieldType = event.target.type;
@@ -74,6 +80,7 @@ class LoginPage extends React.Component {
 LoginPage.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     loginUser: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     history: PropTypes.shape({
         push: PropTypes.func.isRequired,
     }).isRequired,
@@ -81,6 +88,7 @@ LoginPage.propTypes = {
 
 const mapStateToProps = state => ({
     isFetching: state.auth.isFetching,
+    isAuthenticated: state.auth.isAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({
