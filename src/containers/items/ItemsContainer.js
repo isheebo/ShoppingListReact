@@ -68,7 +68,7 @@ class ItemsContainer extends React.Component {
             open: true,
             dialogTitle: this.toTitleCase(action.type),
             item: { ...item },
-            buttonLabel: action.type.split(' ')[0],
+            buttonLabel: action.type.split(' ')[0].toUpperCase(),
         });
     };
 
