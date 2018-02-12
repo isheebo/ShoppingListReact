@@ -6,6 +6,10 @@ import { connect } from 'react-redux';
 import ResetPasswordForm from '../../components/auth/ResetPasswordForm';
 import { resetUserPassword } from '../../actions/authActions';
 
+/**
+ * Feeds data from the user into the reset password
+ * form. Acts as a controller for the ResetPasswordForm
+ */
 class ResetPasswordPage extends React.Component {
     constructor(props) {
         super(props);
@@ -18,6 +22,10 @@ class ResetPasswordPage extends React.Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
+    /**
+     * Validates new passwords instantly as the
+     * user provides them
+     */
     onFieldChange(event) {
         this.setState({ [event.target.name]: event.target.value });
         const fieldType = event.target.type;
@@ -89,6 +97,9 @@ class ResetPasswordPage extends React.Component {
         }
     }
 
+    /**
+     * On Success, redirect to the lists dashboard
+     */
     onFormSubmit(event) {
         event.preventDefault();
         const { confirmPassword, password } = this.state;
@@ -96,7 +107,6 @@ class ResetPasswordPage extends React.Component {
         formData.append('password', password);
         formData.append('confirm password', confirmPassword);
         this.props.resetUserPassword(formData, this.props.history);
-        // redirect to the homepage (the one with lists)
     }
 
     render() {

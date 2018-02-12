@@ -7,19 +7,20 @@ import TextField from 'material-ui/TextField';
 import CircularProgress from 'material-ui/CircularProgress';
 import ValidationError from './ValidationError';
 
+/**
+ * Represents a form that is used for Login
+ * Takes in as props, the email and password of a user
+ */
 const LoginForm = props => (
     <div style={{ marginLeft: 500, marginTop: 240, marginRight: 400 }}>
         <h2> Login</h2>
         <Card style={{ textAlign: 'center', height: 320, width: 350 }} zDepth={5}>
-            {/* Find a way of putting the word Login on the page
-             <CardTitle title="Login" /> */}
             <CardText>
                 <div>
                     <TextField
                         floatingLabelText="Email"
                         name="email"
                         type="email"
-                        // onBlur={props.onFieldValidate}
                         onChange={props.onFieldChange}
                         value={props.credentials.email}
                     />
@@ -42,16 +43,9 @@ const LoginForm = props => (
                         floatingLabelText="Password"
                         name="password"
                         type="password"
-                        // errorText={props.validationErrors.password}
-                        // onBlur={props.onFieldValidate}
                         onChange={props.onFieldChange}
                         value={props.credentials.password}
                     />
-
-                    {/* am thinking I should silence this error👇🏻👇🏿👇🏽. we
-                entertain all kinds of passwords. Giving clues on the passwords
-                we allow at Login doesn't sound like a good idea. These clues
-                are actually needed */}
 
                     <span>
                         <br />

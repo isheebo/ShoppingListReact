@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import createHistory from 'history/createBrowserHistory';
 import Validator from 'validator';
 import { connect } from 'react-redux';
 import SignUpForm from '../../components/auth/SignUpForm';
 import { signupUser } from '../../actions/authActions';
 
-// const history = createHistory();
-
-// Establish new ways of checking for the validity of submitted data
-// The test for validity is still failing
 class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
@@ -23,6 +18,9 @@ class SignUpPage extends React.Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
+    /**
+     * Handles the validation of user input data
+     */
     onFieldChange(event) {
         this.setState({ [event.target.name]: event.target.value });
         const fieldType = event.target.type;
@@ -111,6 +109,9 @@ class SignUpPage extends React.Component {
         }
     }
 
+    /**
+     * Redirects to the login page on successful signupUser
+     */
     onFormSubmit(event) {
         event.preventDefault();
         const { email, password } = this.state;
