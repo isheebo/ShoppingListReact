@@ -22,22 +22,15 @@ const initialState = {
 class ItemsContainer extends React.Component {
     state = {
         ...initialState,
-        items: this.props.items, // from the items reducer
         dialogTitle: '',
         buttonLabel: '',
         searchQuery: '',
-        listID: this.props.match.params.id,
         checked: false, // representing whether an item has been bought
         // isFetching: this.props.isFetching,
     };
 
     componentDidMount = () => {
         this.loadItems();
-    };
-
-    componentWillReceiveProps = (nextProps) => {
-        const { items } = nextProps;
-        this.setState({ items });
     };
 
     onTextChange = (event) => {
@@ -99,19 +92,25 @@ class ItemsContainer extends React.Component {
         }
     };
 
+    reset = () => {
+        this.setState({ ...initialState });
+    };
+
     loadItems = () => {
         const { listID } = this.state;
         this.props.actions.viewAllItemsInList(listID);
     };
 
     createItem = () => {
-        const { item, checked, listID } = this.state;
+        const { item, checked } = this.state;
         const formData = new FormData();
         formData.set('name', item.name);
         formData.set('price', item.price);
         formData.set('quantity', item.quantity);
         formData.set('status', checked);
-        this.props.actions.createNewItem(listID, formData);
+        this.props.actions.createNewItem(this.props.match.params.id, formData);
+        this.reset();
+        this.loadItems();
     };
 
     editItem = (item) => {
@@ -121,15 +120,19 @@ class ItemsContainer extends React.Component {
         formData.set('price', item.price);
         formData.set('quantity', item.quantity);
         formData.set('status', checked);
-        this.props.actions.editItem(this.state.listID, item.id, formData);
+        this.props.actions.editItem(this.props.match.params.id, item.id, formData);
+        this.reset();
+        this.loadItems();
     };
 
     deleteItem = (item) => {
-        this.props.actions.deleteItem(this.state.listID, item.id);
+        this.props.actions.deleteItem(this.props.match.params.id, item.id);
+        this.reset();
+        this.loadItems();
     };
 
     render() {
-        const { items, checked, searchQuery } = this.state;
+        const { checked, searchQuery } = this.state;
         return (
             <div>
                 <FloatingActionButton
@@ -170,7 +173,7 @@ class ItemsContainer extends React.Component {
 
                 <Items
                     onExecuteAction={this.handleOpen}
-                    listItems={items}
+                    listItems={this.props.items}
                     searchQuery={searchQuery}
                 />
             </div>

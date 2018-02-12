@@ -24,7 +24,6 @@ const initialState = {
 class ListDashboardContainer extends React.Component {
     state = {
         ...initialState,
-        shoppinglists: this.props.shoppinglists,
         searchQuery: '',
         dialogTitle: '',
         buttonLabel: 'ADD',
@@ -37,11 +36,6 @@ class ListDashboardContainer extends React.Component {
         // like if users are not authorised, they should be
         // redirected to the login page
         this.loadShoppingLists();
-    };
-
-    componentWillReceiveProps = (nextProps) => {
-        const { shoppinglists } = nextProps;
-        this.setState({ shoppinglists });
     };
 
     /** Can we use componentWillUpdate / DidUpdate to control the update process
@@ -157,7 +151,6 @@ class ListDashboardContainer extends React.Component {
     };
 
     loadShoppingLists = () => {
-        // return all shoppinglists
         this.props.actions.viewAllLists();
     };
 
@@ -197,7 +190,7 @@ class ListDashboardContainer extends React.Component {
     };
 
     render() {
-        const { searchQuery, shoppinglists, isFetching } = this.state;
+        const { searchQuery, isFetching } = this.state;
 
         return (
             <div>
@@ -238,7 +231,7 @@ class ListDashboardContainer extends React.Component {
 
                 <ListDashboard
                     searchQuery={searchQuery}
-                    shoppinglists={shoppinglists}
+                    shoppinglists={this.props.shoppinglists}
                     onExecuteAction={this.handleOpen}
                     isFetching={isFetching}
                     history={this.props.history}

@@ -23,15 +23,10 @@ const ItemDialog = ({
             primary
             onClick={doAction}
             disabled={
-                (!item.name || !item.price || !item.quantity) ||
-                item.name.length === 0
+                !item.name || !item.price || !item.quantity || item.name.length === 0
             }
         />,
     ];
-    /**
-     *  Should I add a checkbox to indicate the bought status🤔
-     * We will get backa to this soon!
-     */
 
     return (
         <Dialog
@@ -79,7 +74,7 @@ const ItemDialog = ({
             )}
 
             {buttonLabel !== 'DELETE' && (
-                <Checkbox label="Bought" checked={checked} onCheck={onCheck} />
+                <Checkbox label="Bought" onCheck={onCheck} checked={checked} />
             )}
         </Dialog>
     );
