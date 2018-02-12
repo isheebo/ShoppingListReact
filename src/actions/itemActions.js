@@ -69,18 +69,17 @@ const viewAllItemsFailure = error => ({
  * @param listID - the ID of the shoppinglist
  * @returns all items in shoppinglist with ID `listID`
  */
-export const viewAllItemsInList = listID => (dispatch) => {
+export const viewAllItemsInList = (listID, history) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(viewAllItemsRequest(listID));
     return instance
         .get(`/shoppinglists/${listID}/items`)
         .then((response) => {
             dispatch(viewAllItemsSuccess(response));
-            dispatch(displaySnackBar(response.data.message));
+            history.push(`/items/${listID}`);
         })
         .catch((error) => {
             dispatch(viewAllItemsFailure(error));
-            dispatch(displaySnackBar(error.response.data.message));
         });
 };
 
