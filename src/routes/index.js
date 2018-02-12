@@ -9,7 +9,6 @@ import SnackBar from '../containers/utils/SnackBar';
 import ResetPasswordPage from '../containers/auth/ResetPasswordPage';
 import ListDashboardContainer from '../containers/lists/ListDashboardContainer';
 import ItemsContainer from '../containers/items/ItemsContainer';
-// import { logoutUser } from '../actions/authActions';
 
 // Add all other containers here
 
