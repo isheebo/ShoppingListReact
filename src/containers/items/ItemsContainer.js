@@ -27,6 +27,11 @@ class ItemsContainer extends React.Component {
         searchQuery: '',
         checked: false, // representing whether an item has been bought
     };
+    componentWillMount = () => {
+        if (!this.props.isAuthenticated) {
+            this.props.history.push('/');
+        }
+    };
 
     componentDidMount = () => {
         this.loadItems();
@@ -129,6 +134,10 @@ class ItemsContainer extends React.Component {
         this.loadItems();
     };
 
+    logout = () => {
+        this.props.actions.logoutUser(this.props.history);
+    };
+
     render() {
         const { checked, searchQuery } = this.state;
         return (
@@ -156,7 +165,10 @@ class ItemsContainer extends React.Component {
                 <Header
                     title="Items"
                     iconElementRight={
-                        <SearchBar onQueryChange={this.onQueryChange} />
+                        <SearchBar
+                            onQueryChange={this.onQueryChange}
+                            logout={this.logout}
+                        />
                     }
                 />
 
@@ -190,9 +202,11 @@ ItemsContainer.propTypes = {
         createNewItem: PropTypes.func.isRequired,
         editItem: PropTypes.func.isRequired,
         deleteItem: PropTypes.func.isRequired,
+        logoutUser: PropTypes.func.isRequired,
     }).isRequired,
     match: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
@@ -202,11 +216,15 @@ ItemsContainer.propTypes = {
         date_created: PropTypes.string.isRequired,
         date_modified: PropTypes.string.isRequired,
     })),
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+    }).isRequired,
 };
 
 const mapStateToProps = state => ({
     items: state.items.items,
     isFetching: state.items.isFetching,
+    isAuthenticated: state.auth.isAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({

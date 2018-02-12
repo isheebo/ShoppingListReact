@@ -29,10 +29,13 @@ class ListDashboardContainer extends React.Component {
         buttonLabel: '',
     };
 
+    componentWillMount = () => {
+        if (!this.props.isAuthenticated) {
+            this.props.history.push('/');
+        }
+    };
+
     componentDidMount = () => {
-        // You've got to handle errors for unauthorised users
-        // like if users are not authorised, they should be
-        // redirected to the login page
         this.loadShoppingLists();
     };
 
@@ -188,7 +191,10 @@ class ListDashboardContainer extends React.Component {
                 <Header
                     title="Lists"
                     iconElementRight={
-                        <SearchBar onQueryChange={this.onQueryChange} />
+                        <SearchBar
+                            onQueryChange={this.onQueryChange}
+                            logout={this.logout}
+                        />
                     }
                 />
 
@@ -237,6 +243,7 @@ ListDashboardContainer.propTypes = {
         date_modified: PropTypes.string,
     })),
     isFetching: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     history: PropTypes.shape({
         push: PropTypes.func.isRequired,
     }).isRequired,
@@ -249,6 +256,7 @@ ListDashboardContainer.contextTypes = {
 const mapStateToProps = state => ({
     shoppinglists: state.lists.shoppinglists,
     isFetching: state.lists.isFetching,
+    isAuthenticated: state.auth.isAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({
