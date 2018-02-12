@@ -96,8 +96,7 @@ class ItemsContainer extends React.Component {
     };
 
     loadItems = () => {
-        const { listID } = this.state;
-        this.props.actions.viewAllItemsInList(listID);
+        this.props.actions.viewAllItemsInList(this.props.match.params.id);
     };
 
     createItem = () => {
