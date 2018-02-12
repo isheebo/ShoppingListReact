@@ -1,9 +1,10 @@
 import * as types from '../actions/types';
+import { getAuthToken } from '../utils/tokenUtils';
 /** Handles all the authentication related operations */
 const authReducer = (
     state = {
         isFetching: false,
-        isAuthenticated: false,
+        isAuthenticated: !!getAuthToken() || false,
     },
     action,
 ) => {

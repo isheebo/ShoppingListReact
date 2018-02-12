@@ -118,6 +118,9 @@ class ResetPasswordPage extends React.Component {
 ResetPasswordPage.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     resetUserPassword: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+    }).isRequired,
 };
 
 const mapStateToProps = state => ({

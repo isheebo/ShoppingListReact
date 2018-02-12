@@ -142,6 +142,9 @@ class SignUpPage extends React.Component {
 SignUpPage.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     signupUser: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+    }).isRequired,
 };
 
 const mapStateToProps = state => ({

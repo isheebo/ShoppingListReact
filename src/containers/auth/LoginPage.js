@@ -74,6 +74,9 @@ class LoginPage extends React.Component {
 LoginPage.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     loginUser: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+    }).isRequired,
 };
 
 const mapStateToProps = state => ({
