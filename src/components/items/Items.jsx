@@ -20,7 +20,9 @@ const noStyle = {
     padding: '20px',
 };
 
-const Items = ({ listItems, onExecuteAction, searchQuery }) => {
+const Items = ({
+    listItems, onExecuteAction, searchQuery, isFetching,
+}) => {
     const items = listItems.filter(item => item.name.indexOf(searchQuery) !== -1);
     return (
         <Card
@@ -40,7 +42,8 @@ const Items = ({ listItems, onExecuteAction, searchQuery }) => {
             }}
         >
             <CardText>
-                {items &&
+                {!isFetching &&
+                    items &&
                     items.length > 0 && (
                         <Table>
                             <TableHeader
@@ -74,11 +77,12 @@ const Items = ({ listItems, onExecuteAction, searchQuery }) => {
                             </TableBody>
                         </Table>
                     )}
-                {items.length === 0 &&
+                {!isFetching &&
+                    items.length === 0 &&
                     (searchQuery ? (
-                        <h3 style={{ noStyle }}>No items found! </h3>
+                        <h3 style={noStyle}>No items found! </h3>
                     ) : (
-                        <h3 style={{ noStyle }}>No items have been added yet</h3>
+                        <h3 style={noStyle}>No items have been added yet</h3>
                     ))}
             </CardText>
         </Card>
@@ -100,6 +104,7 @@ Items.propTypes = {
     }.isRequired)),
     searchQuery: PropTypes.string.isRequired,
     onExecuteAction: PropTypes.func.isRequired,
+    isFetching: PropTypes.bool.isRequired,
 };
 
 export default Items;

@@ -93,7 +93,6 @@ const ListDashboard = ({
                         <h3 style={noStyle}> No shoppinglist found!</h3>
                     ) : (
                         <h3 style={noStyle}>
-                            {' '}
                             Get Started by creating a shopping list
                         </h3>
                     ))}

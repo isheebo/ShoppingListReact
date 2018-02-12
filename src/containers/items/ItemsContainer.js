@@ -26,7 +26,6 @@ class ItemsContainer extends React.Component {
         buttonLabel: '',
         searchQuery: '',
         checked: false, // representing whether an item has been bought
-        // isFetching: this.props.isFetching,
     };
 
     componentDidMount = () => {
@@ -175,6 +174,7 @@ class ItemsContainer extends React.Component {
                     onExecuteAction={this.handleOpen}
                     listItems={this.props.items}
                     searchQuery={searchQuery}
+                    isFetching={this.props.isFetching}
                 />
             </div>
         );
@@ -193,6 +193,7 @@ ItemsContainer.propTypes = {
         deleteItem: PropTypes.func.isRequired,
     }).isRequired,
     match: PropTypes.object.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
@@ -206,6 +207,7 @@ ItemsContainer.propTypes = {
 
 const mapStateToProps = state => ({
     items: state.items.items,
+    isFetching: state.items.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({

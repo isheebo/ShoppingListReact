@@ -39,7 +39,7 @@ const Item = ({ item, onExecuteAction }) => {
                             className="material-icons"
                             style={{ marginRight: 24, padding: 5 }}
                         >
-                            <i className="material-icons">cancel</i>
+                            <i className="material-icons">clear</i>
                         </FontIcon>
                     </IconButton>
                 )}
