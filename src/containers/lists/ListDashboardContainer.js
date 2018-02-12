@@ -9,6 +9,7 @@ import ListDialog from '../../components/lists/ListDialog';
 import * as listActions from '../../actions/listActions';
 import formatDate from '../../utils/formatDate';
 import { logoutUser } from '../../actions/authActions';
+import { viewAllItemsInList } from '../../actions/itemActions';
 import Header from '../../components/Header/Header';
 import SearchBar from '../../components/SearchBar';
 
@@ -125,6 +126,11 @@ class ListDashboardContainer extends React.Component {
         });
     };
 
+    handleOpenItemsView = (listID) => {
+        const { history } = this.props;
+        this.props.actions.viewAllItemsInList(listID, history);
+    };
+
     doAction = () => {
         const { dialogTitle, shoppinglist } = this.state;
 
@@ -236,6 +242,7 @@ class ListDashboardContainer extends React.Component {
                     onExecuteAction={this.handleOpen}
                     isFetching={isFetching}
                     history={this.props.history}
+                    handleOpenItemsView={this.handleOpenItemsView}
                 />
             </div>
 
@@ -250,6 +257,7 @@ ListDashboardContainer.defaultProps = {
 
 ListDashboardContainer.propTypes = {
     actions: PropTypes.shape({
+        viewAllItemsInList: PropTypes.func.isRequired,
         viewAllLists: PropTypes.func.isRequired,
         editShoppingList: PropTypes.func.isRequired,
         createShoppingList: PropTypes.func.isRequired,
@@ -278,7 +286,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({ ...listActions, logoutUser }, dispatch),
+    actions: bindActionCreators(
+        { ...listActions, logoutUser, viewAllItemsInList },
+        dispatch,
+    ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListDashboardContainer);

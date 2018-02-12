@@ -4,7 +4,6 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import DatePicker from 'material-ui/DatePicker';
-import ItemsContainer from '../../containers/items/ItemsContainer';
 
 const ListDialog = ({
     state,
@@ -19,15 +18,10 @@ const ListDialog = ({
         buttonLabel,
         shoppinglist,
         floatingLabelText,
-        viewItems,
     } = state;
 
     const actions = [
-        <FlatButton
-            label={viewItems ? 'Close' : 'Cancel'}
-            primary
-            onClick={handleClose}
-        />,
+        <FlatButton label="Cancel" primary onClick={handleClose} />,
         <FlatButton
             label={buttonLabel}
             primary
@@ -42,7 +36,7 @@ const ListDialog = ({
     return (
         <Dialog
             title={dialogTitle}
-            actions={viewItems ? [actions[0]] : actions}
+            actions={actions}
             modal={false}
             contentStyle={{
                 maxWidth: '40%',
@@ -56,45 +50,42 @@ const ListDialog = ({
             open={open}
             onRequestClose={handleClose}
         >
-            {buttonLabel === 'DELETE' &&
-                !viewItems && <p>Are you sure that you want to delete this list?</p>}
+            {buttonLabel === 'DELETE' && (
+                <p>Are you sure that you want to delete this list?</p>
+            )}
 
-            {buttonLabel !== 'DELETE' &&
-                !viewItems && (
-                    <TextField
-                        name="name"
-                        floatingLabelText={floatingLabelText}
-                        value={shoppinglist.name}
-                        onChange={onTextChange}
-                        fullWidth
-                    />
-                )}
+            {buttonLabel !== 'DELETE' && (
+                <TextField
+                    name="name"
+                    floatingLabelText={floatingLabelText}
+                    value={shoppinglist.name}
+                    onChange={onTextChange}
+                    fullWidth
+                />
+            )}
 
-            {viewItems && <ItemsContainer listID={shoppinglist.id} />}
-
-            {buttonLabel !== 'DELETE' &&
-                !viewItems && (
-                    <DatePicker
-                        autoOk
-                        defaultDate={
-                            shoppinglist.notify_date
-                                ? new Date(shoppinglist.notify_date)
-                                : new Date(Date.now())
-                        }
-                        minDate={new Date(Date.now())}
-                        onChange={(event, date) => {
-                            onDateChange(date);
-                        }}
-                        style={{ width: '100%' }}
-                        textFieldStyle={{
-                            width: '100%',
-                            fontWeight: '500',
-                            marginTop: 20,
-                            marginBottom: 5,
-                        }}
-                        floatingLabelText="Notify Date"
-                    />
-                )}
+            {buttonLabel !== 'DELETE' && (
+                <DatePicker
+                    autoOk
+                    defaultDate={
+                        shoppinglist.notify_date
+                            ? new Date(shoppinglist.notify_date)
+                            : new Date(Date.now())
+                    }
+                    minDate={new Date(Date.now())}
+                    onChange={(event, date) => {
+                        onDateChange(date);
+                    }}
+                    style={{ width: '100%' }}
+                    textFieldStyle={{
+                        width: '100%',
+                        fontWeight: '500',
+                        marginTop: 20,
+                        marginBottom: 5,
+                    }}
+                    floatingLabelText="Notify Date"
+                />
+            )}
         </Dialog>
     );
 };

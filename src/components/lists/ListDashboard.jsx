@@ -25,6 +25,7 @@ const ListDashboard = ({
     onExecuteAction,
     searchQuery,
     // isFetching,
+    handleOpenItemsView,
     history,
 }) => {
     // eslint-disable-next-line
@@ -71,6 +72,7 @@ const ListDashboard = ({
                                     shoppinglist={shoppingList}
                                     onExecuteAction={onExecuteAction}
                                     history={history}
+                                    handleOpenItemsView={handleOpenItemsView}
                                 />
                             ))}
                         </TableBody>
@@ -105,8 +107,10 @@ ListDashboard.propTypes = {
     })),
     searchQuery: PropTypes.string.isRequired,
     onExecuteAction: PropTypes.func.isRequired,
+    handleOpenItemsView: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
-    isFetching: PropTypes.bool.isRequired,
+
+    // isFetching: PropTypes.bool.isRequired,
 };
 
 export default ListDashboard;

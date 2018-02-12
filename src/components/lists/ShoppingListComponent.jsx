@@ -4,26 +4,26 @@ import Moment from 'moment';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton/FlatButton';
 
-const ShoppingListComponent = ({ shoppinglist, onExecuteAction, history }) => {
-    const handleClick = (action, event) => {
-        const id = event.target.getAttribute('data-id');
-        history.push(`items/${id}`);
+const ShoppingListComponent = ({
+    shoppinglist,
+    onExecuteAction,
+    handleOpenItemsView,
+}) => {
+    const handleClick = (action) => {
         onExecuteAction(shoppinglist, action);
     };
 
     return (
         <TableRow>
             <TableRowColumn>
-                <button
-                    onClick={event =>
-                        handleClick({ type: 'view items' }, event, this)
-                    }
-                    data-id={shoppinglist.id}
+                <FlatButton
+                    onClick={() => handleOpenItemsView(shoppinglist.id)}
                     style={{ color: '#000', textDecoration: 'none' }}
                 >
                     {shoppinglist.name}
-                </button>
+                </FlatButton>
             </TableRowColumn>
 
             <TableRowColumn style={{ color: 'rgba(127,127,127,1)' }}>
@@ -61,6 +61,18 @@ const ShoppingListComponent = ({ shoppinglist, onExecuteAction, history }) => {
                         <i className="material-icons">delete</i>
                     </FontIcon>
                 </IconButton>
+
+                <IconButton
+                    iconStyle={{ color: 'grey' }}
+                    onClick={() => handleOpenItemsView(shoppinglist.id)}
+                >
+                    <FontIcon
+                        className="material-icons"
+                        style={{ marginRight: 24, padding: 5 }}
+                    >
+                        <i className="material-icons">view_list</i>
+                    </FontIcon>
+                </IconButton>
             </TableRowColumn>
         </TableRow>
     );
@@ -74,8 +86,9 @@ ShoppingListComponent.propTypes = {
         date_created: PropTypes.string.isRequired,
         date_modified: PropTypes.string.isRequired,
     }).isRequired,
+    handleOpenItemsView: PropTypes.func.isRequired,
     onExecuteAction: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired,
+    // history: PropTypes.object.isRequired,
 };
 
 export default ShoppingListComponent;
