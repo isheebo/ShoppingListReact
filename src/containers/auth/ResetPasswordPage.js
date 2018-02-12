@@ -95,7 +95,7 @@ class ResetPasswordPage extends React.Component {
         const formData = new FormData();
         formData.append('password', password);
         formData.append('confirm password', confirmPassword);
-        this.props.resetUserPassword(formData);
+        this.props.resetUserPassword(formData, this.props.history);
         // redirect to the homepage (the one with lists)
     }
 

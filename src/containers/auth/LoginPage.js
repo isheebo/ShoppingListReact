@@ -51,7 +51,7 @@ class LoginPage extends React.Component {
         const formData = new FormData();
         formData.append('email', email);
         formData.append('password', password);
-        this.props.loginUser(formData);
+        this.props.loginUser(formData, this.props.history);
     }
 
     render() {

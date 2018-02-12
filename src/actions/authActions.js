@@ -19,17 +19,18 @@ export const signupFailure = response => ({
     response,
 });
 
-export const signupUser = credentials => (dispatch) => {
-    dispatch(signupRequest());
+export const signupUser = (credentials, history) => (dispatch) => {
+    dispatch(signupRequest(credentials));
     return instance
         .post('/auth/register', credentials)
         .then((response) => {
             dispatch(signupSuccess(response));
             dispatch(displaySnackBar(response.data.message));
+            history.push('/login');
         })
         .catch((err) => {
             dispatch(signupFailure(err));
-            dispatch(displaySnackBar(err.response.data.message));
+            dispatch(displaySnackBar(err && err.response.data.message));
         });
 };
 
@@ -51,7 +52,7 @@ export const loginFailure = response => ({
     response,
 });
 
-export const loginUser = credentials => (dispatch) => {
+export const loginUser = (credentials, history) => (dispatch) => {
     dispatch(loginRequest());
     return instance
         .post('/auth/login', credentials)
@@ -59,6 +60,7 @@ export const loginUser = credentials => (dispatch) => {
             dispatch(loginSuccess(response));
             dispatch(displaySnackBar(response.data.message));
             setAuthToken(response.data.token);
+            history.push('/dashboard');
         })
         .catch((response) => {
             dispatch(loginFailure(response));
@@ -82,7 +84,7 @@ export const logoutFailure = response => ({
     response,
 });
 
-export const logoutUser = () => (dispatch) => {
+export const logoutUser = history => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(logoutRequest());
     return instance
@@ -90,11 +92,11 @@ export const logoutUser = () => (dispatch) => {
         .then((resp) => {
             dispatch(logoutSuccess(resp));
             dispatch(displaySnackBar(resp.data.message));
-            deleteAuthToken();
+            history.push('/login');
+            deleteAuthToken(); // go to the login page
         })
         .catch((err) => {
             dispatch(logoutFailure(err));
-            dispatch(displaySnackBar(err.response.data.message));
         });
 };
 
@@ -114,7 +116,7 @@ export const resetPasswordFailure = response => ({
     response,
 });
 
-export const resetUserPassword = credentials => (dispatch) => {
+export const resetUserPassword = (credentials, history) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(resetPasswordRequest());
 
@@ -123,6 +125,7 @@ export const resetUserPassword = credentials => (dispatch) => {
         .then((response) => {
             dispatch(resetPasswordSuccess(response));
             dispatch(displaySnackBar(response.data.message));
+            history.push('/dashboard');
         })
         .catch((errResponse) => {
             dispatch(resetPasswordFailure(errResponse));

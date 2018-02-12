@@ -117,12 +117,7 @@ class SignUpPage extends React.Component {
         const formData = new FormData();
         formData.append('email', email);
         formData.append('password', password);
-        this.props.signupUser(formData);
-        // .then(() => {
-        //     history.push('/login');
-        //     console.log('We are here');
-        // })
-        // .catch();
+        this.props.signupUser(formData, this.props.history);
     }
 
     render() {
