@@ -1,17 +1,5 @@
 import * as types from '../actions/types';
-
-/**
- * Reducers manage independent parts of the state tree
- * reducers work in such a way that they take
- *
- * (prevState,action) => newState
- *
- * The reason is the same: to keep reducers self-sufficient and reusable.
- *
- * Does it matter what we have in the initial state, credentials is not
- * included?
- */
-
+/** Handles all the authentication related operations */
 const authReducer = (
     state = {
         isFetching: false,
@@ -24,17 +12,6 @@ const authReducer = (
     case types.LOGIN_REQUEST:
     case types.PASSWORD_RESET_REQUEST:
     case types.LOGOUT_REQUEST:
-        /**
-             * isAuthenticated: is only true once a user logs in.
-             * Before login, is authenticated === false.
-             *
-             * When making a password reset request, it is assumed
-             * that a user is loggedin.
-             *
-             * The same condition is assumed when a user is going to logout,
-             * if  a user's token expires before they logout, they would have
-             * to first login before being granted entry into the application
-             */
         return {
             ...state,
             isFetching: true,
@@ -66,12 +43,10 @@ const authReducer = (
     case types.SIGNUP_FAILURE:
     case types.LOGIN_FAILURE:
     case types.PASSWORD_RESET_FAILURE:
-        return Object.assign(
-            {},
-            {
-                isFetching: false,
-            },
-        );
+        return {
+            ...state,
+            isFetching: false,
+        };
 
     case types.LOGOUT_SUCCESS:
     case types.LOGOUT_FAILURE:
@@ -83,13 +58,11 @@ const authReducer = (
              * therefore,
              * A user has to relogin to access the app
              */
-        return Object.assign(
-            {},
-            {
-                isAuthenticated: false,
-                isFetching: false,
-            },
-        );
+        return {
+            ...state,
+            isAuthenticated: false,
+            isFetching: false,
+        };
 
     default:
         return state;

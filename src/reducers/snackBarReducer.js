@@ -6,22 +6,18 @@ const snackBarReducer = (
 ) => {
     switch (action.type) {
     case types.DISPLAY_SNACK_BAR:
-        return Object.assign(
-            {},
-            {
-                isSnackBarActive: true,
-                snackMessage: action.message,
-            },
-        );
+        return {
+            ...state,
+            isSnackBarActive: true,
+            snackMessage: action.message,
+        };
 
     case types.DISMISS_SNACK_BAR:
-        return Object.assign(
-            {},
-            {
-                isSnackBarActive: false,
-                snackMessage: '',
-            },
-        );
+        return {
+            ...state,
+            isSnackBarActive: false,
+            snackMessage: '',
+        };
 
     default:
         return state;
