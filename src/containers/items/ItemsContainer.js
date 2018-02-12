@@ -7,6 +7,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Items from '../../components/items/Items';
 import ItemDialog from '../../components/items/ItemDialog';
 import * as itemActions from '../../actions/itemActions';
+import { logoutUser } from '../../actions/authActions';
 import Header from '../../components/Header/Header';
 import SearchBar from '../../components/SearchBar';
 
@@ -172,7 +173,9 @@ class ItemsContainer extends React.Component {
     };
 
     logout = () => {
-        this.props.actions.logoutUser(this.props.history);
+        this.props.actions
+            .logoutUser()
+            .then(() => this.props.history.push('/login'));
     };
 
     render() {
@@ -265,7 +268,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({ ...itemActions }, dispatch),
+    actions: bindActionCreators({ ...itemActions, logoutUser }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);

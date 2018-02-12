@@ -22,6 +22,12 @@ class ResetPasswordPage extends React.Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
+    componentWillMount = () => {
+        if (!this.props.isAuthenticated) {
+            this.props.history.push('/');
+        }
+    };
+
     /**
      * Validates new passwords instantly as the
      * user provides them
@@ -127,6 +133,7 @@ class ResetPasswordPage extends React.Component {
 
 ResetPasswordPage.propTypes = {
     isFetching: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     resetUserPassword: PropTypes.func.isRequired,
     history: PropTypes.shape({
         push: PropTypes.func.isRequired,
@@ -135,6 +142,7 @@ ResetPasswordPage.propTypes = {
 
 const mapStateToProps = state => ({
     isFetching: state.auth.isFetching,
+    isAuthenticated: state.auth.isAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({

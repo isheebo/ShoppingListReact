@@ -7,7 +7,7 @@ import { getAuthToken } from '../utils/tokenUtils';
 const authReducer = (
     state = {
         isFetching: false,
-        isAuthenticated: !!getAuthToken() || false,
+        isAuthenticated: !!getAuthToken(),
     },
     action,
 ) => {

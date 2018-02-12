@@ -175,8 +175,9 @@ class ListDashboardContainer extends React.Component {
     };
 
     logout = () => {
-        this.props.history.push('/login');
-        this.props.actions.logoutUser();
+        this.props.actions
+            .logoutUser()
+            .then(() => this.props.history.push('/login'));
     };
 
     render() {

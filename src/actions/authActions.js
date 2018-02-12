@@ -107,8 +107,8 @@ export const logoutUser = history => (dispatch) => {
         .then((resp) => {
             dispatch(logoutSuccess(resp));
             dispatch(displaySnackBar(resp.data.message));
-            history.push('/login');
             deleteAuthToken(); // go to the login page
+            history.push('/login');
         })
         .catch((err) => {
             dispatch(logoutFailure(err));
