@@ -33,6 +33,8 @@ class ListDashboardContainer extends React.Component {
         if (!this.props.isAuthenticated) {
             this.props.history.push('/');
         }
+        // try calling viewAllItemsInList().
+        // If it fails, redirect to login page
     };
 
     componentDidMount = () => {
@@ -92,17 +94,27 @@ class ListDashboardContainer extends React.Component {
         });
     };
 
+    /**
+     * Controls how dialogs are closed
+     */
     handleClose = () => {
         this.setState({
             open: false,
         });
     };
 
+    /**
+     * Handles opening of items view from the shoppinglists table
+     */
     handleOpenItemsView = (listID) => {
         const { history } = this.props;
         this.props.actions.viewAllItemsInList(listID, history);
     };
 
+    /**
+     * controls the action to be performed
+     * depending on its type
+     */
     doAction = () => {
         const { dialogTitle, shoppinglist } = this.state;
 
@@ -124,6 +136,10 @@ class ListDashboardContainer extends React.Component {
         }
     };
 
+    /**
+     * Reset the state back to its initial form.
+     * More like resetting cache
+     */
     reset = () => {
         this.setState({ ...initialState });
     };
