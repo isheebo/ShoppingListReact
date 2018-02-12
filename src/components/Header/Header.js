@@ -9,12 +9,20 @@ class Header extends React.Component {
         return (
             <div>
                 <AppBar
-                    title={title}
-                    titleStyle={{
-                        color: '#f5f5f5',
-                        fontSize: 20,
-                        display: 'flex',
-                    }}
+                    title={
+                        <div>
+                            <a
+                                style={{
+                                    color: '#f5f5f5',
+                                    fontSize: 20,
+                                    display: 'flex',
+                                    textDecoration: 'none',
+                                }}
+                            >
+                                {title}
+                            </a>
+                        </div>
+                    }
                     style={{
                         backgroundColor: '#000',
                         paddingLeft: '15%',
