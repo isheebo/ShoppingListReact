@@ -7,6 +7,7 @@ import {
     TableHeaderColumn,
     TableRow,
 } from 'material-ui/Table';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 import { Card, CardText } from 'material-ui/Card';
 import Item from './Item';
 
@@ -42,6 +43,16 @@ const Items = ({
             }}
         >
             <CardText>
+                {isFetching && (
+                    <RefreshIndicator
+                        size={50}
+                        left={70}
+                        top={0}
+                        loadingColor="#FF9800"
+                        status="loading"
+                        style={{ display: 'inline-block', position: 'relative' }}
+                    />
+                )}
                 {!isFetching &&
                     items &&
                     items.length > 0 && (

@@ -8,6 +8,7 @@ import {
     TableRow,
 } from 'material-ui/Table';
 import { Card, CardText } from 'material-ui/Card';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 import ShoppingListComponent from './ShoppingListComponent';
 
 const noStyle = {
@@ -51,6 +52,16 @@ const ListDashboard = ({
             }}
         >
             <CardText>
+                {isFetching && (
+                    <RefreshIndicator
+                        size={50}
+                        left={70}
+                        top={0}
+                        loadingColor="#FF9800"
+                        status="loading"
+                        style={{ display: 'inline-block', position: 'relative' }}
+                    />
+                )}
                 {!isFetching &&
                     shoppingLists.length > 0 && (
                         <Table>
