@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField/TextField';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+// import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-const SearchBar = ({ onQueryChange }) => (
+const SearchBar = ({ onQueryChange, logout }) => (
     <div
         style={{
             display: 'inline-block',
@@ -53,19 +55,31 @@ const SearchBar = ({ onQueryChange }) => (
         <div>
             <IconMenu
                 iconButtonElement={
-                    <IconButton>
-                        <MoreVertIcon color="#fff" />
+                    <IconButton iconStyle={{ color: 'white' }}>
+                        <FontIcon
+                            className="material-icons"
+                            style={{
+                                marginRight: 24,
+                                padding: 5,
+                            }}
+                        >
+                            <i className="material-icons">account_circle</i>
+                        </FontIcon>
                     </IconButton>
                 }
-                targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             >
-                <MenuItem primaryText="Reset Password" />
-                <MenuItem primaryText="Sign out" />
+                <Link to="/reset-password" style={{ textDecoration: 'none' }}>
+                    <MenuItem primaryText="Reset Password" />
+                </Link>
+                <MenuItem primaryText="Logout" onClick={logout} />
             </IconMenu>
         </div>
     </div>
 );
+
+SearchBar.propTypes = {
+    logout: PropTypes.func.isRequired,
+};
 
 SearchBar.propTypes = {
     onQueryChange: PropTypes.func.isRequired,
