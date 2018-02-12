@@ -24,7 +24,7 @@ const ListDashboard = ({
     shoppinglists,
     onExecuteAction,
     searchQuery,
-    // isFetching,
+    isFetching,
     handleOpenItemsView,
     history,
 }) => {
@@ -51,35 +51,44 @@ const ListDashboard = ({
             }}
         >
             <CardText>
-                {shoppingLists.length > 0 && (
-                    <Table>
-                        <TableHeader
-                            displaySelectAll={false}
-                            adjustForCheckbox={false}
-                        >
-                            <TableRow>
-                                <TableHeaderColumn>Name</TableHeaderColumn>
-                                <TableHeaderColumn> Notify Date </TableHeaderColumn>
-                                <TableHeaderColumn>Date Created</TableHeaderColumn>
-                                <TableHeaderColumn>Date Modified</TableHeaderColumn>
-                                <TableHeaderColumn>Actions</TableHeaderColumn>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {shoppingLists.map(shoppingList => (
-                                <ShoppingListComponent
-                                    key={shoppingList.id}
-                                    shoppinglist={shoppingList}
-                                    onExecuteAction={onExecuteAction}
-                                    history={history}
-                                    handleOpenItemsView={handleOpenItemsView}
-                                />
-                            ))}
-                        </TableBody>
-                    </Table>
-                )}
+                {!isFetching &&
+                    shoppingLists.length > 0 && (
+                        <Table>
+                            <TableHeader
+                                displaySelectAll={false}
+                                adjustForCheckbox={false}
+                            >
+                                <TableRow>
+                                    <TableHeaderColumn>Name</TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        {' '}
+                                        Notify Date{' '}
+                                    </TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        Date Created
+                                    </TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        Date Modified
+                                    </TableHeaderColumn>
+                                    <TableHeaderColumn>Actions</TableHeaderColumn>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {shoppingLists.map(shoppingList => (
+                                    <ShoppingListComponent
+                                        key={shoppingList.id}
+                                        shoppinglist={shoppingList}
+                                        onExecuteAction={onExecuteAction}
+                                        history={history}
+                                        handleOpenItemsView={handleOpenItemsView}
+                                    />
+                                ))}
+                            </TableBody>
+                        </Table>
+                    )}
 
-                {shoppingLists.length === 0 &&
+                {!isFetching &&
+                    shoppingLists.length === 0 &&
                     (searchQuery ? (
                         <h3 style={noStyle}> No shoppinglist found!</h3>
                     ) : (

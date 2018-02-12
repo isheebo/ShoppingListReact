@@ -28,7 +28,6 @@ class ListDashboardContainer extends React.Component {
         dialogTitle: '',
         buttonLabel: 'ADD',
         floatingLabelText: '',
-        isFetching: true, // make it false
     };
 
     componentDidMount = () => {
@@ -190,7 +189,7 @@ class ListDashboardContainer extends React.Component {
     };
 
     render() {
-        const { searchQuery, isFetching } = this.state;
+        const { searchQuery } = this.state;
 
         return (
             <div>
@@ -233,7 +232,7 @@ class ListDashboardContainer extends React.Component {
                     searchQuery={searchQuery}
                     shoppinglists={this.props.shoppinglists}
                     onExecuteAction={this.handleOpen}
-                    isFetching={isFetching}
+                    isFetching={this.props.isFetching}
                     history={this.props.history}
                     handleOpenItemsView={this.handleOpenItemsView}
                 />
@@ -265,6 +264,7 @@ ListDashboardContainer.propTypes = {
         date_created: PropTypes.string,
         date_modified: PropTypes.string,
     })),
+    isFetching: PropTypes.bool.isRequired,
     history: PropTypes.shape({
         push: PropTypes.func.isRequired,
     }).isRequired,
@@ -276,6 +276,7 @@ ListDashboardContainer.contextTypes = {
 
 const mapStateToProps = state => ({
     shoppinglists: state.lists.shoppinglists,
+    isFetching: state.lists.isFetching,
 });
 
 const mapDispatchToProps = dispatch => ({
