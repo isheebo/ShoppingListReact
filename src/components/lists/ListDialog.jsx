@@ -27,8 +27,9 @@ const ListDialog = ({
             primary
             onClick={doAction}
             disabled={
-                (!shoppinglist.name && !shoppinglist.notify_date) ||
-                (shoppinglist.name && shoppinglist.name.length === 0)
+                !shoppinglist.name ||
+                !shoppinglist.notify_date ||
+                shoppinglist.name.length === 0
             }
         />,
     ];
