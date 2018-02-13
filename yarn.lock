@@ -1054,6 +1054,10 @@ binary-extensions@^1.0.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.11.0.tgz#46aa1751fb6a2f93ee5e689bb1087d4b14c6c205"
 
+bind-decorator@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/bind-decorator/-/bind-decorator-1.0.11.tgz#e41bc06a1f65dd9cec476c91c5daf3978488252f"
+
 block-stream@*:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/block-stream/-/block-stream-0.0.9.tgz#13ebfe778a03205cfe03751481ebb4b3300c126a"
@@ -4277,6 +4281,14 @@ makeerror@1.0.x:
 map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
+
+material-ui-number-input@^5.0.24:
+  version "5.0.24"
+  resolved "https://registry.yarnpkg.com/material-ui-number-input/-/material-ui-number-input-5.0.24.tgz#09125d1a82b6c219e9af8b3c2c68c9ec6c0dfbc4"
+  dependencies:
+    bind-decorator "^1.0.11"
+    object-assign "^4.1.1"
+    prop-types "^15.5.10"
 
 material-ui@^0.20.0:
   version "0.20.0"
