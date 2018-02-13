@@ -23,6 +23,7 @@
         "max-len": ["error", 85],
         "indent": ["error", 4],
         "quotes": [1, "single"],
+        "no-mixed-operator": "off",
         "prefer-arrow-callback": "warn",
         "prefer-const": "warn",
         "object-curly-spacing": ["error", "always"],
