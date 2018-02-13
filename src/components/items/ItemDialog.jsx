@@ -4,6 +4,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Checkbox from 'material-ui/Checkbox';
+import NumberInput from 'material-ui-number-input';
 
 /**
  * A universal modal / dialog used for adding, editing and
@@ -17,10 +18,18 @@ const ItemDialog = ({
     doAction,
     checked,
     onCheck,
+    onPriceError,
+    onQuantityError,
 }) => {
     const {
-        buttonLabel, dialogTitle, item, open,
+        buttonLabel,
+        dialogTitle,
+        item,
+        open,
+        priceErrorText,
+        quantityErrorText,
     } = state;
+
     const actions = [
         <FlatButton label="cancel" primary onClick={handleClose} />,
         <FlatButton
@@ -28,7 +37,12 @@ const ItemDialog = ({
             primary
             onClick={doAction}
             disabled={
-                !item.name || !item.price || !item.quantity || item.name.length === 0
+                !item.name ||
+                !item.price ||
+                !item.quantity ||
+                priceErrorText ||
+                quantityErrorText ||
+                item.name.length === 0
             }
         />,
     ];
@@ -57,23 +71,31 @@ const ItemDialog = ({
             )}
 
             {buttonLabel !== 'DELETE' && (
-                <TextField
+                <NumberInput
                     name="price"
-                    floatingLabelText="Price"
-                    type="number" // assuming numerical input only
                     value={item.price}
+                    required
+                    floatingLabelText="Price"
+                    min={1}
+                    max={100000000}
+                    errorText={priceErrorText}
                     onChange={onTextChange}
+                    onError={onPriceError}
                     fullWidth
                 />
             )}
 
             {buttonLabel !== 'DELETE' && (
-                <TextField
+                <NumberInput
                     name="quantity"
-                    floatingLabelText="Quantity"
-                    type="number"
                     value={item.quantity}
+                    required
+                    floatingLabelText="Quantity"
+                    min={1}
+                    max={10000}
+                    errorText={quantityErrorText}
                     onChange={onTextChange}
+                    onError={onQuantityError}
                     fullWidth
                 />
             )}
@@ -104,6 +126,8 @@ ItemDialog.propTypes = {
     onTextChange: PropTypes.func.isRequired,
     checked: PropTypes.bool.isRequired,
     onCheck: PropTypes.func.isRequired,
+    onPriceError: PropTypes.func.isRequired,
+    onQuantityError: PropTypes.func.isRequired,
 };
 
 export default ItemDialog;

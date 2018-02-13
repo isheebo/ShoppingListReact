@@ -26,8 +26,11 @@ class ItemsContainer extends React.Component {
         dialogTitle: '',
         buttonLabel: '',
         searchQuery: '',
+        quantityErrorText: '',
+        priceErrorText: '',
         checked: false, // representing whether an item has been bought
     };
+
     componentWillMount = () => {
         if (!this.props.isAuthenticated) {
             this.props.history.push('/');
@@ -42,6 +45,66 @@ class ItemsContainer extends React.Component {
         const item = { ...this.state.item };
         item[event.target.name] = event.target.value;
         this.setState({ item });
+    };
+
+    onPriceError = (error) => {
+        let priceErrorText;
+        // console.log(priceErrorText);
+        switch (error) {
+        case 'required':
+            priceErrorText = 'This field is required';
+            break;
+        case 'invalidSymbol':
+            priceErrorText = 'only numerical input is allowed';
+            break;
+        case 'incompleteNumber':
+            priceErrorText = 'Number is incomplete';
+            break;
+        case 'singleFloatingPoint':
+            priceErrorText = 'There is already a floating point';
+            break;
+        case 'singleZero':
+            priceErrorText = 'Floating point is expected';
+            break;
+        case 'min':
+            priceErrorText = 'The value of price must be positive';
+            break;
+        case 'max':
+            priceErrorText = 'Your input is too large';
+            break;
+        default:
+        }
+
+        this.setState({ priceErrorText });
+    };
+
+    onQuantityError = (error) => {
+        let quantityErrorText;
+        switch (error) {
+        case 'required':
+            quantityErrorText = 'This field is required';
+            break;
+        case 'invalidSymbol':
+            quantityErrorText = 'only numerical input is allowed';
+            break;
+        case 'incompleteNumber':
+            quantityErrorText = 'Number is incomplete';
+            break;
+        case 'singleFloatingPoint':
+            quantityErrorText = 'There is already a floating point';
+            break;
+        case 'singleZero':
+            quantityErrorText = 'Floating point is expected';
+            break;
+        case 'min':
+            quantityErrorText = 'The value of price/quantity must be positive';
+            break;
+        case 'max':
+            quantityErrorText = 'Your input is too large';
+            break;
+        default:
+        }
+        this.setState({ quantityErrorText });
     };
 
     /**
@@ -180,6 +243,7 @@ class ItemsContainer extends React.Component {
 
     render() {
         const { checked, searchQuery } = this.state;
+
         return (
             <div>
                 <FloatingActionButton
@@ -219,6 +283,8 @@ class ItemsContainer extends React.Component {
                     doAction={this.doAction}
                     checked={checked}
                     onCheck={this.onUpdateCheck}
+                    onQuantityError={this.onQuantityError}
+                    onPriceError={this.onPriceError}
                 />
 
                 <Items
