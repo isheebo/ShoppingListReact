@@ -23,6 +23,7 @@
         "max-len": ["error", 85],
         "indent": ["error", 4],
         "quotes": [1, "single"],
+        "no-mixed-operators": "off",
         "prefer-arrow-callback": "warn",
         "prefer-const": "warn",
         "object-curly-spacing": ["error", "always"],
@@ -30,10 +31,7 @@
         "import/no-unresolved": "off",
         "import/extensions": ["off", [".js", ".jsx"]],
         "react/forbid-prop-types": "off",
-        "react/prefer-stateless-function": [
-            0,
-            { "ignorePureComponents": false }
-        ],
+        "react/prefer-stateless-function": [0, { "ignorePureComponents": false }],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/jsx-indent": [2, 4],
         "react/jsx-indent-props": [2, 4],

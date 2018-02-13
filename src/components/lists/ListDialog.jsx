@@ -68,10 +68,9 @@ const ListDialog = ({
             {buttonLabel !== 'DELETE' && (
                 <DatePicker
                     autoOk
-                    defaultDate={
-                        shoppinglist.notify_date
-                            ? new Date(shoppinglist.notify_date)
-                            : new Date(Date.now())
+                    value={
+                        shoppinglist.notify_date &&
+                        new Date(shoppinglist.notify_date)
                     }
                     minDate={new Date(Date.now())}
                     onChange={(event, date) => {
@@ -98,9 +97,7 @@ ListDialog.propTypes = {
         open: PropTypes.bool.isRequired,
         shoppinglist: PropTypes.shape({
             name: PropTypes.string.isRequired,
-            notify_date: PropTypes.string.isRequired,
-            date_created: PropTypes.string.isRequired,
-            date_modified: PropTypes.string.isRequired,
+            notify_date: PropTypes.string,
         }).isRequired,
     }).isRequired,
 

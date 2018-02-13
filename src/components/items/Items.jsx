@@ -9,7 +9,9 @@ import {
 } from 'material-ui/Table';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import { Card, CardText } from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
 import Item from './Item';
+import Pagination from '../pagination/Pagination';
 
 const noStyle = {
     top: '20px',
@@ -25,7 +27,13 @@ const noStyle = {
  * A table view of items on a user's specified shopping list
  */
 const Items = ({
-    listItems, onExecuteAction, searchQuery, isFetching,
+    listItems,
+    onExecuteAction,
+    searchQuery,
+    isFetching,
+    numberOfItemsPerPage,
+    onUpdateRows,
+    page,
 }) => {
     const items = listItems.filter(item => item.name.indexOf(searchQuery) !== -1);
     return (
@@ -59,36 +67,57 @@ const Items = ({
                 {!isFetching &&
                     items &&
                     items.length > 0 && (
-                        <Table>
-                            <TableHeader
-                                adjustForCheckbox={false}
-                                displaySelectAll={false}
-                            >
-                                <TableRow>
-                                    <TableHeaderColumn> Name </TableHeaderColumn>
-                                    <TableHeaderColumn> Price </TableHeaderColumn>
-                                    <TableHeaderColumn> Quantity </TableHeaderColumn>
-                                    <TableHeaderColumn> Bought </TableHeaderColumn>
-                                    <TableHeaderColumn>
-                                        Date Created
-                                    </TableHeaderColumn>
-                                    <TableHeaderColumn>
-                                        Date Modified
-                                    </TableHeaderColumn>
-                                    <TableHeaderColumn> Actions </TableHeaderColumn>
-                                </TableRow>
-                            </TableHeader>
+                        <div>
+                            <Table>
+                                <TableHeader
+                                    adjustForCheckbox={false}
+                                    displaySelectAll={false}
+                                >
+                                    <TableRow>
+                                        <TableHeaderColumn> Name </TableHeaderColumn>
+                                        <TableHeaderColumn>Price</TableHeaderColumn>
+                                        <TableHeaderColumn>
+                                            Quantity
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn>Bought</TableHeaderColumn>
+                                        <TableHeaderColumn>
+                                            Date Created
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn>
+                                            Date Modified
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn>
+                                            Actions
+                                        </TableHeaderColumn>
+                                    </TableRow>
+                                </TableHeader>
 
-                            <TableBody>
-                                {items.map(item => (
-                                    <Item
-                                        key={item.id}
-                                        item={item}
-                                        onExecuteAction={onExecuteAction}
-                                    />
-                                ))}
-                            </TableBody>
-                        </Table>
+                                <TableBody>
+                                    {items
+                                        .slice(
+                                            page * numberOfItemsPerPage -
+                                                numberOfItemsPerPage,
+                                            page * numberOfItemsPerPage,
+                                        )
+                                        .map(item => (
+                                            <Item
+                                                key={item.id}
+                                                item={item}
+                                                onExecuteAction={onExecuteAction}
+                                            />
+                                        ))}
+                                </TableBody>
+                            </Table>
+                            <Divider />
+                            <Pagination
+                                total={items.length}
+                                page={page}
+                                numberOfRows={numberOfItemsPerPage}
+                                rowsPerPage={[5, 10, 15]}
+                                updateRows={onUpdateRows}
+                                rowsPerPageTitle="Items Per Page:"
+                            />
+                        </div>
                     )}
                 {!isFetching &&
                     items.length === 0 &&
@@ -115,7 +144,10 @@ Items.propTypes = {
         date_created: PropTypes.string.isRequired,
         date_modified: PropTypes.string.isRequired,
     }.isRequired)),
+    page: PropTypes.number.isRequired,
+    numberOfItemsPerPage: PropTypes.number.isRequired,
     searchQuery: PropTypes.string.isRequired,
+    onUpdateRows: PropTypes.func.isRequired,
     onExecuteAction: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
 };
