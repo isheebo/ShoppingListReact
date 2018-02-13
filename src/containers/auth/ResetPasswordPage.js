@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Validator from 'validator';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Header from '../../components/Header/Header';
 import ResetPasswordForm from '../../components/auth/ResetPasswordForm';
 import { resetUserPassword } from '../../actions/authActions';
 
@@ -119,6 +120,7 @@ class ResetPasswordPage extends React.Component {
         const { password, confirmPassword, validationErrors } = this.state;
         return (
             <div>
+                <Header title="Reset" />
                 <ResetPasswordForm
                     isFetching={this.props.isFetching}
                     credentials={{ password, confirmPassword }}
