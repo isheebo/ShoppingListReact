@@ -34,7 +34,7 @@ const ListDashboard = ({
     isFetching,
     handleOpenItemsView,
     history,
-    updateRows,
+    onUpdateRows,
     numberOfListsPerPage,
     page,
 }) => {
@@ -98,10 +98,11 @@ const ListDashboard = ({
                                 <TableBody>
                                     {shoppingLists
                                         .slice(
-                                            page * numberOfListsPerPage,
-                                            page * numberOfListsPerPage +
+                                            page * numberOfListsPerPage -
                                                 numberOfListsPerPage,
+                                            page * numberOfListsPerPage,
                                         )
+
                                         .map(shoppingList => (
                                             <ShoppingListComponent
                                                 key={shoppingList.id}
@@ -121,7 +122,7 @@ const ListDashboard = ({
                                 page={page}
                                 numberOfRows={numberOfListsPerPage}
                                 rowsPerPage={[5, 10, 15]}
-                                updateRows={updateRows}
+                                updateRows={onUpdateRows}
                                 rowsPerPageTitle="Lists Per Page:"
                             />
                         </div>
@@ -158,7 +159,7 @@ ListDashboard.propTypes = {
     numberOfListsPerPage: PropTypes.number.isRequired,
     onExecuteAction: PropTypes.func.isRequired,
     handleOpenItemsView: PropTypes.func.isRequired,
-    updateRows: PropTypes.func.isRequired,
+    onUpdateRows: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
 };

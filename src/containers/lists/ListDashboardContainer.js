@@ -74,13 +74,13 @@ class ListDashboardContainer extends React.Component {
         this.setState({ searchQuery: event.target.value });
     };
 
-    updateRows(updatedState) {
+    onUpdateRows = (updatedState) => {
         console.log('updatedState = ', updatedState);
         this.setState({
             page: updatedState.page,
             numberOfListsPerPage: updatedState.numberOfRows,
         });
-    }
+    };
     /**
      * Convert the action type to title case
      * and display it as the dialog title
@@ -242,7 +242,7 @@ class ListDashboardContainer extends React.Component {
                     isFetching={this.props.isFetching}
                     history={this.props.history}
                     handleOpenItemsView={this.handleOpenItemsView}
-                    UpdateRows={this.updateRows}
+                    onUpdateRows={this.onUpdateRows}
                 />
             </div>
 

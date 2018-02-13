@@ -224,7 +224,7 @@ Pagination.defaultProps = {
     pageTitle: 'Page:',
     rowsPerPageTitle: 'Rows Per Page:',
     prepositionForRowRange: 'of',
-    updateRows: () => {},
+    // updateRows: () => {},
 };
 
 Pagination.propTypes = {
