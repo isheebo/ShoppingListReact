@@ -49,7 +49,6 @@ class ItemsContainer extends React.Component {
 
     onPriceError = (error) => {
         let priceErrorText;
-        // console.log(priceErrorText);
         switch (error) {
         case 'required':
             priceErrorText = 'This field is required';

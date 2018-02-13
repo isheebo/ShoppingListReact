@@ -75,7 +75,6 @@ class ListDashboardContainer extends React.Component {
     };
 
     onUpdateRows = (updatedState) => {
-        console.log('updatedState = ', updatedState);
         this.setState({
             page: updatedState.page,
             numberOfListsPerPage: updatedState.numberOfRows,

@@ -41,6 +41,7 @@ const ListDashboard = ({
     // eslint-disable-next-line
     const shoppingLists = shoppinglists.filter(
         shoppingList => shoppingList.name.indexOf(searchQuery) !== -1);
+
     return (
         <Card
             style={{
