@@ -8,8 +8,10 @@ import {
     TableRow,
 } from 'material-ui/Table';
 import { Card, CardText } from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import ShoppingListComponent from './ShoppingListComponent';
+import Pagination from '../pagination/Pagination';
 
 const noStyle = {
     top: '20px',
@@ -32,6 +34,9 @@ const ListDashboard = ({
     isFetching,
     handleOpenItemsView,
     history,
+    updateRows,
+    numberOfListsPerPage,
+    page,
 }) => {
     // eslint-disable-next-line
     const shoppingLists = shoppinglists.filter(
@@ -68,37 +73,58 @@ const ListDashboard = ({
                 )}
                 {!isFetching &&
                     shoppingLists.length > 0 && (
-                        <Table>
-                            <TableHeader
-                                displaySelectAll={false}
-                                adjustForCheckbox={false}
-                            >
-                                <TableRow>
-                                    <TableHeaderColumn>Name</TableHeaderColumn>
-                                    <TableHeaderColumn>
-                                        Notify Date
-                                    </TableHeaderColumn>
-                                    <TableHeaderColumn>
-                                        Date Created
-                                    </TableHeaderColumn>
-                                    <TableHeaderColumn>
-                                        Date Modified
-                                    </TableHeaderColumn>
-                                    <TableHeaderColumn>Actions</TableHeaderColumn>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {shoppingLists.map(shoppingList => (
-                                    <ShoppingListComponent
-                                        key={shoppingList.id}
-                                        shoppinglist={shoppingList}
-                                        onExecuteAction={onExecuteAction}
-                                        history={history}
-                                        handleOpenItemsView={handleOpenItemsView}
-                                    />
-                                ))}
-                            </TableBody>
-                        </Table>
+                        <div>
+                            <Table>
+                                <TableHeader
+                                    displaySelectAll={false}
+                                    adjustForCheckbox={false}
+                                >
+                                    <TableRow>
+                                        <TableHeaderColumn>Name</TableHeaderColumn>
+                                        <TableHeaderColumn>
+                                            Notify Date
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn>
+                                            Date Created
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn>
+                                            Date Modified
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn>
+                                            Actions
+                                        </TableHeaderColumn>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {shoppingLists
+                                        .slice(
+                                            page * numberOfListsPerPage,
+                                            page * numberOfListsPerPage +
+                                                numberOfListsPerPage,
+                                        )
+                                        .map(shoppingList => (
+                                            <ShoppingListComponent
+                                                key={shoppingList.id}
+                                                shoppinglist={shoppingList}
+                                                onExecuteAction={onExecuteAction}
+                                                history={history}
+                                                handleOpenItemsView={
+                                                    handleOpenItemsView
+                                                }
+                                            />
+                                        ))}
+                                </TableBody>
+                            </Table>
+                            <Divider />
+                            <Pagination
+                                total={shoppingLists.length}
+                                page={page}
+                                numberOfRows={numberOfListsPerPage}
+                                rowsPerPage={[5, 10, 15]}
+                                updateRows={updateRows}
+                                rowsPerPageTitle="Lists Per Page:"
+                            />
+                        </div>
                     )}
 
                 {!isFetching &&
@@ -128,8 +154,11 @@ ListDashboard.propTypes = {
         date_modified: PropTypes.string,
     })),
     searchQuery: PropTypes.string.isRequired,
+    page: PropTypes.number.isRequired,
+    numberOfListsPerPage: PropTypes.number.isRequired,
     onExecuteAction: PropTypes.func.isRequired,
     handleOpenItemsView: PropTypes.func.isRequired,
+    updateRows: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
 };

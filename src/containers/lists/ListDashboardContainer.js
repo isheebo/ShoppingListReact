@@ -27,12 +27,16 @@ class ListDashboardContainer extends React.Component {
         searchQuery: '',
         dialogTitle: '',
         buttonLabel: '',
+        page: 1,
+        numberOfListsPerPage: 5,
     };
 
     componentWillMount = () => {
         if (!this.props.isAuthenticated) {
             this.props.history.push('/');
         }
+        // check whether the status code is 401,
+        // if it is,  log the user out by force!
         // try calling viewAllItemsInList().
         // If it fails, redirect to login page
     };
@@ -70,6 +74,13 @@ class ListDashboardContainer extends React.Component {
         this.setState({ searchQuery: event.target.value });
     };
 
+    updateRows(updatedState) {
+        console.log('updatedState = ', updatedState);
+        this.setState({
+            page: updatedState.page,
+            numberOfListsPerPage: updatedState.numberOfRows,
+        });
+    }
     /**
      * Convert the action type to title case
      * and display it as the dialog title
@@ -181,8 +192,7 @@ class ListDashboardContainer extends React.Component {
     };
 
     render() {
-        const { searchQuery } = this.state;
-
+        const { searchQuery, numberOfListsPerPage, page } = this.state;
         return (
             <div>
                 <FloatingActionButton
@@ -226,10 +236,13 @@ class ListDashboardContainer extends React.Component {
                 <ListDashboard
                     searchQuery={searchQuery}
                     shoppinglists={this.props.shoppinglists}
+                    page={page}
+                    numberOfListsPerPage={numberOfListsPerPage}
                     onExecuteAction={this.handleOpen}
                     isFetching={this.props.isFetching}
                     history={this.props.history}
                     handleOpenItemsView={this.handleOpenItemsView}
+                    UpdateRows={this.updateRows}
                 />
             </div>
 
