@@ -5,18 +5,24 @@ import { getAuthToken } from '../utils/tokenUtils';
 
 /**
  * Adding a new item
+ * Requires a valid shopping list ID
+ * @param {number} ID, shopping list ID
+ * @param {FormData} itemData, formdata for an item
  */
-export const addItemRequest = itemData => ({
+const createItemRequest = (listID, itemData) => ({
     type: types.CREATE_ITEM_REQUEST,
+    listID,
     itemData,
 });
 
-export const addItemSuccess = response => ({
+/** Includes the server's response on success */
+const createItemSuccess = response => ({
     type: types.CREATE_ITEM_SUCCESS,
     response,
 });
 
-export const addItemFailure = response => ({
+/** Includes the server's response on failure */
+const createItemFailure = response => ({
     type: types.CREATE_ITEM_FAILURE,
     response,
 });
@@ -25,17 +31,17 @@ export const addItemFailure = response => ({
  * @description Adds a new item to the shoppinglist specified by ID
  * @param {object} itemData
  */
-export const addNewItem = itemData => (dispatch) => {
+export const createNewItem = (listID, itemData) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
-    dispatch(addItemRequest(itemData));
+    dispatch(createItemRequest(listID, itemData));
     return instance
-        .post(`/shoppinglists/${itemData.listID}/items`, itemData)
+        .post(`/shoppinglists/${listID}/items`, itemData)
         .then((response) => {
-            dispatch(addItemSuccess(response));
+            dispatch(createItemSuccess(response));
             dispatch(displaySnackBar(response.data.message));
         })
         .catch((response) => {
-            dispatch(addItemFailure(response));
+            dispatch(createItemFailure(response));
             dispatch(displaySnackBar(response.response.data.message));
         });
 };
@@ -44,64 +50,66 @@ export const addNewItem = itemData => (dispatch) => {
  * Viewing all items in one shoppinglist
  */
 
-export const viewAllItemsRequest = listID => ({
+const viewAllItemsRequest = listID => ({
     type: types.VIEW_ALL_ITEMS_REQUEST,
     listID,
 });
 
-export const viewAllItemsSuccess = response => ({
+const viewAllItemsSuccess = response => ({
     type: types.VIEW_ALL_ITEMS_SUCCESS,
     response,
 });
 
-export const viewAllItemsFailure = error => ({
+const viewAllItemsFailure = error => ({
     type: types.VIEW_ALL_ITEMS_FAILURE,
     error,
 });
 
 /**
+ * Returns all shopping lists owned by the currently loggedin user
  * @param listID - the ID of the shoppinglist
  * @returns all items in shoppinglist with ID `listID`
  */
-export const viewAllItemsInList = listID => (dispatch) => {
+export const viewAllItemsInList = (listID, history) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
     dispatch(viewAllItemsRequest(listID));
     return instance
         .get(`/shoppinglists/${listID}/items`)
         .then((response) => {
             dispatch(viewAllItemsSuccess(response));
-            dispatch(displaySnackBar(response.data.message));
+            history.push(`/items/${listID}`);
         })
         .catch((error) => {
             dispatch(viewAllItemsFailure(error));
-            dispatch(displaySnackBar(error.response.data.message));
         });
 };
 
 /**
- * View one Item in the shoppinglist
- * @param itemData
+ * View one Item in the shopping list
+ * @param{number} itemID, ID of the item in the shopping list
+ * @param {number} listID, ID of a shopping list
  */
-export const viewOneItemRequest = itemData => ({
+const viewOneItemRequest = (listID, itemID) => ({
     type: types.VIEW_ITEM_REQUEST,
-    itemData,
+    itemID,
+    listID,
 });
 
-export const viewOneItemSuccess = response => ({
+const viewOneItemSuccess = response => ({
     type: types.VIEW_ITEM_SUCCESS,
     response,
 });
 
-export const viewOneItemFailure = response => ({
+const viewOneItemFailure = response => ({
     type: types.VIEW_ITEM_FAILURE,
     response,
 });
 
-export const viewOneItem = itemData => (dispatch) => {
+export const viewOneItem = (listID, itemID) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
-    dispatch(viewOneItemRequest(itemData));
+    dispatch(viewOneItemRequest(listID, itemID));
     return instance
-        .get(`/shoppinglists/${itemData.listID}/items/${itemData.itemID}`)
+        .get(`/shoppinglists/${listID}/items/${itemID}`)
         .then((response) => {
             dispatch(viewOneItemSuccess(response));
             dispatch(displaySnackBar(response.data.message));
@@ -115,9 +123,11 @@ export const viewOneItem = itemData => (dispatch) => {
 /**
  * Editing an Item
  */
-const editItemRequest = params => ({
+const editItemRequest = (listID, itemID, itemData) => ({
     type: types.EDIT_ITEM_REQUEST,
-    params,
+    listID,
+    itemID,
+    itemData,
 });
 
 const editItemSuccess = response => ({
@@ -130,11 +140,17 @@ const editItemFailure = error => ({
     error,
 });
 
-export const editItem = params => (dispatch) => {
+/**
+ *  @param listID - the ID of the shoppinglist
+ * @param itemID - ID of the item to be edited
+ * @param itemData - the data consisiting of new
+ * changes to be applied to the item
+ */
+export const editItem = (listID, itemID, itemData) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
-    dispatch(editItemRequest(params));
+    dispatch(editItemRequest(listID, itemID, itemData));
     return instance
-        .put(`/shoppinglists/${params.listID}/items/${params.itemID}`)
+        .put(`/shoppinglists/${listID}/items/${itemID}`, itemData)
         .then((response) => {
             dispatch(editItemSuccess(response));
             dispatch(displaySnackBar(response.data.message));
@@ -145,12 +161,12 @@ export const editItem = params => (dispatch) => {
         });
 };
 
-/**
- * Deleting an Item
- */
-const deleteItemRequest = params => ({
+/** Deleting an Item */
+
+const deleteItemRequest = (listID, itemID) => ({
     type: types.DELETE_ITEM_REQUEST,
-    params,
+    listID,
+    itemID,
 });
 
 const deleteItemSuccess = response => ({
@@ -163,11 +179,15 @@ const deleteItemFailure = error => ({
     error,
 });
 
-export const deleteItem = params => (dispatch) => {
+/**
+ * Deletes an Item with ID, itemID from
+ * a shoppinglist with ID, listID
+ */
+export const deleteItem = (listID, itemID) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
-    dispatch(deleteItemRequest(params));
+    dispatch(deleteItemRequest(listID, itemID));
     return instance
-        .delete(`/shoppinglists/${params.listID}/items/${params.itemID}`)
+        .delete(`/shoppinglists/${listID}/items/${itemID}`)
         .then((response) => {
             dispatch(deleteItemSuccess(response));
             dispatch(displaySnackBar(response.data.message));

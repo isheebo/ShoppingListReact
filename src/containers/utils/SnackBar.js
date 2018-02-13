@@ -27,6 +27,8 @@ class SnackBar extends React.Component {
                     open={this.props.isSnackBarActive}
                     message={this.props.snackMessage}
                     onRequestClose={this.onDismissSnackBar}
+                    action="Dismiss"
+                    onActionClick={this.onDismissSnackBar}
                 />
             </div>
         );

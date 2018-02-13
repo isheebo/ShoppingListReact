@@ -6,6 +6,10 @@ import { connect } from 'react-redux';
 import ResetPasswordForm from '../../components/auth/ResetPasswordForm';
 import { resetUserPassword } from '../../actions/authActions';
 
+/**
+ * Feeds data from the user into the reset password
+ * form. Acts as a controller for the ResetPasswordForm
+ */
 class ResetPasswordPage extends React.Component {
     constructor(props) {
         super(props);
@@ -18,6 +22,16 @@ class ResetPasswordPage extends React.Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
+    componentWillMount = () => {
+        if (!this.props.isAuthenticated) {
+            this.props.history.push('/');
+        }
+    };
+
+    /**
+     * Validates new passwords instantly as the
+     * user provides them
+     */
     onFieldChange(event) {
         this.setState({ [event.target.name]: event.target.value });
         const fieldType = event.target.type;
@@ -35,6 +49,15 @@ class ResetPasswordPage extends React.Component {
                         validationErrors: {
                             password:
                                     'Password must contain a minimum of 6 characters', // eslint-disable-line
+                        },
+                    });
+                } else if (
+                    field &&
+                        !Validator.equals(field, this.state.password)
+                ) {
+                    this.setState({
+                        validationErrors: {
+                            confirmPassword: 'The given passwords don\'t match',
                         },
                     });
                 } else {
@@ -60,6 +83,13 @@ class ResetPasswordPage extends React.Component {
                             confirmPassword: 'The given passwords don\'t match',
                         },
                     });
+                } else if (field && field.length < 6) {
+                    this.setState({
+                        validationErrors: {
+                            password:
+                                    'Password must contain a minimum of 6 characters', // eslint-disable-line
+                        },
+                    });
                 } else {
                     this.setState({
                         validationErrors: { confirmPassword: '' },
@@ -73,14 +103,16 @@ class ResetPasswordPage extends React.Component {
         }
     }
 
+    /**
+     * On Success, redirect to the lists dashboard
+     */
     onFormSubmit(event) {
         event.preventDefault();
         const { confirmPassword, password } = this.state;
         const formData = new FormData();
         formData.append('password', password);
         formData.append('confirm password', confirmPassword);
-        this.props.resetUserPassword(formData);
-        // redirect to the homepage (the one with lists)
+        this.props.resetUserPassword(formData, this.props.history);
     }
 
     render() {
@@ -101,11 +133,16 @@ class ResetPasswordPage extends React.Component {
 
 ResetPasswordPage.propTypes = {
     isFetching: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     resetUserPassword: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+    }).isRequired,
 };
 
 const mapStateToProps = state => ({
     isFetching: state.auth.isFetching,
+    isAuthenticated: state.auth.isAuthenticated,
 });
 
 const mapDispatchToProps = dispatch => ({

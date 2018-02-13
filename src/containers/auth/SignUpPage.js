@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import createHistory from 'history/createBrowserHistory';
 import Validator from 'validator';
 import { connect } from 'react-redux';
 import SignUpForm from '../../components/auth/SignUpForm';
 import { signupUser } from '../../actions/authActions';
 
-// const history = createHistory();
-
-// Establish new ways of checking for the validity of submitted data
-// The test for validity is still failing
 class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
@@ -23,6 +18,9 @@ class SignUpPage extends React.Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
+    /**
+     * Handles the validation of user input data
+     */
     onFieldChange(event) {
         this.setState({ [event.target.name]: event.target.value });
         const fieldType = event.target.type;
@@ -59,6 +57,15 @@ class SignUpPage extends React.Component {
                                     'Password must contain a minimum of 6 characters', // eslint-disable-line
                         },
                     });
+                } else if (
+                    field &&
+                        !Validator.equals(field, this.state.password)
+                ) {
+                    this.setState({
+                        validationErrors: {
+                            confirmPassword: 'The given passwords don\'t match',
+                        },
+                    });
                 } else {
                     this.setState({
                         validationErrors: { password: '' },
@@ -82,6 +89,13 @@ class SignUpPage extends React.Component {
                             confirmPassword: 'The given passwords don\'t match',
                         },
                     });
+                } else if (field && field.length < 6) {
+                    this.setState({
+                        validationErrors: {
+                            password:
+                                    'Password must contain a minimum of 6 characters', // eslint-disable-line
+                        },
+                    });
                 } else {
                     this.setState({
                         validationErrors: { confirmPassword: '' },
@@ -95,18 +109,16 @@ class SignUpPage extends React.Component {
         }
     }
 
+    /**
+     * Redirects to the login page on successful signupUser
+     */
     onFormSubmit(event) {
         event.preventDefault();
         const { email, password } = this.state;
         const formData = new FormData();
         formData.append('email', email);
         formData.append('password', password);
-        this.props.signupUser(formData);
-        // .then(() => {
-        //     history.push('/login');
-        //     console.log('We are here');
-        // })
-        // .catch();
+        this.props.signupUser(formData, this.props.history);
     }
 
     render() {
@@ -131,6 +143,9 @@ class SignUpPage extends React.Component {
 SignUpPage.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     signupUser: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+    }).isRequired,
 };
 
 const mapStateToProps = state => ({

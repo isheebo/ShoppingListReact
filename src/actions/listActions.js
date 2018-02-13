@@ -9,7 +9,7 @@ import { getAuthToken } from '../utils/tokenUtils';
  * a create list request
  * @param {object} newListData (listName, notifymeDate)
  */
-export const createListRequest = newListData => ({
+const createListRequest = newListData => ({
     type: types.CREATE_LIST_REQUEST,
     newListData,
 });
@@ -19,7 +19,7 @@ export const createListRequest = newListData => ({
  * shopping list has been created
  * @param {Response} response object from the server
  */
-export const createListSuccess = response => ({
+const createListSuccess = response => ({
     type: types.CREATE_LIST_SUCCESS,
     response,
 });
@@ -29,7 +29,7 @@ export const createListSuccess = response => ({
  * list creation fails
  * @param {Response} response object from the server
  */
-export const createListFailure = response => ({
+const createListFailure = response => ({
     type: types.CREATE_LIST_FAILURE,
     response,
 });
@@ -58,7 +58,7 @@ export const createShoppingList = newListData => (dispatch) => {
  * @desc response from the server
  * @param {Response} response
  */
-export const viewAllListsRequest = () => ({
+const viewAllListsRequest = () => ({
     type: types.VIEW_ALL_LISTS_REQUEST,
 });
 
@@ -66,7 +66,7 @@ export const viewAllListsRequest = () => ({
  * @desc response from the server
  * @param {Response} response
  */
-export const viewAllListsSuccess = response => ({
+const viewAllListsSuccess = response => ({
     type: types.VIEW_ALL_LISTS_SUCCESS,
     response,
 });
@@ -75,7 +75,7 @@ export const viewAllListsSuccess = response => ({
  * @desc response from the server
  * @param {Response} response
  */
-export const viewAllListsFailure = response => ({
+const viewAllListsFailure = response => ({
     type: types.VIEW_ALL_LISTS_FAILURE,
     response,
 });
@@ -90,38 +90,40 @@ export const viewAllLists = () => (dispatch) => {
     return instance
         .get('/shoppinglists')
         .then((response) => {
-            dispatch(viewAllListsSuccess());
-            dispatch(displaySnackBar(response.data.message));
+            dispatch(viewAllListsSuccess(response));
         })
         .catch((err) => {
-            dispatch(viewAllListsFailure());
-            dispatch(displaySnackBar(err.response.data.message));
+            dispatch(viewAllListsFailure(err));
         });
 };
 
 /**
  * View one list
  */
-export const viewOneListRequest = listData => ({
+const viewOneListRequest = listData => ({
     type: types.VIEW_LIST_REQUEST,
     listData,
 });
 
-export const viewOneListSuccess = response => ({
+const viewOneListSuccess = response => ({
     type: types.VIEW_LIST_SUCCESS,
     response,
 });
 
-export const viewOneListFailure = error => ({
+const viewOneListFailure = error => ({
     type: types.VIEW_LIST_FAILURE,
     error,
 });
 
-export const viewOneList = listData => (dispatch) => {
+/**
+ * Get one shoppinglist from the server
+ * @param id - ID of the list to return
+ */
+export const viewOneList = id => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
-    dispatch(viewOneListRequest(listData));
+    dispatch(viewOneListRequest(id));
     return instance
-        .get(`/shoppinglists/${listData.id}`)
+        .get(`/shoppinglists/${id}`)
         .then((response) => {
             dispatch(viewOneListSuccess(response));
             dispatch(displaySnackBar(response.data.message));
@@ -135,26 +137,32 @@ export const viewOneList = listData => (dispatch) => {
 /**
  * Edit a shoppinglist
  */
-export const editListRequest = newListParams => ({
+const editListRequest = (id, newListParams) => ({
     type: types.EDIT_LIST_REQUEST,
+    id,
     newListParams,
 });
 
-export const editListSuccess = response => ({
+const editListSuccess = response => ({
     type: types.EDIT_LIST_SUCCESS,
     response,
 });
 
-export const editListFailure = response => ({
+const editListFailure = response => ({
     type: types.EDIT_LIST_FAILURE,
     response,
 });
 
-export const editShoppingList = newListParams => (dispatch) => {
+/**
+ * Edit  current shoppinglist, given the ID of the shoppinglist, id
+ * and the newListData
+ */
+export const editShoppingList = (id, newListParams) => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
-    dispatch(editListRequest(newListParams));
+    dispatch(editListRequest(id, newListParams));
+
     return instance
-        .put(`shoppinglists/${newListParams.id}`)
+        .put(`shoppinglists/${id}`, newListParams)
         .then((response) => {
             dispatch(editListSuccess(response));
             dispatch(displaySnackBar(response.data.message));
@@ -169,29 +177,32 @@ export const editShoppingList = newListParams => (dispatch) => {
  * Delete shopping list
  */
 
-export const deleteListRequest = newListParams => ({
+const deleteListRequest = id => ({
     type: types.DELETE_LIST_REQUEST,
-    newListParams,
+    id,
 });
 
-export const deleteListSuccess = response => ({
+const deleteListSuccess = response => ({
     type: types.DELETE_LIST_SUCCESS,
     response,
 });
 
-export const deleteListFailure = response => ({
+const deleteListFailure = response => ({
     type: types.DELETE_LIST_FAILURE,
     response,
 });
 
-export const deleteShoppingList = newListParams => (dispatch) => {
+/**
+ * @param id - the ID of the list to be deleted
+ */
+export const deleteShoppingList = id => (dispatch) => {
     instance.defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
-    dispatch(deleteListRequest(newListParams));
+    dispatch(deleteListRequest(id));
     return instance
-        .delete(`shoppinglists/${newListParams.id}`)
+        .delete(`shoppinglists/${id}`)
         .then((response) => {
             dispatch(deleteListSuccess(response));
-            dispatch(displaySnackBar(response.data.message));
+            dispatch(displaySnackBar('List deleted successfully'));
         })
         .catch((error) => {
             dispatch(deleteListFailure(error));

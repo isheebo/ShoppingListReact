@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import authReducer from './authReducer';
 import snackBarReducer from './snackBarReducer';
 import listsReducer from './listsReducer';
+import itemsReducer from './itemsReducer';
 
 /**
  * Individual reducers are combined into a single rootReducer
@@ -16,6 +17,7 @@ const reducers = combineReducers({
     auth: authReducer,
     snacks: snackBarReducer,
     lists: listsReducer,
+    items: itemsReducer,
 });
 
 export default reducers;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Card, CardActions, CardText } from 'material-ui/Card'; /* CardTitle */
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -8,11 +8,8 @@ import CircularProgress from 'material-ui/CircularProgress';
 import ValidationError from './ValidationError';
 
 /**
- * Keep the Submit button disabled (by default) until all the entered fields
- * are valid. we can do field validation following the OnChange event handler.
- *
- * When a user clicks on a field, it should become eligible to display a
- * validation error.
+ *  Allows for the registration of users
+ * A user enters their email, password and the confirm password
  */
 const SignUpForm = props => (
     <div>
@@ -22,15 +19,12 @@ const SignUpForm = props => (
                 style={{ textAlign: 'center', height: 400, width: 400 }}
                 zDepth={5}
             >
-                {/* Find a way of putting the word SignUp on the page
-            <CardTitle title="Sign Up" /> */}
                 <CardText>
                     <div>
                         <TextField
                             floatingLabelText="Email"
                             name="email"
                             type="email"
-                            // onBlur={}
                             onChange={props.onFieldChange}
                             value={props.credentials.email}
                         />
@@ -50,7 +44,6 @@ const SignUpForm = props => (
                             floatingLabelText="Password"
                             name="password"
                             type="password"
-                            // onBlur={props.onFieldValidate}
                             onChange={props.onFieldChange}
                             value={props.credentials.password}
                         />
@@ -70,7 +63,6 @@ const SignUpForm = props => (
                             floatingLabelText="Confirm Password"
                             name="confirmPassword"
                             type="password"
-                            // onBlur={props.onFieldValidate}
                             onChange={props.onFieldChange}
                             value={props.credentials.confirmPassword}
                         />
@@ -90,7 +82,14 @@ const SignUpForm = props => (
                 ) : (
                     <CardActions>
                         <RaisedButton
-                            // disabled={!props.isValid}
+                            disabled={
+                                !props.credentials.email ||
+                                !props.credentials.password ||
+                                !props.credentials.confirmPassword ||
+                                props.validationErrors.email ||
+                                props.validationErrors.password ||
+                                props.validationErrors.confirmPassword
+                            }
                             label="SignUp"
                             onClick={props.onFormSubmit}
                             primary
@@ -99,7 +98,9 @@ const SignUpForm = props => (
                         <div>
                             <br />
                             Already Registered?
-                            <a href="/login"> Login</a>
+                            <Link to="login" style={{ textDecoration: 'none' }}>
+                                &nbsp; Login
+                            </Link>
                         </div>
                     </CardActions>
                 )}
@@ -114,7 +115,6 @@ SignUpForm.defaultProps = {
 
 SignUpForm.propTypes = {
     isFetching: PropTypes.bool.isRequired,
-    // isValid: PropTypes.bool.isRequired,
     credentials: PropTypes.shape({
         email: PropTypes.string.isRequired,
         password: PropTypes.string.isRequired,

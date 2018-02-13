@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
 import { Card, CardActions, CardText } from 'material-ui/Card'; /* CardTitle */
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import CircularProgress from 'material-ui/CircularProgress';
 import ValidationError from './ValidationError';
 
-// user must be logged in
-// if they aren't, redirect them to the login page with the `next` URL
-// thereafter, we may then reset their password
-
+/**
+ * Supports password reset for users.
+ * It is assumed that a user is logged in, before they attempt
+ * to reset their passwords
+ */
 const ResetPasswordForm = props => (
     <div>
         <div style={{ marginLeft: 500, marginTop: 180, marginRight: 400 }}>
@@ -63,7 +63,12 @@ const ResetPasswordForm = props => (
                 ) : (
                     <CardActions>
                         <RaisedButton
-                            // disabled - write a function that checks for that
+                            disabled={
+                                !props.credentials.password ||
+                                !props.credentials.confirmPassword ||
+                                props.validationErrors.password ||
+                                props.validationErrors.confirmPassword
+                            }
                             label="Reset Password"
                             onClick={props.onFormSubmit}
                             primary

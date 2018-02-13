@@ -1,21 +1,13 @@
 import * as types from '../actions/types';
+import { getAuthToken } from '../utils/tokenUtils';
 
 /**
- * Reducers manage independent parts of the state tree
- * reducers work in such a way that they take
- *
- * (prevState,action) => newState
- *
- * The reason is the same: to keep reducers self-sufficient and reusable.
- *
- * Does it matter what we have in the initial state, credentials is not
- * included?
+ * Handles all the authentication related operations
  */
-
 const authReducer = (
     state = {
         isFetching: false,
-        isAuthenticated: false,
+        isAuthenticated: !!getAuthToken(),
     },
     action,
 ) => {
@@ -24,20 +16,16 @@ const authReducer = (
     case types.LOGIN_REQUEST:
     case types.PASSWORD_RESET_REQUEST:
     case types.LOGOUT_REQUEST:
-        return Object.assign(
-            {},
-            {
-                isFetching: true,
-            },
-        );
+        return {
+            ...state,
+            isFetching: true,
+        };
 
     case types.SIGNUP_SUCCESS:
-        return Object.assign(
-            {},
-            {
-                isFetching: false,
-            },
-        );
+        return {
+            ...state,
+            isFetching: false,
+        };
 
     case types.LOGIN_SUCCESS:
     case types.PASSWORD_RESET_SUCCESS:
@@ -50,23 +38,19 @@ const authReducer = (
              * It is similar to an action login action
              *
              */
-        return Object.assign(
-            {},
-            {
-                isFetching: false,
-                isAuthenticated: true,
-            },
-        );
+        return {
+            ...state,
+            isFetching: false,
+            isAuthenticated: true,
+        };
 
     case types.SIGNUP_FAILURE:
     case types.LOGIN_FAILURE:
     case types.PASSWORD_RESET_FAILURE:
-        return Object.assign(
-            {},
-            {
-                isFetching: false,
-            },
-        );
+        return {
+            ...state,
+            isFetching: false,
+        };
 
     case types.LOGOUT_SUCCESS:
     case types.LOGOUT_FAILURE:
@@ -78,13 +62,11 @@ const authReducer = (
              * therefore,
              * A user has to relogin to access the app
              */
-        return Object.assign(
-            {},
-            {
-                isAuthenticated: false,
-                isFetching: false,
-            },
-        );
+        return {
+            ...state,
+            isAuthenticated: false,
+            isFetching: false,
+        };
 
     default:
         return state;
