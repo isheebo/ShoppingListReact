@@ -29,6 +29,8 @@ class ItemsContainer extends React.Component {
         quantityErrorText: '',
         priceErrorText: '',
         checked: false, // representing whether an item has been bought
+        page: 1,
+        numberOfItemsPerPage: 5,
     };
 
     componentWillMount = () => {
@@ -123,6 +125,13 @@ class ItemsContainer extends React.Component {
      */
     onQueryChange = (event) => {
         this.setState({ searchQuery: event.target.value });
+    };
+
+    onUpdateRows = (updatedState) => {
+        this.setState({
+            page: updatedState.page,
+            numberOfItemsPerPage: updatedState.numberOfRows,
+        });
     };
 
     /**
@@ -241,7 +250,9 @@ class ItemsContainer extends React.Component {
     };
 
     render() {
-        const { checked, searchQuery } = this.state;
+        const {
+            checked, searchQuery, numberOfItemsPerPage, page,
+        } = this.state;
 
         return (
             <div>
@@ -291,6 +302,9 @@ class ItemsContainer extends React.Component {
                     listItems={this.props.items}
                     searchQuery={searchQuery}
                     isFetching={this.props.isFetching}
+                    page={page}
+                    numberOfItemsPerPage={numberOfItemsPerPage}
+                    onUpdateRows={this.onUpdateRows}
                 />
             </div>
         );

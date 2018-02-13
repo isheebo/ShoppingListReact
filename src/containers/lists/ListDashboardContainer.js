@@ -80,6 +80,7 @@ class ListDashboardContainer extends React.Component {
             numberOfListsPerPage: updatedState.numberOfRows,
         });
     };
+
     /**
      * Convert the action type to title case
      * and display it as the dialog title
@@ -244,8 +245,6 @@ class ListDashboardContainer extends React.Component {
                     onUpdateRows={this.onUpdateRows}
                 />
             </div>
-
-            // Add the pagination component here inside the div
         );
     }
 }

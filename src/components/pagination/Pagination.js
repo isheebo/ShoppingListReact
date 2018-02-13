@@ -176,7 +176,7 @@ class Pagination extends React.Component {
 
                 <div style={styles.paginationSection}>
                     <div style={styles.paginationText}>
-                        {this.renderRowRange()} {prepositionForRowRange}{' '}
+                        {this.renderRowRange()} {prepositionForRowRange}
                         {this.props.total}
                     </div>
                 </div>
