@@ -29,7 +29,6 @@ class ItemsContainer extends React.Component {
         searchQuery: '',
         quantityErrorText: '',
         priceErrorText: '',
-        checked: false, // representing whether an item has been bought
         page: 1,
         numberOfItemsPerPage: 5,
     };
