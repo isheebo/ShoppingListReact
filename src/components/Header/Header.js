@@ -22,6 +22,7 @@ class Header extends React.Component {
                                     display: 'flex',
                                     textDecoration: 'none',
                                 }}
+                                href="/dashboard"
                             >
                                 {title}
                             </a>
