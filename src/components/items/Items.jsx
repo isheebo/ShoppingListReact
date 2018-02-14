@@ -58,7 +58,8 @@ const Items = ({
                 style={{
                     textAlign: 'center',
                     textTransform: 'capitalize',
-                    fontSize: '20px',
+                    fontSize: '30px',
+                    fontWeight: 'bold',
                 }}
             >
                 {listName}

@@ -190,7 +190,7 @@ export const deleteItem = (listID, itemID) => (dispatch) => {
         .delete(`/shoppinglists/${listID}/items/${itemID}`)
         .then((response) => {
             dispatch(deleteItemSuccess(response));
-            dispatch(displaySnackBar(response.data.message));
+            dispatch(displaySnackBar('Item deleted successfully'));
         })
         .catch((error) => {
             dispatch(deleteItemFailure(error));

@@ -3,7 +3,6 @@ import * as types from './types';
 import { displaySnackBar } from './snackbarActions';
 import { getAuthToken } from '../utils/tokenUtils';
 
-// create a shopping list
 /**
  * Defines an action that will be executed when sending
  * a create list request
@@ -126,7 +125,6 @@ export const viewOneList = id => (dispatch) => {
         .get(`/shoppinglists/${id}`)
         .then((response) => {
             dispatch(viewOneListSuccess(response));
-            // dispatch(displaySnackBar(response.data.message));
         })
         .catch((error) => {
             dispatch(viewOneListFailure(error));

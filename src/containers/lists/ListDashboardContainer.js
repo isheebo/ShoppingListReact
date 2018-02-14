@@ -35,10 +35,6 @@ class ListDashboardContainer extends React.Component {
         if (!this.props.isAuthenticated) {
             this.props.history.push('/');
         }
-        // check whether the status code is 401,
-        // if it is,  log the user out by force!
-        // try calling viewAllItemsInList().
-        // If it fails, redirect to login page
     };
 
     componentDidMount = () => {

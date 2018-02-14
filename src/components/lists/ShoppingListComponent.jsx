@@ -91,7 +91,6 @@ ShoppingListComponent.propTypes = {
     }).isRequired,
     handleOpenItemsView: PropTypes.func.isRequired,
     onExecuteAction: PropTypes.func.isRequired,
-    // history: PropTypes.object.isRequired,
 };
 
 export default ShoppingListComponent;
