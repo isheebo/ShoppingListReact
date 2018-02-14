@@ -135,7 +135,9 @@ const Items = ({
                     (searchQuery ? (
                         <h3 style={noStyle}>No items found! </h3>
                     ) : (
-                        <h3 style={noStyle}>No items have been added yet</h3>
+                        <h3 style={noStyle}>
+                            {`No items have been added to '${listName}' yet`}
+                        </h3>
                     ))}
             </CardText>
         </Card>
