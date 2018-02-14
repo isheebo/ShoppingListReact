@@ -126,7 +126,7 @@ export const viewOneList = id => (dispatch) => {
         .get(`/shoppinglists/${id}`)
         .then((response) => {
             dispatch(viewOneListSuccess(response));
-            dispatch(displaySnackBar(response.data.message));
+            // dispatch(displaySnackBar(response.data.message));
         })
         .catch((error) => {
             dispatch(viewOneListFailure(error));

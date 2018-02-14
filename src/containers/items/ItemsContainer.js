@@ -7,6 +7,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Items from '../../components/items/Items';
 import ItemDialog from '../../components/items/ItemDialog';
 import * as itemActions from '../../actions/itemActions';
+import { viewOneList } from '../../actions/listActions';
 import { logoutUser } from '../../actions/authActions';
 import Header from '../../components/Header/Header';
 import SearchBar from '../../components/SearchBar';
@@ -40,6 +41,7 @@ class ItemsContainer extends React.Component {
     };
 
     componentDidMount = () => {
+        this.getListName();
         this.loadItems();
     };
 
@@ -140,6 +142,10 @@ class ItemsContainer extends React.Component {
             page: updatedState.page,
             numberOfItemsPerPage: updatedState.numberOfRows,
         });
+    };
+
+    getListName = () => {
+        this.props.actions.viewOneList(this.props.match.params.id);
     };
 
     /**
@@ -318,6 +324,7 @@ class ItemsContainer extends React.Component {
                     page={page}
                     numberOfItemsPerPage={numberOfItemsPerPage}
                     onUpdateRows={this.onUpdateRows}
+                    listName={this.props.listName}
                 />
             </div>
         );
@@ -331,11 +338,13 @@ ItemsContainer.defaultProps = {
 ItemsContainer.propTypes = {
     actions: PropTypes.shape({
         viewAllItemsInList: PropTypes.func.isRequired,
+        viewOneList: PropTypes.func.isRequired,
         createNewItem: PropTypes.func.isRequired,
         editItem: PropTypes.func.isRequired,
         deleteItem: PropTypes.func.isRequired,
         logoutUser: PropTypes.func.isRequired,
     }).isRequired,
+    listName: PropTypes.string.isRequired,
     match: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
@@ -357,10 +366,14 @@ const mapStateToProps = state => ({
     items: state.items.items,
     isFetching: state.items.isFetching,
     isAuthenticated: state.auth.isAuthenticated,
+    listName: state.lists.listName,
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({ ...itemActions, logoutUser }, dispatch),
+    actions: bindActionCreators(
+        { ...itemActions, logoutUser, viewOneList },
+        dispatch,
+    ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);

@@ -8,7 +8,7 @@ import {
     TableRow,
 } from 'material-ui/Table';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
-import { Card, CardText } from 'material-ui/Card';
+import { Card, CardText, CardTitle } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import Item from './Item';
 import Pagination from '../pagination/Pagination';
@@ -34,6 +34,7 @@ const Items = ({
     numberOfItemsPerPage,
     onUpdateRows,
     page,
+    listName,
 }) => {
     const items = listItems.filter(item => item.name.indexOf(searchQuery) !== -1);
     return (
@@ -53,6 +54,15 @@ const Items = ({
                 overflow: 'scroll',
             }}
         >
+            <CardTitle
+                style={{
+                    textAlign: 'center',
+                    textTransform: 'capitalize',
+                    fontSize: '20px',
+                }}
+            >
+                {listName}
+            </CardTitle>
             <CardText>
                 {isFetching && (
                     <RefreshIndicator
@@ -147,6 +157,7 @@ Items.propTypes = {
     page: PropTypes.number.isRequired,
     numberOfItemsPerPage: PropTypes.number.isRequired,
     searchQuery: PropTypes.string.isRequired,
+    listName: PropTypes.string.isRequired,
     onUpdateRows: PropTypes.func.isRequired,
     onExecuteAction: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,

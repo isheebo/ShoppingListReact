@@ -23,6 +23,13 @@ const listsReducer = (state = { isFetching: false, shoppinglists: [] }, action) 
             isFetching: false,
         };
 
+    case types.VIEW_LIST_SUCCESS:
+        return {
+            ...state,
+            listName: action.response.data.name,
+            isFetching: false,
+        };
+
     case types.VIEW_ALL_LISTS_SUCCESS:
         return {
             ...state,
