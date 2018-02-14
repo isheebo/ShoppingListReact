@@ -215,9 +215,12 @@ class ItemsContainer extends React.Component {
         formData.set('price', item.price);
         formData.set('quantity', item.quantity);
         formData.set('status', item.has_been_bought);
-        this.props.actions.createNewItem(this.props.match.params.id, formData);
-        this.reset();
-        this.loadItems();
+        this.props.actions
+            .createNewItem(this.props.match.params.id, formData)
+            .then(() => {
+                this.reset();
+                this.loadItems();
+            });
     };
 
     /** Handles the editing/updating of an item */
@@ -227,9 +230,12 @@ class ItemsContainer extends React.Component {
         formData.set('price', item.price);
         formData.set('quantity', item.quantity);
         formData.set('status', item.has_been_bought);
-        this.props.actions.editItem(this.props.match.params.id, item.id, formData);
-        this.reset();
-        this.loadItems();
+        this.props.actions
+            .editItem(this.props.match.params.id, item.id, formData)
+            .then(() => {
+                this.reset();
+                this.loadItems();
+            });
     };
 
     /**
@@ -237,9 +243,12 @@ class ItemsContainer extends React.Component {
      * It takes an item ID and then can delete the item
      */
     deleteItem = (item) => {
-        this.props.actions.deleteItem(this.props.match.params.id, item.id);
-        this.reset();
-        this.loadItems();
+        this.props.actions
+            .deleteItem(this.props.match.params.id, item.id)
+            .then(() => {
+                this.reset();
+                this.loadItems();
+            });
     };
 
     logout = () => {

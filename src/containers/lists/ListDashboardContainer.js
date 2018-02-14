@@ -118,8 +118,7 @@ class ListDashboardContainer extends React.Component {
      * Handles opening of items view from the shoppinglists table
      */
     handleOpenItemsView = (listID) => {
-        const { history } = this.props;
-        this.props.actions.viewAllItemsInList(listID, history);
+        this.props.actions.viewAllItemsInList(listID, this.props.history);
     };
 
     /**
@@ -165,24 +164,27 @@ class ListDashboardContainer extends React.Component {
         formData.set('name', shoppinglist.name);
         formData.set('notify_date', shoppinglist.notify_date);
 
-        this.props.actions.createShoppingList(formData);
-        this.reset();
-        this.loadShoppingLists();
+        this.props.actions.createShoppingList(formData).then(() => {
+            this.reset();
+            this.loadShoppingLists();
+        });
     };
 
     editshoppinglist = (shoppinglist) => {
         const formData = new FormData();
         formData.set('name', shoppinglist.name);
         formData.set('notify_date', shoppinglist.notify_date);
-        this.props.actions.editShoppingList(shoppinglist.id, formData);
-        this.reset();
-        this.loadShoppingLists();
+        this.props.actions.editShoppingList(shoppinglist.id, formData).then(() => {
+            this.reset();
+            this.loadShoppingLists();
+        });
     };
 
     deleteShoppinglist = (shoppinglist) => {
-        this.props.actions.deleteShoppingList(shoppinglist.id);
-        this.reset();
-        this.loadShoppingLists();
+        this.props.actions.deleteShoppingList(shoppinglist.id).then(() => {
+            this.reset();
+            this.loadShoppingLists();
+        });
     };
 
     logout = () => {
