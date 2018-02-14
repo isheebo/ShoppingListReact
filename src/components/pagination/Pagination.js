@@ -223,7 +223,7 @@ Pagination.defaultProps = {
     numberOfRows: 10,
     pageTitle: 'Page:',
     rowsPerPageTitle: 'Rows Per Page:',
-    prepositionForRowRange: 'of',
+    prepositionForRowRange: 'of ',
 };
 
 Pagination.propTypes = {

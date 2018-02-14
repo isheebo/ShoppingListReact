@@ -16,7 +16,6 @@ const ItemDialog = ({
     handleClose,
     onTextChange,
     doAction,
-    checked,
     onCheck,
     onPriceError,
     onQuantityError,
@@ -77,7 +76,7 @@ const ItemDialog = ({
                     required
                     floatingLabelText="Price"
                     min={1}
-                    max={100000000}
+                    max={10000000000}
                     errorText={priceErrorText}
                     onChange={onTextChange}
                     onError={onPriceError}
@@ -92,7 +91,7 @@ const ItemDialog = ({
                     required
                     floatingLabelText="Quantity"
                     min={1}
-                    max={10000}
+                    max={100000000}
                     errorText={quantityErrorText}
                     onChange={onTextChange}
                     onError={onQuantityError}
@@ -101,7 +100,11 @@ const ItemDialog = ({
             )}
 
             {buttonLabel !== 'DELETE' && (
-                <Checkbox label="Bought" onCheck={onCheck} checked={checked} />
+                <Checkbox
+                    label="Bought"
+                    onCheck={onCheck}
+                    checked={item.has_been_bought}
+                />
             )}
         </Dialog>
     );
@@ -124,7 +127,6 @@ ItemDialog.propTypes = {
     doAction: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired,
     onTextChange: PropTypes.func.isRequired,
-    checked: PropTypes.bool.isRequired,
     onCheck: PropTypes.func.isRequired,
     onPriceError: PropTypes.func.isRequired,
     onQuantityError: PropTypes.func.isRequired,
