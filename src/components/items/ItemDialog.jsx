@@ -16,7 +16,6 @@ const ItemDialog = ({
     handleClose,
     onTextChange,
     doAction,
-    checked,
     onCheck,
     onPriceError,
     onQuantityError,
@@ -101,7 +100,11 @@ const ItemDialog = ({
             )}
 
             {buttonLabel !== 'DELETE' && (
-                <Checkbox label="Bought" onCheck={onCheck} checked={checked} />
+                <Checkbox
+                    label="Bought"
+                    onCheck={onCheck}
+                    checked={item.has_been_bought}
+                />
             )}
         </Dialog>
     );
@@ -124,7 +127,6 @@ ItemDialog.propTypes = {
     doAction: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired,
     onTextChange: PropTypes.func.isRequired,
-    checked: PropTypes.bool.isRequired,
     onCheck: PropTypes.func.isRequired,
     onPriceError: PropTypes.func.isRequired,
     onQuantityError: PropTypes.func.isRequired,

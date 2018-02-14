@@ -17,6 +17,7 @@ const initialState = {
         name: '',
         price: '',
         quantity: '',
+        has_been_bought: false,
     },
 };
 
@@ -113,10 +114,10 @@ class ItemsContainer extends React.Component {
      * boolean condition of whether an item has
      * been bought or not
      */
-    onUpdateCheck = () => {
-        this.setState(prevState => ({
-            checked: !prevState.checked,
-        }));
+    onUpdateCheck = (event) => {
+        const item = { ...this.state.item };
+        item.has_been_bought = event.target.checked;
+        this.setState({ item });
     };
 
     /**
@@ -209,12 +210,12 @@ class ItemsContainer extends React.Component {
      * Handles the creation of a new item
      */
     createItem = () => {
-        const { item, checked } = this.state;
+        const { item } = this.state;
         const formData = new FormData();
         formData.set('name', item.name);
         formData.set('price', item.price);
         formData.set('quantity', item.quantity);
-        formData.set('status', checked);
+        formData.set('status', item.has_been_bought);
         this.props.actions.createNewItem(this.props.match.params.id, formData);
         this.reset();
         this.loadItems();
@@ -222,12 +223,11 @@ class ItemsContainer extends React.Component {
 
     /** Handles the editing/updating of an item */
     editItem = (item) => {
-        const { checked } = this.state;
         const formData = new FormData();
         formData.set('name', item.name);
         formData.set('price', item.price);
         formData.set('quantity', item.quantity);
-        formData.set('status', checked);
+        formData.set('status', item.has_been_bought);
         this.props.actions.editItem(this.props.match.params.id, item.id, formData);
         this.reset();
         this.loadItems();
@@ -250,9 +250,7 @@ class ItemsContainer extends React.Component {
     };
 
     render() {
-        const {
-            checked, searchQuery, numberOfItemsPerPage, page,
-        } = this.state;
+        const { searchQuery, numberOfItemsPerPage, page } = this.state;
 
         return (
             <div>
@@ -291,7 +289,6 @@ class ItemsContainer extends React.Component {
                     handleClose={this.handleClose}
                     onTextChange={this.onTextChange}
                     doAction={this.doAction}
-                    checked={checked}
                     onCheck={this.onUpdateCheck}
                     onQuantityError={this.onQuantityError}
                     onPriceError={this.onPriceError}
