@@ -49,6 +49,10 @@ class ItemsContainer extends React.Component {
         this.setState({ item });
     };
 
+    /**
+     *  A helper function for displaying error messages once
+     * an error is encountered while adding an item's price
+     */
     onPriceError = (error) => {
         let priceErrorText;
         switch (error) {
@@ -79,6 +83,10 @@ class ItemsContainer extends React.Component {
         this.setState({ priceErrorText });
     };
 
+    /**
+     *  A helper function for displaying error messages once
+     * an error is encountered while adding an item's quantity
+     */
     onQuantityError = (error) => {
         let quantityErrorText;
         switch (error) {
