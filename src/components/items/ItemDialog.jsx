@@ -77,7 +77,7 @@ const ItemDialog = ({
                     required
                     floatingLabelText="Price"
                     min={1}
-                    max={100000000}
+                    max={10000000000}
                     errorText={priceErrorText}
                     onChange={onTextChange}
                     onError={onPriceError}
@@ -92,7 +92,7 @@ const ItemDialog = ({
                     required
                     floatingLabelText="Quantity"
                     min={1}
-                    max={10000}
+                    max={100000000}
                     errorText={quantityErrorText}
                     onChange={onTextChange}
                     onError={onQuantityError}

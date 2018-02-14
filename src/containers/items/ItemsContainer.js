@@ -68,7 +68,7 @@ class ItemsContainer extends React.Component {
             priceErrorText = 'Floating point is expected';
             break;
         case 'min':
-            priceErrorText = 'The value of price must be positive';
+            priceErrorText = 'The value of price must be greater than 0';
             break;
         case 'max':
             priceErrorText = 'Your input is too large';
@@ -98,7 +98,7 @@ class ItemsContainer extends React.Component {
             quantityErrorText = 'Floating point is expected';
             break;
         case 'min':
-            quantityErrorText = 'The value of price/quantity must be positive';
+            quantityErrorText = 'The value of quantity must be greater than 0';
             break;
         case 'max':
             quantityErrorText = 'Your input is too large';
