@@ -7,6 +7,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Items from '../../components/items/Items';
 import ItemDialog from '../../components/items/ItemDialog';
 import * as itemActions from '../../actions/itemActions';
+import { viewOneList } from '../../actions/listActions';
 import { logoutUser } from '../../actions/authActions';
 import Header from '../../components/Header/Header';
 import SearchBar from '../../components/SearchBar';
@@ -17,6 +18,7 @@ const initialState = {
         name: '',
         price: '',
         quantity: '',
+        has_been_bought: false,
     },
 };
 
@@ -28,7 +30,6 @@ class ItemsContainer extends React.Component {
         searchQuery: '',
         quantityErrorText: '',
         priceErrorText: '',
-        checked: false, // representing whether an item has been bought
         page: 1,
         numberOfItemsPerPage: 5,
     };
@@ -40,6 +41,7 @@ class ItemsContainer extends React.Component {
     };
 
     componentDidMount = () => {
+        this.getListName();
         this.loadItems();
     };
 
@@ -49,6 +51,10 @@ class ItemsContainer extends React.Component {
         this.setState({ item });
     };
 
+    /**
+     *  A helper function for displaying error messages once
+     * an error is encountered while adding an item's price
+     */
     onPriceError = (error) => {
         let priceErrorText;
         switch (error) {
@@ -68,7 +74,7 @@ class ItemsContainer extends React.Component {
             priceErrorText = 'Floating point is expected';
             break;
         case 'min':
-            priceErrorText = 'The value of price must be positive';
+            priceErrorText = 'The value of price must be greater than 0';
             break;
         case 'max':
             priceErrorText = 'Your input is too large';
@@ -79,6 +85,10 @@ class ItemsContainer extends React.Component {
         this.setState({ priceErrorText });
     };
 
+    /**
+     *  A helper function for displaying error messages once
+     * an error is encountered while adding an item's quantity
+     */
     onQuantityError = (error) => {
         let quantityErrorText;
         switch (error) {
@@ -98,7 +108,7 @@ class ItemsContainer extends React.Component {
             quantityErrorText = 'Floating point is expected';
             break;
         case 'min':
-            quantityErrorText = 'The value of price/quantity must be positive';
+            quantityErrorText = 'The value of quantity must be greater than 0';
             break;
         case 'max':
             quantityErrorText = 'Your input is too large';
@@ -113,10 +123,10 @@ class ItemsContainer extends React.Component {
      * boolean condition of whether an item has
      * been bought or not
      */
-    onUpdateCheck = () => {
-        this.setState(prevState => ({
-            checked: !prevState.checked,
-        }));
+    onUpdateCheck = (event) => {
+        const item = { ...this.state.item };
+        item.has_been_bought = event.target.checked;
+        this.setState({ item });
     };
 
     /**
@@ -132,6 +142,10 @@ class ItemsContainer extends React.Component {
             page: updatedState.page,
             numberOfItemsPerPage: updatedState.numberOfRows,
         });
+    };
+
+    getListName = () => {
+        this.props.actions.viewOneList(this.props.match.params.id);
     };
 
     /**
@@ -209,28 +223,33 @@ class ItemsContainer extends React.Component {
      * Handles the creation of a new item
      */
     createItem = () => {
-        const { item, checked } = this.state;
+        const { item } = this.state;
         const formData = new FormData();
         formData.set('name', item.name);
         formData.set('price', item.price);
         formData.set('quantity', item.quantity);
-        formData.set('status', checked);
-        this.props.actions.createNewItem(this.props.match.params.id, formData);
-        this.reset();
-        this.loadItems();
+        formData.set('status', item.has_been_bought);
+        this.props.actions
+            .createNewItem(this.props.match.params.id, formData)
+            .then(() => {
+                this.reset();
+                this.loadItems();
+            });
     };
 
     /** Handles the editing/updating of an item */
     editItem = (item) => {
-        const { checked } = this.state;
         const formData = new FormData();
         formData.set('name', item.name);
         formData.set('price', item.price);
         formData.set('quantity', item.quantity);
-        formData.set('status', checked);
-        this.props.actions.editItem(this.props.match.params.id, item.id, formData);
-        this.reset();
-        this.loadItems();
+        formData.set('status', item.has_been_bought);
+        this.props.actions
+            .editItem(this.props.match.params.id, item.id, formData)
+            .then(() => {
+                this.reset();
+                this.loadItems();
+            });
     };
 
     /**
@@ -238,9 +257,12 @@ class ItemsContainer extends React.Component {
      * It takes an item ID and then can delete the item
      */
     deleteItem = (item) => {
-        this.props.actions.deleteItem(this.props.match.params.id, item.id);
-        this.reset();
-        this.loadItems();
+        this.props.actions
+            .deleteItem(this.props.match.params.id, item.id)
+            .then(() => {
+                this.reset();
+                this.loadItems();
+            });
     };
 
     logout = () => {
@@ -250,9 +272,7 @@ class ItemsContainer extends React.Component {
     };
 
     render() {
-        const {
-            checked, searchQuery, numberOfItemsPerPage, page,
-        } = this.state;
+        const { searchQuery, numberOfItemsPerPage, page } = this.state;
 
         return (
             <div>
@@ -291,7 +311,6 @@ class ItemsContainer extends React.Component {
                     handleClose={this.handleClose}
                     onTextChange={this.onTextChange}
                     doAction={this.doAction}
-                    checked={checked}
                     onCheck={this.onUpdateCheck}
                     onQuantityError={this.onQuantityError}
                     onPriceError={this.onPriceError}
@@ -305,6 +324,7 @@ class ItemsContainer extends React.Component {
                     page={page}
                     numberOfItemsPerPage={numberOfItemsPerPage}
                     onUpdateRows={this.onUpdateRows}
+                    listName={this.props.listName}
                 />
             </div>
         );
@@ -318,11 +338,13 @@ ItemsContainer.defaultProps = {
 ItemsContainer.propTypes = {
     actions: PropTypes.shape({
         viewAllItemsInList: PropTypes.func.isRequired,
+        viewOneList: PropTypes.func.isRequired,
         createNewItem: PropTypes.func.isRequired,
         editItem: PropTypes.func.isRequired,
         deleteItem: PropTypes.func.isRequired,
         logoutUser: PropTypes.func.isRequired,
     }).isRequired,
+    listName: PropTypes.string.isRequired,
     match: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
@@ -344,10 +366,14 @@ const mapStateToProps = state => ({
     items: state.items.items,
     isFetching: state.items.isFetching,
     isAuthenticated: state.auth.isAuthenticated,
+    listName: state.lists.listName,
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({ ...itemActions, logoutUser }, dispatch),
+    actions: bindActionCreators(
+        { ...itemActions, logoutUser, viewOneList },
+        dispatch,
+    ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);
