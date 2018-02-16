@@ -41,8 +41,9 @@ describe('authActions', () => {
         const response = {};
 
         it('tests login user request', () => {
-            expect(authActions.loginRequest()).toEqual({
+            expect(authActions.loginRequest(credentials)).toEqual({
                 type: types.LOGIN_REQUEST,
+                credentials,
             });
         });
 

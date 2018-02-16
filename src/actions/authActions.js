@@ -42,8 +42,9 @@ export const signupUser = (credentials, history) => (dispatch) => {
 
 // Logging in
 
-export const loginRequest = () => ({
+export const loginRequest = credentials => ({
     type: types.LOGIN_REQUEST,
+    credentials,
 });
 
 // on successful login, a token is generated
@@ -64,7 +65,7 @@ export const loginFailure = response => ({
  * @param history - the routing history object
  */
 export const loginUser = (credentials, history) => (dispatch) => {
-    dispatch(loginRequest());
+    dispatch(loginRequest(credentials));
     return instance
         .post('/auth/login', credentials)
         .then((response) => {
