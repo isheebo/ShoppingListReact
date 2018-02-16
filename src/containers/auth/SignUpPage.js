@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Validator from 'validator';
 import { connect } from 'react-redux';
+import Header from '../../components/Header/Header';
 import SignUpForm from '../../components/auth/SignUpForm';
 import { signupUser } from '../../actions/authActions';
 
@@ -127,6 +128,7 @@ class SignUpPage extends React.Component {
         } = this.state;
         return (
             <div>
+                <Header title="ShoppingLister" />
                 <SignUpForm
                     credentials={{ email, password, confirmPassword }}
                     isFetching={this.props.isFetching}
