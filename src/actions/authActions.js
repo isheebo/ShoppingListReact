@@ -5,8 +5,9 @@ import { getAuthToken, deleteAuthToken, setAuthToken } from '../utils/tokenUtils
 
 //  Registering a user
 
-export const signupRequest = () => ({
+export const signupRequest = credentials => ({
     type: types.SIGNUP_REQUEST,
+    credentials,
 });
 
 export const signupSuccess = response => ({

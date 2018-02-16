@@ -9,20 +9,20 @@ import { getAuthToken } from '../utils/tokenUtils';
  * @param {number} ID, shopping list ID
  * @param {FormData} itemData, formdata for an item
  */
-const createItemRequest = (listID, itemData) => ({
+export const createItemRequest = (listID, itemData) => ({
     type: types.CREATE_ITEM_REQUEST,
     listID,
     itemData,
 });
 
 /** Includes the server's response on success */
-const createItemSuccess = response => ({
+export const createItemSuccess = response => ({
     type: types.CREATE_ITEM_SUCCESS,
     response,
 });
 
 /** Includes the server's response on failure */
-const createItemFailure = response => ({
+export const createItemFailure = response => ({
     type: types.CREATE_ITEM_FAILURE,
     response,
 });
@@ -50,17 +50,17 @@ export const createNewItem = (listID, itemData) => (dispatch) => {
  * Viewing all items in one shoppinglist
  */
 
-const viewAllItemsRequest = listID => ({
+export const viewAllItemsRequest = listID => ({
     type: types.VIEW_ALL_ITEMS_REQUEST,
     listID,
 });
 
-const viewAllItemsSuccess = response => ({
+export const viewAllItemsSuccess = response => ({
     type: types.VIEW_ALL_ITEMS_SUCCESS,
     response,
 });
 
-const viewAllItemsFailure = error => ({
+export const viewAllItemsFailure = error => ({
     type: types.VIEW_ALL_ITEMS_FAILURE,
     error,
 });
@@ -89,18 +89,18 @@ export const viewAllItemsInList = (listID, history) => (dispatch) => {
  * @param{number} itemID, ID of the item in the shopping list
  * @param {number} listID, ID of a shopping list
  */
-const viewOneItemRequest = (listID, itemID) => ({
+export const viewOneItemRequest = (listID, itemID) => ({
     type: types.VIEW_ITEM_REQUEST,
     itemID,
     listID,
 });
 
-const viewOneItemSuccess = response => ({
+export const viewOneItemSuccess = response => ({
     type: types.VIEW_ITEM_SUCCESS,
     response,
 });
 
-const viewOneItemFailure = response => ({
+export const viewOneItemFailure = response => ({
     type: types.VIEW_ITEM_FAILURE,
     response,
 });
@@ -123,19 +123,19 @@ export const viewOneItem = (listID, itemID) => (dispatch) => {
 /**
  * Editing an Item
  */
-const editItemRequest = (listID, itemID, itemData) => ({
+export const editItemRequest = (listID, itemID, itemData) => ({
     type: types.EDIT_ITEM_REQUEST,
     listID,
     itemID,
     itemData,
 });
 
-const editItemSuccess = response => ({
+export const editItemSuccess = response => ({
     type: types.EDIT_ITEM_SUCCESS,
     response,
 });
 
-const editItemFailure = error => ({
+export const editItemFailure = error => ({
     type: types.EDIT_ITEM_FAILURE,
     error,
 });
@@ -163,18 +163,18 @@ export const editItem = (listID, itemID, itemData) => (dispatch) => {
 
 /** Deleting an Item */
 
-const deleteItemRequest = (listID, itemID) => ({
+export const deleteItemRequest = (listID, itemID) => ({
     type: types.DELETE_ITEM_REQUEST,
     listID,
     itemID,
 });
 
-const deleteItemSuccess = response => ({
+export const deleteItemSuccess = response => ({
     type: types.DELETE_ITEM_SUCCESS,
     response,
 });
 
-const deleteItemFailure = error => ({
+export const deleteItemFailure = error => ({
     type: types.DELETE_ITEM_FAILURE,
     error,
 });
