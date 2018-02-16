@@ -50,7 +50,7 @@ const ListDashboard = ({
                 marginTop: '20px',
                 marginLeft: '220px',
                 marginBottom: '20px',
-                backgroundColor: '#fff',
+                backgroundColor: '#fcfcfd',
                 width: '70%',
                 height: '89vh',
                 botton: 10,
@@ -67,7 +67,7 @@ const ListDashboard = ({
                         size={50}
                         left={70}
                         top={0}
-                        loadingColor="#FF9800"
+                        loadingColor="#ff9800"
                         status="loading"
                         style={{ display: 'inline-block', position: 'relative' }}
                     />
