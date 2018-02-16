@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import LoginPage from '../containers/auth/LoginPage';
 import SignUpPage from '../containers/auth/SignUpPage';
@@ -9,8 +10,14 @@ import ResetPasswordPage from '../containers/auth/ResetPasswordPage';
 import ListDashboardContainer from '../containers/lists/ListDashboardContainer';
 import ItemsContainer from '../containers/items/ItemsContainer';
 
+const muiTheme = getMuiTheme({
+    palette: {
+        primary1Color: '#8360F5',
+    },
+});
+
 const Routes = () => (
-    <MuiThemeProvider>
+    <MuiThemeProvider muiTheme={muiTheme}>
         <div>
             <BrowserRouter>
                 <Switch>

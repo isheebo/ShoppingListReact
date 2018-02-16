@@ -29,7 +29,7 @@ class Header extends React.Component {
                         </div>
                     }
                     style={{
-                        backgroundColor: '#000',
+                        backgroundColor: '#5b4ee6',
                         paddingLeft: '15%',
                         paddingRight: '15%',
                     }}

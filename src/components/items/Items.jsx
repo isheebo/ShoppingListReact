@@ -60,6 +60,7 @@ const Items = ({
                     textTransform: 'capitalize',
                     fontSize: '30px',
                     fontWeight: 'bold',
+                    color: '#5b4ee6',
                 }}
             >
                 {listName}
