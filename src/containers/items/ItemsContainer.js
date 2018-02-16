@@ -284,7 +284,6 @@ class ItemsContainer extends React.Component {
                         bottom: '6.5vh',
                         left: 'auto',
                         position: 'fixed',
-                        zIndex: 1000000,
                     }}
                     backgroundColor="#EC4117"
                     onClick={() =>
