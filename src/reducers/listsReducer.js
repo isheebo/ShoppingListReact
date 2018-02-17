@@ -14,6 +14,7 @@ const listsReducer = (state = { isFetching: false, shoppinglists: [] }, action) 
     case types.CREATE_LIST_SUCCESS:
     case types.CREATE_LIST_FAILURE:
     case types.EDIT_LIST_SUCCESS:
+    case types.VIEW_LIST_FAILURE:
     case types.EDIT_LIST_FAILURE:
     case types.DELETE_LIST_SUCCESS:
     case types.DELETE_LIST_FAILURE:
