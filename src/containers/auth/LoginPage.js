@@ -11,7 +11,7 @@ import { loginUser } from '../../actions/authActions';
  * A controller class that acts as a main entry point
  * into the application
  */
-class LoginPage extends React.Component {
+export class LoginPage extends React.Component {
     constructor() {
         super();
         this.state = {
