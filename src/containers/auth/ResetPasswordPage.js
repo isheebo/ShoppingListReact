@@ -11,7 +11,7 @@ import { resetUserPassword } from '../../actions/authActions';
  * Feeds data from the user into the reset password
  * form. Acts as a controller for the ResetPasswordForm
  */
-class ResetPasswordPage extends React.Component {
+export class ResetPasswordPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

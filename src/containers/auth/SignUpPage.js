@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 import SignUpForm from '../../components/auth/SignUpForm';
 import { signupUser } from '../../actions/authActions';
 
-class SignUpPage extends React.Component {
+export class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

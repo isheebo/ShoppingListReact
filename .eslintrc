@@ -31,6 +31,7 @@
         "linebreak-style": "off",
         "import/no-unresolved": "off",
         "import/extensions": ["off", [".js", ".jsx"]],
+        "import/no-extraneous-dependencies": "off",
         "react/forbid-prop-types": "off",
         "react/prefer-stateless-function": [0, { "ignorePureComponents": false }],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
