@@ -41,12 +41,6 @@ const ListDialog = ({
             modal={false}
             contentStyle={{
                 maxWidth: '40%',
-                top: '0vh',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-                zIndex: 1000000,
             }}
             open={open}
             onRequestClose={handleClose}
