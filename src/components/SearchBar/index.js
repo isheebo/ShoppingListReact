@@ -6,7 +6,6 @@ import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField/TextField';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-// import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const SearchBar = ({ onQueryChange, logout }) => (
     <div
@@ -45,11 +44,6 @@ const SearchBar = ({ onQueryChange, logout }) => (
             }}
             inputStyle={{ color: '#333' }}
             onChange={onQueryChange}
-            onKeyPress={(event) => {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                }
-            }}
             underlineShow={false}
         />
         <div>
