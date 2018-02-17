@@ -10,8 +10,8 @@ describe('test <ResetPasswordForm /> container', () => {
             confirmPassword: 'abcdef',
         },
         validationErrors: {},
-        onFormSubmit: () => {},
-        onFieldChange: () => {},
+        onFormSubmit: jest.fn(),
+        onFieldChange: jest.fn(),
     };
     it('Signup Page should render without crashing', () => {
         const wrapper = shallow(<ResetPasswordForm {...details} />);

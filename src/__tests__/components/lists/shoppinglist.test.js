@@ -11,8 +11,8 @@ describe('test <ShoppingListComponent/>', () => {
             date_created: '',
             date_modified: '',
         },
-        onExecuteAction: () => {},
-        handleOpenItemsView: () => {},
+        onExecuteAction: jest.fn(),
+        handleOpenItemsView: jest.fn(),
     };
 
     it('renders without crashing', () => {

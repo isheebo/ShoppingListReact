@@ -19,12 +19,12 @@ describe('Test <ItemDialog />', () => {
             priceErrorText: '',
             quantityErrorText: '',
         },
-        handleClose: () => {},
-        onTextChange: () => {},
-        doAction: () => {},
-        onCheck: () => {},
-        onPriceError: () => {},
-        onQuantityError: () => {},
+        handleClose: jest.fn(),
+        onTextChange: jest.fn(),
+        doAction: jest.fn(),
+        onCheck: jest.fn(),
+        onPriceError: jest.fn(),
+        onQuantityError: jest.fn(),
     };
 
     it('<ItemDialog/> renders without crashing', () => {

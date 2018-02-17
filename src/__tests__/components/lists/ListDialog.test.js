@@ -15,10 +15,10 @@ describe('Test <ListDialog />', () => {
             },
             open: false,
         },
-        handleClose: () => {},
-        onTextChange: () => {},
-        doAction: () => {},
-        onDateChange: () => {},
+        handleClose: jest.fn(),
+        onTextChange: jest.fn(),
+        doAction: jest.fn(),
+        onDateChange: jest.fn(),
     };
 
     it('<ListDialog/> renders without crashing', () => {

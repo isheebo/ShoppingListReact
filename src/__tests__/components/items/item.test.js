@@ -12,7 +12,7 @@ describe('test <Item/>', () => {
             date_created: '',
             date_modified: '',
         },
-        onExecuteAction: () => {},
+        onExecuteAction: jest.fn(),
     };
 
     it('renders without crashing', () => {

@@ -19,8 +19,8 @@ describe('test <Item/>', () => {
         isFetching: false,
         numberOfItemsPerPage: 3,
         page: 1,
-        onUpdateRows: () => {},
-        onExecuteAction: () => {},
+        onUpdateRows: jest.fn(),
+        onExecuteAction: jest.fn(),
     };
 
     it('renders without crashing', () => {

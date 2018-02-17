@@ -4,8 +4,8 @@ import SearchBar from '../../../components/SearchBar';
 
 describe('Test <SearchBar />', () => {
     const props = {
-        onQueryChange: () => {},
-        loogut: () => {},
+        onQueryChange: jest.fn(),
+        loogut: jest.fn(),
     };
     it('<SearchBar/> renders without crashing', () => {
         const wrapper = shallow(<SearchBar {...props} />);

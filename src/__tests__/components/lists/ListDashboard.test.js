@@ -18,9 +18,9 @@ describe('test <ListDashboard/>', () => {
         isFetching: false,
         numberOfListsPerPage: 3,
         page: 1,
-        onUpdateRows: () => {},
-        onExecuteAction: () => {},
-        handleOpenItemsView: () => {},
+        onUpdateRows: jest.fn(),
+        onExecuteAction: jest.fn(),
+        handleOpenItemsView: jest.fn(),
     };
 
     it('renders without crashing', () => {
