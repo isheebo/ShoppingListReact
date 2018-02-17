@@ -7,7 +7,7 @@ describe('Test <SearchBar />', () => {
         onQueryChange: () => {},
         loogut: () => {},
     };
-    it('<Header/> renders without crashing', () => {
+    it('<SearchBar/> renders without crashing', () => {
         const wrapper = shallow(<SearchBar {...props} />);
         expect(wrapper.length).toBe(1);
     });
