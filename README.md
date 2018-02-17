@@ -1,5 +1,8 @@
 # ShoppingList React
 
+[![Build Status](https://travis-ci.org/isheebo/ShoppingListReact.svg?branch=master)](https://travis-ci.org/isheebo/ShoppingListReact)
+[![Coverage Status](https://coveralls.io/repos/github/isheebo/ShoppingListReact/badge.svg?branch=master)](https://coveralls.io/github/isheebo/ShoppingListReact?branch=master)
+
 This project serves as the frontend application to the API backend located at [ShoppingListAPI](https://github.com/isheebo/shoppinglistapi). It is implemented in **React v16** and **ES6**.
 
 ## Getting Started
