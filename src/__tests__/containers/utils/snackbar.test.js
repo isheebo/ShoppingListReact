@@ -7,7 +7,9 @@ describe('test <SnackBar/>', () => {
     const props = { isSnackBarActive: false, snackMessage: '' };
     let wrapper;
     beforeEach(() => {
-        wrapper = shallow(<SnackBar dismissSnackbar={mockDismissSnackbar} {...props} />);
+        // eslint-disable-next-line
+        wrapper = shallow(
+            <SnackBar dismissSnackbar={mockDismissSnackbar} {...props} />);
     });
 
     it('renders without crashing', () => {
