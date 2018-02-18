@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Snackbar from 'material-ui/Snackbar';
 import { dismissSnackbar } from '../../actions/snackbarActions';
 
-class SnackBar extends React.Component {
+export class SnackBar extends React.Component {
     constructor(props) {
         super(props);
         this.onDismissSnackBar = this.onDismissSnackBar.bind(this);
