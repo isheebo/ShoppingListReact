@@ -5,6 +5,8 @@
 
 This project serves as the frontend application to the API backend located at [ShoppingListAPI](https://github.com/isheebo/shoppinglistapi). It is implemented in **React v16** and **ES6**.
 
+This app is deployed on Heroku and can be accessed from this [link](https://shoppinglist2.herokuapp.com)
+
 ## Getting Started
 
 You may use this project as follows:-
