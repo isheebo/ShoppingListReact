@@ -6,5 +6,4 @@ export const deleteAuthToken = () => {
     window.localStorage.removeItem('token');
 };
 
-export const getAuthToken = () =>
-    (window && window.localStorage ? window.localStorage.getItem('token') : null);
+export const getAuthToken = () => window.localStorage.getItem('token');
