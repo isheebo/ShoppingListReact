@@ -3,7 +3,7 @@ export const setAuthToken = (token) => {
 };
 
 export const deleteAuthToken = () => {
-    localStorage.removeItem('token');
+    window.localStorage.removeItem('token');
 };
 
 export const getAuthToken = () =>
